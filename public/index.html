@@ -134,11 +134,11 @@
             let videoId = params.get("v");
             return videoId;
           } else if (path === "/live" || "/shorts" || "/embed") {
-            let videoId = `${path.split("/")[1]}`;
+            let videoId = `${path.split("/")[2]}`;
             return videoId;
           } else return;
         } else if (host === "youtu.be") {
-          let videoId = `${path.split("/")[0]}`;
+          let videoId = `${path.split("/")[1]}`;
           return videoId;
         } else return;
       }
