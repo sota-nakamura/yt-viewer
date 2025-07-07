@@ -109,13 +109,14 @@
         history.forEach((e) => {
           historyList.innerHTML = historyList.innerHTML + `
 			<li>
-				<a onClick="Play(${e})">https://youtube.com/watch?v=${e}</a>
+				<a onClick="Play(${e})" class="link">https://youtube.com/watch?v=${e}</a>
 			</li>
           `;
         });
       });
 
       function GetYoutube(url) {
+        console.log(url);
         urlInput.blur();
         if (url) {
           const id = GetVideoId(url);
@@ -136,11 +137,11 @@
           } else if (path === "/live" || "/shorts" || "/embed") {
             let videoId = `${path.split("/")[1]}`;
             return videoId;
-          }
+          } else return;
         } else if (host === "youtu.be") {
           let videoId = `${path.split("/")[0]}`;
           return videoId;
-        }
+        } else return;
       }
 
       function Play(id) {
