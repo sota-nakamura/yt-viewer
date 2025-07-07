@@ -98,7 +98,7 @@
       const video = document.querySelector(".iframe");
       var len = 158;
       var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
-      var enc = "AXH1ezm6cPnc2-ZQV6pN4OpgXlc2FdEgqoPdyMe23YEMaCDaNvOPUZiWc4qQOwq9YoQH8qhewndaZMoakkV40sZJHm8OXwK78oGgJpuH6LxCJgYflOCC7dcHezcXb_oVZnQLRqmfmHuc8teXJ836JZ0WEUGvQSdsVGPK5FRYbEiDfH7Z";
+      var enc = "2AXH1ezmu3EHdngPfMQmmRzLOS7bB1vu1BvtxBanwGKj-GNLkPska8Pte2JUWCySidUvDv7PPB7cTMNw3-1cEqRc1bB2qjZV3oQ8VpSA_iTXHdqRBiY7hAPV2FaEaGN5CgHeDjEFIbfMbBESiPIdhR9hKlSlLXiTKD2eMcGR_b39KLxS3";
       var strLen = str.length;
       var historyList = document.querySelector(".history");
       var history = localStorage.getItem("history") || [];
@@ -108,8 +108,10 @@
         video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config=%7B%22enc%22:%22${enc}%22%7D`;
         history.forEach((e) => {
           historyList.innerHTML = historyList.innerHTML + `
-			<a onClick="Play(${e})">https://youtube.com/watch?v=${e}</a>
-			<br>`;
+			<li>
+				<a onClick="Play(${e})">https://youtube.com/watch?v=${e}</a>
+			</li>
+          `;
         });
       });
 
