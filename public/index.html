@@ -120,7 +120,6 @@
         if (url) {
           const id = GetVideoId(url);
           Play(id);
-          History(id);
         } else return;
       }
 
@@ -148,11 +147,17 @@
         video.scrollIntoView({
           behavior: "smooth"
         });
+        History(id);
       }
 
       function History(id) {
         history.push(id);
         localStorage.setItem("history", history);
+        historyList.innerHTML = historyList.innerHTML + `
+			    <li>
+				    <a onClick="Play(${id})" class="link">https://youtube.com/watch?v=${id}</a>
+			    </li>
+        `;
       }
 
       function removeURL() {
