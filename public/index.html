@@ -119,13 +119,14 @@
         urlInput.blur();
         if (url) {
           const id = GetVideoId(url);
+          console.log(id);
           Play(id);
           History(id);
         } else return;
       }
 
       function GetVideoId(url) {
-        const host = url.hostname
+        const host = url.hostname;
         const path = url.pathname;
         if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
           if (path === "/watch") {
@@ -133,11 +134,11 @@
             let videoId = params.get("v");
             return videoId;
           } else if (path === "/live" || "/shorts" || "/embed") {
-            let videoId = `/${path.split("/")[1]}`;
+            let videoId = `${path.split("/")[1]}`;
             return videoId;
           }
-        } else if (url.hostname === "youtu.be") {
-          let videoId = `/${path.split("/")[0]}`;
+        } else if (host === "youtu.be") {
+          let videoId = `${path.split("/")[0]}`;
           return videoId;
         }
       }
@@ -147,6 +148,7 @@
         video.scrollIntoView({
           behavior: "smooth"
         });
+        console.log(video.src);
       }
 
       function History(id) {
