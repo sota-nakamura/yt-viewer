@@ -1,23 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="GitLab Pages">
-    <title>Plain HTML site using GitLab Pages</title>
-    <link rel="stylesheet" href="style.css">
+    <title>a</title>
+    <meta content="#FFFFFF" name="theme-color" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://cdn.glitch.global/8bb51c5a-37a7-4245-ab85-9c8371735b39/favicon.ico" sizes="256x256" />
+    <link href="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet" />
+    <style>
+      body {
+        scroll-behavior: smooth;
+      }
+
+      .iframe {
+        height: 600px;
+      }
+
+      article {
+        width: 100% !important;
+      }
+
+      input {
+        width: 100% !important;
+        display: block !important;
+      }
+
+      .max {
+        width: 100% !important;
+      }
+
+      .field {
+        position: relative;
+      }
+
+      .enterBtn {
+        position: absolute;
+        right: 15px;
+      }
+
+      .field>input {
+        padding-right: 72px;
+      }
+    </style>
   </head>
   <body>
-    <div class="navbar">
-      <a href="https://pages.gitlab.io/plain-html/">Plain HTML Example</a>
-      <a href="https://gitlab.com/pages/plain-html/">Repository</a>
-      <a href="https://gitlab.com/pages/">Other Examples</a>
-    </div>
+    <header class="header fixed">
+      <nav>
+        <img src="https://cdn.glitch.global/8bb51c5a-37a7-4245-ab85-9c8371735b39/favicon.ico" class="circle icon" />
+        <h5 class="max">CodePals</h5>
+        <div class="max field border round">
+          <input __gchrome_uniqueid="198" name="url" placeholder="URLを入力" />
+          <a class="large circle enterBtn" onclick="GetYoutube(urlInput.value)">
+            <i>search</i>
+          </a>
+        </div>
+        <a class="wave circle" onclick="removeURL()">
+          <i>cancel</i>
+        </a>
+        <label class="checkbox icon">
+          <input type="checkbox" id="darkmode_switch" onclick="changeTheme(this)" />
+          <span>
+            <i>dark_mode</i>
+            <i>light_mode</i>
+          </span>
+        </label>
+      </nav>
+    </header>
+    <main class="responsive">
+      <div class="large-space"></div>
+      <div class="max">
+        <article class="middle-align center-align surface no-elevate">
+          <div>
+            <i class="extra">play_circle</i>
+            <h5>Youtube見るツール by Satoimo_satosi</h5>
+            <p>めっちゃ軽いよ！</p>
+            <div class="space"></div>
+          </div>
+        </article>
+        <h5>履歴</h5>
+        <ul class="history"> Loading </ul>
+      </div>
+      <iframe src="" class="iframe small-round max" frameborder="0" allowfullscreen></iframe>
+    </main>
+    <dialog id="dialog">
+      <h5>動画視聴の前に</h5>
+      <div class="message"></div>
+      <nav class="right-align">
+        <button class="border" onclick="cancel()">キャンセル</button>
+        <button onclick="closeDialog()" class="btn">続ける</button>
+      </nav>
+    </dialog>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      const urlInput = document.querySelector('input[name="url"]');
+      const video = document.querySelector(".iframe");
+      var len = 158;
+      var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
+      var enc = "AXH1ezm6cPnc2-ZQV6pN4OpgXlc2FdEgqoPdyMe23YEMaCDaNvOPUZiWc4qQOwq9YoQH8qhewndaZMoakkV40sZJHm8OXwK78oGgJpuH6LxCJgYflOCC7dcHezcXb_oVZnQLRqmfmHuc8teXJ836JZ0WEUGvQSdsVGPK5FRYbEiDfH7Z";
+      var strLen = str.length;
+      var result = "";
+      var history = localStorage.getItem("history") || [];
 
-    <h1>Hello World!</h1>
+      window.addEventListener("load", () => {
+        video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config=%7B%22enc%22:%22${enc}%22%7D`;
+        history.forEach((e) => {
+          var historyItem = document.querySelector(".history");
+          historyItem.innerHTML = historyItem.innerHTML + `
+			<a onClick="Play(${e})">https://youtube.com/watch?v=${e}</a>
+			<br>`;
+        });
+      });
 
-    <p>
-      This is a simple plain-HTML website on GitLab Pages, without any fancy static site generator.
-    </p>
+      function GetYoutube(url) {
+        urlInput.blur();
+        if (url) {
+          const id = GetVideoId(url);
+          Play(id);
+          History(id);
+        } else return;
+      }
+
+      function GetVideoId(url) {
+        const host = url.hostname
+        const path = url.pathname;
+        if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
+          if (path === "/watch") {
+            let params = url.searchParams;
+            let videoId = params.get("v");
+            return videoId;
+          } else if (path === "/live" || "/shorts" || "/embed") {
+            let videoId = `/${path.split("/")[1]}`;
+            return videoId;
+          }
+        } else if (url.hostname === "youtu.be") {
+          let videoId = `/${path.split("/")[0]}`;
+          return videoId;
+        }
+      }
+
+      function Play(id) {
+        video.src = `https://www.youtubeeducation.com/embed/${id}?origin=https://create.kahoot.it&amp;embed_config={"enc":"${enc}"}`;
+        video.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+
+      function History(id) {
+        history.push(id);
+        localStorage.setItem("history", history);
+      }
+
+      function removeURL() {
+        urlInput.value === "";
+      }
+      urlInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          GetYoutube(urlInput.value);
+        }
+      });
+    </script>
   </body>
 </html>
-
