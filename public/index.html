@@ -116,11 +116,9 @@
       });
 
       function GetYoutube(url) {
-        console.log(url);
         urlInput.blur();
         if (url) {
           const id = GetVideoId(url);
-          console.log(id);
           Play(id);
           History(id);
         } else return;
@@ -128,10 +126,8 @@
 
       function GetVideoId(link) {
         const url = new URL(link);
-        console.log(url);
         const host = url.hostname;
         const path = url.pathname;
-        console.log(host + "  " +path);
         if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
           if (path === "/watch") {
             let params = url.searchParams;
@@ -152,7 +148,6 @@
         video.scrollIntoView({
           behavior: "smooth"
         });
-        console.log(video.src);
       }
 
       function History(id) {
