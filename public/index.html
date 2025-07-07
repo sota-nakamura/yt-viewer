@@ -115,11 +115,11 @@
         });
       });
 
-      function GetYoutube(url) {
+      async function GetYoutube(url) {
         console.log(url);
         urlInput.blur();
         if (url) {
-          const id = GetVideoId(url);
+          const id = await GetVideoId(url);
           console.log(id);
           Play(id);
           History(id);
