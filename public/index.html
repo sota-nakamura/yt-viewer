@@ -44,7 +44,7 @@
       }
     </style>
   </head>
-  <body class="blue">
+  <body>
     <header class="header fixed">
       <nav>
         <img src="https://cdn.glitch.global/8bb51c5a-37a7-4245-ab85-9c8371735b39/favicon.ico" class="circle icon" />
@@ -58,13 +58,6 @@
         <a class="wave circle" onclick="removeURL()">
           <i>cancel</i>
         </a>
-        <label class="checkbox icon">
-          <input type="checkbox" id="darkmode_switch" onclick="changeTheme(this)" />
-          <span>
-            <i>dark_mode</i>
-            <i>light_mode</i>
-          </span>
-        </label>
       </nav>
     </header>
     <main class="responsive">
@@ -91,84 +84,64 @@
         <button onclick="closeDialog()" class="btn">続ける</button>
       </nav>
     </dialog>
+    <dialog id="settings">
+      <nav>
+        <h5 class="max">カラー設定</h5>
+        <button class="circle transparent" data-ui="#settings">
+          <i>close</i>
+        </button>
+      </nav>
+      <nav class="wrap" id="theme_list">
+        <button class="chip circle">
+          <i>palette</i>
+          <input type="color" name="theme">
+        </button>
+        <button class="chip circle">
+          <i>upload</i>
+          <input type="file" accept="image/*" onclick="changeColor(this.value)">
+        </button>
+        <button class="circle small red"></button>
+        <button class="circle small pink"></button>
+        <button class="circle small purple"></button>
+        <button class="circle small deep-purple"></button>
+        <button class="circle small indigo"></button>
+        <button class="circle small blue"></button>
+        <button class="circle small light-blue"></button>
+        <button class="circle small cyan"></button>
+        <button class="circle small teal"></button>
+        <button class="circle small green"></button>
+        <button class="circle small light-green"></button>
+        <button class="circle small lime"></button>
+        <button class="circle small yellow"></button>
+        <button class="circle small amber"></button>
+        <button class="circle small orange"></button>
+        <button class="circle small deep-orange"></button>
+        <button class="circle small brown"></button>
+      </nav>
+      <div class="space"></div>
+      <div class="field middle-align">
+        <nav class="wrap">
+          <div class="max">
+            <h6>テーマ設定</h6>
+          </div>
+          
+          <nav class="no-space" id="mode_list">
+            <button class="border left-round" name="dark">
+              <i>dark_mode</i>
+            </button>
+            <button class="border no-round" name="">
+              <i>contrast</i>
+            </button>
+            <button class="border right-round" name="light">
+              <i>light_mode</i>
+            </button>
+          </nav>
+        </nav>
+      </div>
+    </dialog>
     <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.js"></script>
-    <script src="main.js"></script>
-    <script>
-      const urlInput = document.querySelector('input[name="url"]');
-      const video = document.querySelector(".iframe");
-      var len = 158;
-      var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
-      var enc = "AXH1ezmu3EHdngPfMQmmRzLOS7bB1vu1BvtxBanwGKj-GNLkPska8Pte2JUWCySidUvDv7PPB7cTMNw3-1cEqRc1bB2qjZV3oQ8VpSA_iTXHdqRBiY7hAPV2FaEaGN5CgHeDjEFIbfMbBESiPIdhR9hKlSlLXiTKD2eMcGR_b39KLxS3";
-      var strLen = str.length;
-      var historyList = document.querySelector(".history");
-      var history = localStorage.getItem("history") || [];
-
-      window.addEventListener("load", () => {
-        historyList.innerHTML = history ? "" : "No Items"
-        video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config=%7B%22enc%22:%22${enc}%22%7D`;
-        history.forEach((e) => {
-          historyList.innerHTML = historyList.innerHTML + `
-			<li>
-				<a onClick="Play(${e})" class="link">https://youtube.com/watch?v=${e}</a>
-			</li>
-          `;
-        });
-      });
-
-      function GetYoutube(url) {
-        urlInput.blur();
-        if (url) {
-          const id = GetVideoId(url);
-          Play(id);
-        } else return;
-      }
-
-      function GetVideoId(link) {
-        const url = new URL(link);
-        const host = url.hostname;
-        const path = url.pathname;
-        if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
-          if (path === "/watch") {
-            let params = url.searchParams;
-            let videoId = params.get("v");
-            return videoId;
-          } else if (path === "/live" || "/shorts" || "/embed") {
-            let videoId = `${path.split("/")[2]}`;
-            return videoId;
-          } else return;
-        } else if (host === "youtu.be") {
-          let videoId = `${path.split("/")[1]}`;
-          return videoId;
-        } else return;
-      }
-
-      function Play(id) {
-        video.src = `https://www.youtubeeducation.com/embed/${id}?origin=https://create.kahoot.it&amp;embed_config={"enc":"${enc}"}`;
-        video.scrollIntoView({
-          behavior: "smooth"
-        });
-        History(id);
-      }
-
-      function History(id) {
-        history.push(id);
-        localStorage.setItem("history", history);
-        historyList.innerHTML = historyList.innerHTML + `
-			    <li>
-				    <a onClick="Play(${id})" class="link">https://youtube.com/watch?v=${id}</a>
-			    </li>
-        `;
-      }
-
-      function removeURL() {
-        urlInput.value === "";
-      }
-      urlInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          GetYoutube(urlInput.value);
-        }
-      });
-    </script>
+    <script src="js/attempt.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/theme.js"></script>
   </body>
 </html>

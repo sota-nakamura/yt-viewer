@@ -1,11 +1,5 @@
-const switcher = document.querySelector("#darkmode_switch");
-const themeColor = document.querySelector('meta[name="theme-color"]');
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
-const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches
-  ? "dark"
-  : "light";
-const setting = localStorage.getItem("dark-mode-settings") ? "dark" : "light";
 var attempts = 0;
 const messages = [
   "本当にYoutubeを見るのですか？それは将来本当に後悔しない行為ですか？",
@@ -27,21 +21,6 @@ function randomMessage() {
   return messages.shift();
 }
 document.addEventListener("DOMContentLoaded", async () => {
-  if (setting) {
-    switcher.checked = true;
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    themeColor.setAttribute("content", "#00497d");
-  } else if (prefers) {
-    switcher.checked = true;
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    themeColor.setAttribute("content", "#00497d");
-  } else {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    themeColor.setAttribute("content", "#d1e4ff");
-  }
   message.innerText = randomMessage();
   btn.disabled = true;
   await ui("#dialog");
@@ -56,19 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }, 5000);
   }, 60 * 60* 1000)
 });
-function changeTheme(e) {
-  if (e.checked) {
-    document.body.classList.remove("light");
-    document.body.classList.add("dark");
-    themeColor.setAttribute("content", "#00497d");
-    localStorage.setItem("dark-mode-settings", "dark");
-  } else {
-    document.body.classList.remove("dark");
-    document.body.classList.add("light");
-    themeColor.setAttribute("content", "#d1e4ff");
-    localStorage.setItem("dark-mode-settings", "light");
-  }
-}
 function closeDialog() {
   ui("#dialog");
   btn.disabled = true;
