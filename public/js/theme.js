@@ -1,6 +1,5 @@
 var colorInput = document.querySelector(`input[name="theme"]`);
 var imageTheme = document.querySelector(`input[name="imageTheme"]`);
-var modeToggler = document.querySelector('input[name="mode"]');
 var modeList = document.querySelector("#mode_list").querySelectorAll("button");
 var themeList = document
   .querySelector("#theme_list")
@@ -11,8 +10,7 @@ var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
   var theme = localStorage.getItem("theme");
 window.addEventListener("load", () => {
     if (theme) {
-        colorInput.value = theme;
-        ui("theme", theme);
+        changeColor(theme);
     }
   if (mode) {
     ui("mode", mode);
