@@ -6,14 +6,9 @@ var themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
 const themeColor = document.querySelector('meta[name="theme-color"]');
-const message = document.querySelector(".message");
-const btn = document.querySelector(".btn");
 var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
   var mode = localStorage.getItem("mode");
   var theme = localStorage.getItem("theme");
-    //
-    // themeColor.setAttribute("content", "#d1e4ff");
-    //
 window.addEventListener("load", () => {
     if (theme) {
         colorInput.value = theme;
@@ -35,6 +30,7 @@ deviceDark.addEventListener("change", (event) => {
 function changeColor(e) {
   ui("theme", e);
   colorInput.value = e;
+  themeColor.setAttribute("content", e);
   localStorage.setItem("theme", e);
 }
 modeList.forEach((e) => {
@@ -62,7 +58,7 @@ themeList.forEach((e) => {
 });
 
 function getColorFromImage(e) {
-    let color = await ui("theme", e.files[0]);
+    let color = await ui("theme", e);
     color = CSSJSON.toJSON(theme.light).attributes["--primary"];
     changeColor(color);
 }

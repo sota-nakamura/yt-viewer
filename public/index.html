@@ -66,11 +66,11 @@
       <nav class="wrap" id="theme_list">
         <button class="chip circle">
           <i>palette</i>
-          <input type="color" name="theme">
+          <input type="color" onclick="changeColor(this.value)" name="theme">
         </button>
         <button class="chip circle">
           <i>upload</i>
-          <input type="file" accept="image/*" onclick="changeColor(this.value)">
+          <input type="file" accept="image/*" onclick="getColorFromImage(this.files[0])" name="imageTheme">
         </button>
         <button class="circle small red"></button>
         <button class="circle small pink"></button>
