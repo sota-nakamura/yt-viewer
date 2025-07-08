@@ -8,15 +8,16 @@ const themeColor = document.querySelector('meta[name="theme-color"]');
 var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
   var mode = localStorage.getItem("mode");
   var theme = localStorage.getItem("theme");
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     if (theme) {
         changeColor(theme);
     }
   if (mode) {
     ui("mode", mode);
-    document.querySelector(`button[name="${mode}"]`).classList.add("active");
+    document.querySelector(`#mode_list > 
+        button[name="${mode}"]`).classList.add("active");
   } else {
-    document.querySelector('button[name=""').classList.add("active");
+    document.querySelector('#mode_list > button[name=""').classList.add("active");
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
