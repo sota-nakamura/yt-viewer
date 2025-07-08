@@ -33,7 +33,8 @@ deviceDark.addEventListener("change", (event) => {
   }
 });
 function changeColor(e) {
-    ui("theme", e);
+  ui("theme", e);
+  colorInput.value = e;
   localStorage.setItem("theme", e);
 }
 modeList.forEach((e) => {
@@ -56,9 +57,7 @@ themeList.forEach((e) => {
         .slice(1)
         .map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))
         .join("")}`;
-    ui("theme", color);
-    colorInput.value = color;
-    localStorage.setItem("theme", color);
+    changeColor(color);
   });
 });
 

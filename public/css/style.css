@@ -1,0 +1,44 @@
+body {
+  scroll-behavior: smooth;
+}
+
+.iframe {
+  height: 600px;
+}
+
+article {
+  width: 100% !important;
+}
+
+input {
+  width: 100% !important;
+  display: block !important;
+}
+
+.max {
+  width: 100% !important;
+}
+
+.field {
+  position: relative;
+}
+
+.enterBtn {
+  position: absolute;
+  right: 15px;
+}
+
+.field>input {
+  padding-right: 72px;
+}
+#mode_list > button {
+  width: 75px;
+}
+#mode_list > button.active {
+  background-color: var(--surface-variant) !important;
+  color: var(--on-surface-variant) !important;
+}
+#mode_list > button.active::before {
+  font-family: "Material Icons";
+  content: "\e5ca";
+}
