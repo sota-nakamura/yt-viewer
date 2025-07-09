@@ -3,7 +3,7 @@ const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var len = 158;
 var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
-var enc = "AXH1ezmu3EHdngPfMQmmRzLOS7bB1vu1BvtxBanwGKj-GNLkPska8Pte2JUWCySidUvDv7PPB7cTMNw3-1cEqRc1bB2qjZV3oQ8VpSA_iTXHdqRBiY7hAPV2FaEaGN5CgHeDjEFIbfMbBESiPIdhR9hKlSlLXiTKD2eMcGR_b39KLxS3";
+var enc = "AXH1ezmHuc1Pw9Z4ANGyxHXwPEiwC-iCeohIPeFNWXjwcM5-OMfvHmB27ihSBnKBSdowaCQIfllNFq7LOzJUI9_bu6a5jJLl-t9CPpdsGx557SuItQXPPW0hjsqPJ2AOeoQDVPAVn0El8DQC8uo_em1z1hjgH7pR67FQ_DiGcJZV9_x_";
 var strLen = str.length;
 var historyList = document.querySelector(".history");
 var history = localStorage.getItem("history") || [];
