@@ -1,5 +1,4 @@
 const colorInput = document.querySelector(`input[name="theme"]`);
-const imageTheme = document.querySelector(`input[name="imageTheme"]`);
 const modeList = document.querySelector("#mode_list").querySelectorAll("button");
 const themeList = document
   .querySelector("#theme_list")
@@ -27,6 +26,7 @@ deviceDark.addEventListener("change", (event) => {
   }
 });
 function changeColor(e) {
+  console.log("color: ", e);
   ui("theme", e);
   colorInput.value = e;
   themeColor.setAttribute("content", e);
