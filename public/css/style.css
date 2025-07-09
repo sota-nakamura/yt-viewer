@@ -9,11 +9,15 @@ body {
 article {
   width: 100% !important;
 }
+header {
+  z-index: 100;
+}
 
 input {
   width: 100% !important;
   display: block !important;
 }
+
 
 .max {
   width: 100% !important;
