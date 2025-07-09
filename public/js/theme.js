@@ -1,13 +1,13 @@
-var colorInput = document.querySelector(`input[name="theme"]`);
-var imageTheme = document.querySelector(`input[name="imageTheme"]`);
-var modeList = document.querySelector("#mode_list").querySelectorAll("button");
-var themeList = document
+const colorInput = document.querySelector(`input[name="theme"]`);
+const imageTheme = document.querySelector(`input[name="imageTheme"]`);
+const modeList = document.querySelector("#mode_list").querySelectorAll("button");
+const themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
 const themeColor = document.querySelector('meta[name="theme-color"]');
-var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
-  var mode = localStorage.getItem("mode");
-  var theme = localStorage.getItem("theme");
+const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
+const mode = localStorage.getItem("mode");
+const theme = localStorage.getItem("theme");
 document.addEventListener("DOMContentLoaded", () => {
     if (theme) {
         changeColor(theme);
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(`#mode_list > 
         button[name="${mode}"]`).classList.add("active");
   } else {
-    document.querySelector('#mode_list > button[name=""').classList.add("active");
+    document.querySelector('#mode_list > button[name=""]').classList.add("active");
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
