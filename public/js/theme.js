@@ -7,6 +7,18 @@ var themeColor = document.querySelector('meta[name="theme-color"]');
 var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 var mode = localStorage.getItem("mode");
 var theme = localStorage.getItem("theme");
+function getColorFromImage(e) {
+  let color = await ui("theme", e);
+  color = CSSJSON.toJSON(theme.light).attributes["--primary"];
+  changeColor(color);
+}
+function changeColor(e) {
+  console.log("color: ", e);
+  ui("theme", e);
+  colorInput.value = e;
+  themeColor.setAttribute("content", e);
+  localStorage.setItem("theme", e);
+}
 document.addEventListener("DOMContentLoaded", () => {
     if (theme) {
         changeColor(theme);
@@ -25,13 +37,6 @@ deviceDark.addEventListener("change", (event) => {
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
-function changeColor(e) {
-  console.log("color: ", e);
-  ui("theme", e);
-  colorInput.value = e;
-  themeColor.setAttribute("content", e);
-  localStorage.setItem("theme", e);
-}
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
     var mode = e.getAttribute("name");
@@ -55,9 +60,3 @@ themeList.forEach((e) => {
     changeColor(color);
   });
 });
-
-function getColorFromImage(e) {
-    let color = await ui("theme", e);
-    color = CSSJSON.toJSON(theme.light).attributes["--primary"];
-    changeColor(color);
-}
