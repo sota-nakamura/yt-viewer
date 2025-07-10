@@ -1,12 +1,12 @@
-const colorInput = document.querySelector(`input[name="theme"]`);
-const modeList = document.querySelector("#mode_list").querySelectorAll("button");
-const themeList = document
+var colorInput = document.querySelector(`input[name="theme"]`);
+var modeList = document.querySelector("#mode_list").querySelectorAll("button");
+var themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
-const themeColor = document.querySelector('meta[name="theme-color"]');
-const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
-const mode = localStorage.getItem("mode");
-const theme = localStorage.getItem("theme");
+var themeColor = document.querySelector('meta[name="theme-color"]');
+var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
+var mode = localStorage.getItem("mode");
+var theme = localStorage.getItem("theme");
 document.addEventListener("DOMContentLoaded", () => {
     if (theme) {
         changeColor(theme);

@@ -1,16 +1,13 @@
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-var len = 158;
-var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
 var enc = "AXH1ezm6HGmbIYM0j2F6AMjFBySfLoIfKNcHR8CYIvgITOXGcXu5pB5kxsSgRwg5o1yw1SIiwh66-JcxvLqwYr9C3PgNJeKXT_KFhwKovp-XaaED-7uCHO89XXiUrk6G_U9hysOvAcC3y6RGIflIa_HpXaOovA2p_zZT1Y2Vjm4NdTIy";
-var strLen = str.length;
 var historyList = document.querySelector(".history");
-var history = localStorage.getItem("history") || [];
+var history = JSON.parse(localStorage.getItem("history")) || [];
 
 window.addEventListener("load", () => {
   historyList.innerHTML = history ? "" : "No Items"
-  video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config=%7B%22enc%22:%22${enc}%22%7D`;
+  video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
   history.forEach((e) => {
     historyList.innerHTML = historyList.innerHTML + `
       <li>
@@ -48,7 +45,7 @@ function GetVideoId(link) {
 }
 
 function Play(id) {
-  video.src = `https://www.youtubeeducation.com/embed/${id}?origin=https://create.kahoot.it&amp;embed_config={"enc":"${enc}"}`;
+  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}`;
   video.scrollIntoView({
     behavior: "smooth"
   });
@@ -57,7 +54,7 @@ function Play(id) {
 
 function History(id) {
   history.push(id);
-  localStorage.setItem("history", history);
+  localStorage.setItem("history", JSON.stringify(history));
   historyList.innerHTML = historyList.innerHTML + `
           <li>
               <a onClick="Play(${id})" class="link">https://youtube.com/watch?v=${id}</a>
