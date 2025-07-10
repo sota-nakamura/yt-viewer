@@ -5,7 +5,7 @@ var themeList = document
   .querySelectorAll("button:not(.chip)");
 var themeColor = document.querySelector('meta[name="theme-color"]');
 var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
-var mode = localStorage.getItem("mode");
+var storedMode = localStorage.getItem("mode");
 var theme = localStorage.getItem("theme");
 function changeColor(e) {
   console.log("color: ", e);
@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (theme) {
         changeColor(theme);
     }
-  if (mode) {
-    ui("mode", mode);
+  if (storedMode) {
+    ui("mode", storedMode);
     document.querySelector(`#mode_list > 
-        button[name="${mode}"]`).classList.add("active");
+        button[name="${storedMode}"]`).classList.add("active");
   } else {
     document.querySelector('#mode_list > button[name=""]').classList.add("active");
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
 deviceDark.addEventListener("change", (event) => {
-  if (!mode) {
+  if (!storedMode) {
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
