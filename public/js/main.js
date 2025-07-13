@@ -1,5 +1,6 @@
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
+const loader = document.querySelector(".loading");
 var attempts = 0;
 const messages = [
   "本当にYoutubeを見るのですか？それは将来本当に後悔しない行為ですか？",
@@ -34,6 +35,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     btn.disabled = false;
   }, 5000);
   }, 60 * 60* 1000)
+});
+window.addEventListener("load", async () => {
+  loader.classList.add("hidden");
 });
 function closeDialog() {
   ui("#dialog");
