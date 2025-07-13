@@ -5,7 +5,7 @@ var themeList = document
   .querySelectorAll("button:not(.chip)");
 var themeColor = document.querySelector('meta[name="theme-color"]');
 var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
-var storedMode = localStorage.getItem("mode");
+var mode = localStorage.getItem("mode");
 var theme = localStorage.getItem("theme");
 function changeColor(e) {
   console.log("color: ", e);
@@ -20,33 +20,34 @@ async function getColorFromImage(e) {
   changeColor(color);
 }
 document.addEventListener("DOMContentLoaded", () => {
-    if (theme) {
-        changeColor(theme);
-    }
-  if (storedMode) {
-    ui("mode", storedMode);
-    document.querySelector(`#mode_list > 
-        button[name="${storedMode}"]`).classList.add("active");
+  if (theme) {
+    changeColor(theme);
+  }
+  if (mode) {
+    ui("mode", mode);
+    document.querySelector(`#mode_list > button[name="${mode}"]`).classList.add("active", "border");
   } else {
-    document.querySelector('#mode_list > button[name=""]').classList.add("active");
+    document.querySelector('#mode_list > button[name=""]').classList.add("active", "border");
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
 deviceDark.addEventListener("change", (event) => {
-  if (!storedMode) {
+  if (!mode) {
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 });
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
     var mode = e.getAttribute("name");
-    ui("mode", mode);
     if (!mode) {
       ui("mode", deviceDark.matches ? "dark" : "light");
+      localStorage.removeItem("mode");
+    } else {
+      ui("mode", mode);
+      localStorage.setItem("mode", mode);
+      modeList.forEach(el => el.classList.remove("active", "border"));
+      e.classList.add("active");
     }
-    localStorage.setItem("mode", mode);
-    modeList.forEach(el => el.classList.remove("active"));
-    e.classList.add("active");
   });
 });
 themeList.forEach((e) => {
