@@ -14,7 +14,7 @@ function changeColor(e) {
   themeColor.setAttribute("content", e);
   localStorage.setItem("theme", e);
 }
-function getColorFromImage(e) {
+async function getColorFromImage(e) {
   let color = await ui("theme", e);
   color = CSSJSON.toJSON(theme.light).attributes["--primary"];
   changeColor(color);
