@@ -3,9 +3,9 @@ body {
 }
 .loading {
   position: fixed;
+  z-index: 100000;
   height: 100dvh;
   width: 100dvw;
-  background: transparent;
   opacity: 1;
   visibility: visible;
   transition: opacity .5s, visibility .5s
