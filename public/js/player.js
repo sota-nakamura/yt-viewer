@@ -1,4 +1,3 @@
-
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var enc = "AXH1ezk8HwswiVHUyy4P7BxpBurr8TI-7Iy5qcwqocEAGLhhNTg3bb2uSzcK6HcDRjb5lc9RvxeqXyBBINQPtYYap_I39-rTzaNUchyloxFvuPY84Staws4OR3pgxSdWjamOMxG_SgqjSl02Z4oSX6v7bQ55QsHI5yEeJavXXhJfNyOo";
