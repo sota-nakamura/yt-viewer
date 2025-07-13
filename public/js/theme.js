@@ -32,8 +32,8 @@ function changeMode(e) {
   }
 }
 async function getColorFromImage(e) {
-  let color = await ui("theme", e);
-  color = CSSJSON.toJSON(color.light).attributes["--primary"];
+  let imageTheme = await ui("theme", e);
+  color = CSSJSON.toJSON(imageTheme.light).attributes["--primary"];
   changeColor(color);
 }
 document.addEventListener("DOMContentLoaded", () => {
