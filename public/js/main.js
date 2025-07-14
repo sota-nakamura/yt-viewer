@@ -1,6 +1,7 @@
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
 const loader = document.querySelector(".loading");
+const timeStamp = Date.now()
 var attempts = 0;
 const messages = [
   "本当にYoutubeを見るのですか？それは将来本当に後悔しない行為ですか？",
@@ -28,13 +29,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   setTimeout(() => {
     btn.disabled = false;
   }, 5000);
-  setTimeout(() => {
-    message = "YouTubeの視聴を続けますか？"
-    ui("#dialog");
-    setTimeout(() => {
-    btn.disabled = false;
-  }, 5000);
-  }, 60 * 60* 1000)
+  setInterval(() => {
+    var time = Data.now();
+    var timeDiff = time - timeStamp;
+    if(timeDiff >= 60 * 60 * 1000) {
+      message = "YouTubeの視聴を続けますか？"
+      ui("#dialog");
+      setTimeout(() => {
+        btn.disabled = false;
+      }, 5000);
+    }
+  }, 1000);
 });
 window.addEventListener("load", async () => {
   loader.classList.add("hidden");
