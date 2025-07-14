@@ -9,12 +9,12 @@ body {
   opacity: 1;
   visibility: visible;
   transition:
-    opacity .4s ease,
-    visibility .4s ease;
+    opacity .4s 1s ease,
+    visibility .4s 1s ease;
 }
 .loading.hidden {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 .loading > .loading-indicator {
   position: absolute;
