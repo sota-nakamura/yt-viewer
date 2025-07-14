@@ -1,3 +1,4 @@
+/*
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
 const loader = document.querySelector(".loading");
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }, 1000);
 });
+*/
 window.addEventListener("load", async () => {
   loader.classList.add("hidden");
 });
