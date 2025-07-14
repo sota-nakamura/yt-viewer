@@ -8,7 +8,9 @@ body {
   width: 100dvw;
   opacity: 1;
   visibility: visible;
-  transition: opacity .5s, visibility .5s
+  transition:
+    opacity .4s ease,
+    visibility .4s ease;
 }
 .loader.hidden {
   opacity: 0;
