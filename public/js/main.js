@@ -1,7 +1,10 @@
+const loader = document.querySelector(".loading");
+window.addEventListener("load", async () => {
+  loader.classList.add("hidden");
+});
 /*
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
-const loader = document.querySelector(".loading");
 const timeStamp = Date.now()
 var attempts = 0;
 const messages = [
@@ -42,10 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }, 1000);
 });
-*/
-window.addEventListener("load", async () => {
-  loader.classList.add("hidden");
-});
 function closeDialog() {
   ui("#dialog");
   btn.disabled = true;
@@ -61,3 +60,4 @@ function closeDialog() {
 function cancel() {
   location.href = "https://loilonote.app";
 }
+*/
