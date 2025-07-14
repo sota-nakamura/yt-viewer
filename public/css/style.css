@@ -13,8 +13,8 @@ body {
     visibility .4s ease;
 }
 .loading.hidden {
-  opacity: 0 ;
-  visibility: hidden ;
+  opacity: 0;
+  visibility: hidden;
 }
 .loading > .loading-indicator {
   position: absolute;
