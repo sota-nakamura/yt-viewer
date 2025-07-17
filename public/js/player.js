@@ -1,6 +1,6 @@
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-var enc = "AXH1eznr09lPotQIg2Kuy17BaYChNIZJ-ErZCPqy2PytEh6CWVbs4auJwWN2dM-R_cpblsOUU_NVc8dgHqlgNGMlDA4IE-9Ly0T4GLUI52B7c5scf_vmaGkI51HCoWIIRWf4MCykdhnBG_MTIeMaS0Sn4CyGFIRE3J3Kr39khFcXtLNt";
+var enc = "AXH1ezlifk3ruIsUGRIuv2iqXU-6sj_-jZCIPSPRv_VPwD-gXMJuvHN6WuwBbl2azXki03tcsgTDRP5vsQRgoJRxb6u1-N09GNmVGYMqw1wmn2EfE_OIE0dSYOcq_a9seAvFz761alSFx02wyFxyerSvaVNEMVMH5g";
 var historyList = document.querySelector(".history");
 var history = JSON.parse(localStorage.getItem("history")) || [];
 
