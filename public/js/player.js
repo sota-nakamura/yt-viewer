@@ -2,7 +2,7 @@ const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var enc = "AXH1ezmjeGyzGdpIIzsAL5dZFuijXuU4QBoBg4rK3lF1tu6TaO-jZv_V-xEEXqQkNNqk2aB4CrSuTqgfdKiAmaQkfWuukeR2C5YtTN1e_AdM0yqxeRs1lXAnnCdcu-pNq0MQUJa1NlJIoIl_lw9soUEXUPr91UzgCt7DgZRxhjWr4l2t";
 var historyList = document.querySelector(".history");
-var history = JSON.parse(localStorage.getItem("history")) || [];
+var history = JSON.parse(localStorage.getItem("history") || []);
 
 window.addEventListener("load", () => {
   historyList.innerHTML = history ? "" : "No Items"
