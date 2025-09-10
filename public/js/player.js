@@ -16,12 +16,8 @@ window.addEventListener("load", () => {
   });
 });
 
-function GetYoutube(url) {
-  urlInput.blur();
-  if (url) {
-    const id = GetVideoId(url);
-    Play(id);
-  } else return;
+function removeURL() {
+  urlInput.value === "";
 }
 
 function GetVideoId(link) {
@@ -43,15 +39,7 @@ function GetVideoId(link) {
   } else return;
 }
 
-function Play(id) {
-  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}`;
-  video.scrollIntoView({
-    behavior: "smooth"
-  });
-  YThistory(id);
-}
-
-function YThistory(id) {
+function History(id) {
   if(YThistory[0] === id) return;
   YThistory.push(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
@@ -62,9 +50,22 @@ function YThistory(id) {
   `;
 }
 
-function removeURL() {
-  urlInput.value === "";
+function Play(id) {
+  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}`;
+  video.scrollIntoView({
+    behavior: "smooth"
+  });
+  History(id);
 }
+
+function GetYoutube(url) {
+  urlInput.blur();
+  if (url) {
+    const id = GetVideoId(url);
+    Play(id);
+  } else return;
+}
+
 urlInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
