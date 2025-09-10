@@ -1,14 +1,14 @@
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var enc = "AXH1ezlXbgZ-TCOvBj2I7xsQVe-SBRV7Y6Y3OT5AfRn3O2zbabXrrQMLVqaqpoZjy3H0cgWajm-t1cpTj_JYHsMMmLMCBCDTl0tcQRnQE9sw_eaSyqbkfBSoSy1yREjWpTICRR2QlOlRYMzENinCKEJkK8QG9bEWpbFbZ7q5yDWh8aNG";
-var historyList = document.querySelector(".history");
-var history = JSON.parse(localStorage.getItem("history") || []);
+var YThistoryList = document.querySelector(".YThistory");
+var YThistory = JSON.parse(localStorage.getItem("YThistory") || []);
 
 window.addEventListener("load", () => {
-  historyList.innerHTML = history ? "" : "No Items"
+  YThistoryList.innerHTML = YThistory ? "" : "No Items";
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
-  history.forEach((e) => {
-    historyList.innerHTML = historyList.innerHTML + `
+  YThistory.forEach((e) => {
+    YThistoryList.innerHTML = YThistoryList.innerHTML + `
       <li>
           <a onClick="Play(${e})" class="link">https://youtube.com/watch?v=${e}</a>
       </li>
@@ -48,14 +48,14 @@ function Play(id) {
   video.scrollIntoView({
     behavior: "smooth"
   });
-  History(id);
+  YThistory(id);
 }
 
-function History(id) {
-  if(history[0] === id) return;
-  history.push(id);
-  localStorage.setItem("history", JSON.stringify(history));
-  historyList.innerHTML = historyList.innerHTML + `
+function YThistory(id) {
+  if(YThistory[0] === id) return;
+  YThistory.push(id);
+  localStorage.setItem("YThistory", JSON.stringify(YThistory));
+  YThistoryList.innerHTML = YThistoryList.innerHTML + `
           <li>
               <a onClick="Play(${id})" class="link">https://youtube.com/watch?v=${id}</a>
           </li>
