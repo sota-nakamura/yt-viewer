@@ -11,13 +11,13 @@ window.addEventListener("load", () => {
   if(!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。"
   } else {
-    YThistoryList.innerHTML = YThistory ? "" : "No Items";
+    YThistoryList.innerHTML = YThistory ? "" : "履歴がありません。";
   }
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
   YThistory.forEach((e) => {
     YThistoryList.innerHTML = YThistoryList.innerHTML + `
       <li>
-          <a onClick="Play(${e})" class="link">https://youtube.com/watch?v=${e}</a>
+          <a onclick="Play('${e}')" class="link">https://youtube.com/watch?v=${e}</a>
       </li>
     `;
   })
@@ -31,14 +31,27 @@ urlInput.addEventListener("input", (e) => {
     removeBtn.style.display = "none";
   }
 })
-/*
+
 useHistory.addEventListener("change", (e) => {
   e.preventDefault();
-  if(e.target.checked) ui("#confirm_diabling_history");
+  if(e.target.checked) {
+    ui("#confirm_diabling_history");
+  } else {
+    localStorage.setItem("use_history", true);
+    YThistoryList.innerHTML = "履歴がありません。";
+  }
 });
-*/
+
 function removeURL() {
   urlInput.value = '';
+}
+
+function disableHistory() {
+  localStorage.removeItem("YThistory");
+  YThistoryList.innerHTML = "履歴機能を有効化してください。"
+  localStorage.setItem("use_history", false);
+  useHistory = false;
+  useHistory.checked = false;
 }
 
 function removeHistory() {
@@ -72,7 +85,7 @@ function History(id) {
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = YThistoryList.innerHTML + `
           <li>
-              <a onClick="Play(${id})" class="link">https://youtube.com/watch?v=${id}</a>
+              <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
           </li>
   `;
 }
