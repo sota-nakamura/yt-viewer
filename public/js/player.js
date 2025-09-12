@@ -14,8 +14,17 @@ window.addEventListener("load", () => {
           <a onClick="Play(${e})" class="link">https://youtube.com/watch?v=${e}</a>
       </li>
     `;
-  });
+  })
 });
+
+urlInput.addEventListener("input", (e) => {
+  const removeBtn = document.querySelector(".removeBtn")
+  if(e.value) {
+    removeBtn.style.display = "inline";
+  } else {
+    removeBtn.style.display = "none";
+  }
+})
 
 function removeURL() {
   urlInput.value = '';
