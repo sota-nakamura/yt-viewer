@@ -33,12 +33,13 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
-  if(!this.checked) {
+  if(!e.target.checked) {
+    e.target.che = true;
     ui("#confirm_diabling_history");
     e.preventDefault();
   } else {
-    e.target.checked = true;
     localStorage.setItem("use_history", true);
+    useHistory = true;
     YThistoryList.innerHTML = "履歴がありません。";
   }
 });
