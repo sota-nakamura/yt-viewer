@@ -33,6 +33,7 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
+  console.log(e.target.checked);
   if(!e.target.checked) {
     e.target.checked = true;
     ui("#confirm_disabling_history");
@@ -93,6 +94,7 @@ function History(id) {
 }
 
 function Play(id) {
+  ui("#home");
   video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}`;
   video.scrollIntoView({
     behavior: "smooth"
