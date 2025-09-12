@@ -14,7 +14,7 @@ window.addEventListener("load", () => {
   } else {
     historyFeatureToggler.checked = true;
     if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
-    if(YThistory && useContinue) Play(YThistory[0]);
+    if(YThistory.length && useContinue) Play(YThistory[0]);
     YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
   }
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
