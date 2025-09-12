@@ -94,20 +94,16 @@ function GetVideoId(link) {
 function History(id) {
   if (!useHistory) return;
   if (YThistory[0] === id) return;
-  YThistoryList.innerHTML = YThistory
-    ? YThistoryList.innerHTML +
-      `
-    <li>
-      <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
-    </li>
-  `
-    : `
-    <li>
-      <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
-    </li>
-  `;
   YThistory.push(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
+  YThistoryList.innerHTML = "";
+  YThistory.forEach((el) => {
+    YThistoryList.innerHTML = YThistoryList.innerHTML + `
+      <li>
+        <a onclick="Play('${el}')" class="link">https://youtube.com/watch?v=${el}</a>
+      </li>
+    `
+  });
 }
 
 function Play(id) {
