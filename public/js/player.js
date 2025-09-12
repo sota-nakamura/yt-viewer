@@ -2,10 +2,9 @@ const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var enc =
   "AXH1ezn1I_C7mKu2hKOIlDW6NxRkm1l-Ic1ijxXhCVFO1OS7MWx15Gf_PFD895oCt7oOZ3EXDr-uhSGQHkiCud3hGA-39YNjctRJH5PXutrXEIFbc3-aBjFkN5lKGsgDrQoQp_8_uavg27CTl0AHLGuJiQ4hbJRkrw==";
-var YThistoryList = document.querySelector(".history");
+  var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
-var historyFeatureToggler = document.querySelector(".useHistory");
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
@@ -36,36 +35,9 @@ urlInput.addEventListener("input", (e) => {
   }
 });
 
-historyFeatureToggler.addEventListener("change", (e) => {
-  if (!e.target.checked) {
-    e.target.checked = true;
-    ui("#confirm_disabling_history");
-    e.preventDefault();
-  } else {
-    localStorage.setItem("use_history", true);
-    useHistory = true;
-    YThistoryList.innerHTML = "履歴がありません。";
-  }
-});
-
 function removeURL() {
   removeBtn.style.display = "none";
   urlInput.value = "";
-}
-
-function disableHistory() {
-  ui("#confirm_disabling_history");
-  localStorage.removeItem("YThistory");
-  YThistoryList.innerHTML = "履歴機能を有効化してください。";
-  localStorage.setItem("use_history", false);
-  useHistory = false;
-  historyFeatureToggler.checked = false;
-}
-
-function removeHistory() {
-  ui("#confirm_deleting_history");
-  localStorage.removeItem("YThistory");
-  YThistoryList.innerHTML = "履歴がありません。";
 }
 
 function GetVideoId(link) {

@@ -113,7 +113,7 @@
         <p class="large">システム設定</p>
         <div class="field middle-align">
           <div class="max">
-            <h6 class="small">履歴機能</h6>
+            <h6 class="small">履歴の機能</h6>
             <div style="color: #777;">視聴した動画のURLを保存します。</div>
           </div>
           <label class="switch icon">
@@ -126,7 +126,20 @@
         </div>
         <div class="field middle-align">
           <div class="max">
-            <h6 class="small">履歴削除</h6>
+            <h6 class="small">視聴続行機能</h6>
+            <div style="color: #777;">アプリを開いた際に、直前に視聴していた動画を表示します。</div>
+          </div>
+          <label class="switch icon">
+            <input type="checkbox" class="useRestore" disabled>
+            <span>
+              <i>close</i>
+              <i>done</i>
+            </span>
+          </label>
+        </div>
+        <div class="field middle-align">
+          <div class="max">
+            <h6 class="small">履歴を削除</h6>
             <div style="color: #777;">保存した動画のURLを削除します。</div>
           </div>
           <button class="round fill large" data-ui='#confirm_deleting_history'>
@@ -225,6 +238,8 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@latest/dist/cdn/material-dynamic-colors.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/restore.js"></script>
     <script src="js/theme.js"></script>
   </body>
 </html>
