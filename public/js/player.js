@@ -33,8 +33,8 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
-  if(!e.target.checked) {
-    e.target.che = true;
+  if(e.target.checked) {
+    e.target.checked = true;
     ui("#confirm_diabling_history");
     e.preventDefault();
   } else {
