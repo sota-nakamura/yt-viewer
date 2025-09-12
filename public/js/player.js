@@ -33,10 +33,11 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
-  e.preventDefault();
   if(e.target.checked) {
+    e.preventDefault();
     ui("#confirm_diabling_history");
   } else {
+    e.target.checked = true;
     localStorage.setItem("use_history", true);
     YThistoryList.innerHTML = "履歴がありません。";
   }
