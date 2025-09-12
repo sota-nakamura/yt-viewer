@@ -128,7 +128,7 @@
             <h6 class="small">履歴削除</h6>
             <div style="color: #777;">保存した動画のURLを削除します。</div>
           </div>
-          <button class="round fill" onclick="ui('confirm_deleting_history')">
+          <button class="round fill large" data-ui='#confirm_deleting_history'>
             <i>delete</i>
             <span>削除</span>
           </button>
@@ -207,7 +207,7 @@
       <h5>続行しますか？</h5>
       <div>削除した履歴は復元できません。</div>
       <nav class="right-align">
-        <button class="border" onclick="ui('#confirm_deleting_history')">キャンセル</button>
+        <button class="border" data-ui='#confirm_deleting_history'>キャンセル</button>
         <button onclick="removeHistory()">削除する</button>
       </nav>
     </dialog>
@@ -215,7 +215,7 @@
       <h5>設定を変更しますか？</h5>
       <div>履歴機能を無効化すると、それまでの履歴が削除されます。本当に無効化しますか？</div>
       <nav class="right-align">
-        <button class="border" onclick="ui('#confirm_disabling_history')">キャンセル</button>
+        <button class="border" data-ui='#confirm_disabling_history'>キャンセル</button>
         <button onclick="disableHistory()">無効化する</button>
       </nav>
     </dialog>
