@@ -8,8 +8,11 @@ var historyFeatureToggler = document.querySelector(".useHistory")
 
 window.addEventListener("load", () => {
   if(!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
-  
-  YThistoryList.innerHTML = YThistory ? "" : "No Items";
+  if(!useHistory) {
+    YThistoryList.innerHTML = "履歴機能を有効化してください。"
+  } else {
+    YThistoryList.innerHTML = YThistory ? "" : "No Items";
+  }
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
   YThistory.forEach((e) => {
     YThistoryList.innerHTML = YThistoryList.innerHTML + `
@@ -28,11 +31,12 @@ urlInput.addEventListener("input", (e) => {
     removeBtn.style.display = "none";
   }
 })
-
+/*
 useHistory.addEventListener("change", (e) => {
   e.preventDefault();
   if(e.target.checked) ui("#confirm_diabling_history");
 });
+*/
 function removeURL() {
   urlInput.value = '';
 }
@@ -62,7 +66,7 @@ function GetVideoId(link) {
 }
 
 function History(id) {
-  if(useHistory) return;
+  if(!useHistory) return;
   if(YThistory[0] === id) return;
   YThistory.push(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
