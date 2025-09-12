@@ -12,17 +12,17 @@ historyFeatureToggler.addEventListener("change", (e) => {
       YThistoryList.innerHTML = "履歴がありません。";
     }
   });
-  function disableHistory() {
-    ui("#confirm_disabling_history");
-    localStorage.removeItem("YThistory");
-    YThistoryList.innerHTML = "履歴機能を有効化してください。";
-    localStorage.setItem("use_history", false);
-    useHistory = false;
-    historyFeatureToggler.checked = false;
-  }
-  
-  function removeHistory() {
-    ui("#confirm_deleting_history");
-    localStorage.removeItem("YThistory");
-    YThistoryList.innerHTML = "履歴がありません。";
-  }
+function disableHistory() {
+  ui("#confirm_disabling_history");
+  localStorage.removeItem("YThistory");
+  YThistoryList.innerHTML = "履歴機能を有効化してください。";
+  localStorage.setItem("use_history", false);
+  useHistory = false;
+  historyFeatureToggler.checked = false;
+}
+
+function removeHistory() {
+  ui("#confirm_deleting_history");
+  localStorage.removeItem("YThistory");
+  YThistoryList.innerHTML = "履歴がありません。";
+}

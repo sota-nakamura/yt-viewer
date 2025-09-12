@@ -2,7 +2,7 @@ const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 var enc =
   "AXH1ezn1I_C7mKu2hKOIlDW6NxRkm1l-Ic1ijxXhCVFO1OS7MWx15Gf_PFD895oCt7oOZ3EXDr-uhSGQHkiCud3hGA-39YNjctRJH5PXutrXEIFbc3-aBjFkN5lKGsgDrQoQp_8_uavg27CTl0AHLGuJiQ4hbJRkrw==";
-  var YThistoryList = document.querySelector(".history");
+var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
 const removeBtn = document.querySelector(".removeBtn");
@@ -63,7 +63,7 @@ function GetVideoId(link) {
   } else return;
 }
 
-function History(id) {
+export function History(id) {
   if (!useHistory) return;
   if (YThistory[0] === id) return;
   YThistory.push(id);
@@ -78,7 +78,7 @@ function History(id) {
   });
 }
 
-function Play(id) {
+export function Play(id) {
   ui("#home");
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}
