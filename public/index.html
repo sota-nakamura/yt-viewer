@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <link href="css/style.css" rel="stylesheet">
     <link rel="icon" href="icons/favicon.ico" sizes="256x256" />
+    <link rel="manifest" href="site.webmanifest" />
     <link href="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet" />
     <style></style>
@@ -30,27 +31,128 @@
             </a>
           </nav>
         </div>
-        <button class="circle transparent" data-ui="#sidenav">
-          <i>menu_open</i>
-        </button>
       </nav>
     </header>
     <main class="responsive">
       <div class="large-space"></div>
-      <div class="max">
-        <article class="middle-align center-align surface no-elevate">
-          <div>
-            <i class="extra">motion_play</i>
-            <h5>YT-Viewer by Satoimo_satosi</h5>
-            <p>lightweight. secure.</p>
-            <div class="space"></div>
-          </div>
-        </article>
+      <div class="page" id="home">
+        <div class="max">
+          <article class="middle-align center-align surface no-elevate">
+            <div>
+              <i class="extra">motion_play</i>
+              <h5>YT-Viewer by Satoimo_satosi</h5>
+              <p>lightweight. secure.</p>
+              <div class="space"></div>
+            </div>
+          </article>
+        </div>
+        <iframe src="" class="iframe small-round max" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="page" id="history">
         <h5>履歴</h5>
         <ul class="history list">Loading</ul>
       </div>
-      <iframe src="" class="iframe small-round max" frameborder="0" allowfullscreen></iframe>
+      <div class="page" id="settings">
+        <div class="field middle-align">
+          <div class="max">
+            <h6>テーマ設定</h6>
+          </div>
+          <nav class="group split">
+            <button class="left-round" id="mode_name">
+              <i>add_circle</i>
+              <span>選択</span>
+            </button>
+            <button class="right-round square">
+              <i>keyboard_arrow_down</i>
+              <menu class="min" id="mode_list">
+                <li name=""><i>contrast</i>システム設定</li>
+                <li name="light"><i>light_mode</i>ライトモード</li>
+                <li name="dark"><i>dark_mode</i>ダークモード</li>
+              </menu>
+            </button>
+          </nav>
+        </div>
+        <div class="border"></div>
+        <div class="field middle-align">
+          <div class="max">
+            <h6>カラー設定</h6>
+          </div>
+          <button class="transparent circle ripple" data-ui="#color_preference">
+            <i>open_in_new</i>
+          </button>
+        </div>
+        <div class="border"></div>
+        <div class="field middle-align">
+          <div class="max">
+            <h6>履歴設定</h6>
+          </div>
+          <button class="round extra" onclick="removeHistory()">
+            <i>delete</i>履歴削除
+          </button>
+        </div>
+        <div class="border"></div>
+        <div class="space"></div>
+        <div class="field middle-align">
+          <div class="max">
+            <h6>ソースコード</h6>
+          </div>
+          <a href="https://gitlab.com/satoimo_satosi/yt-viewer" target="_blank">
+            <i>open_in_new</i>
+          </a>
+        </div>
+      </div>
+      <div class="page left" id="color_preference">
+        <header class="fixed">
+          <button class="transparent circle ripple" data-ui="#settings">
+            <i>arrow_back</i>
+          </button>
+          <h5 class="max">カラー設定</h5>
+        </header>
+        <nav class="wrap" id="theme_list">
+          <button class="chip circle">
+            <i>palette</i>
+            <input type="color" onclick="changeColor(this.value)" name="theme">
+          </button>
+          <button class="chip circle">
+            <i>upload</i>
+            <input type="file" accept="image/*" onclick="getColorFromImage(this.files[0])" name="imageTheme">
+          </button>
+          <button class="circle small red"></button>
+          <button class="circle small pink"></button>
+          <button class="circle small purple"></button>
+          <button class="circle small deep-purple"></button>
+          <button class="circle small indigo"></button>
+          <button class="circle small blue"></button>
+          <button class="circle small light-blue"></button>
+          <button class="circle small cyan"></button>
+          <button class="circle small teal"></button>
+          <button class="circle small green"></button>
+          <button class="circle small light-green"></button>
+          <button class="circle small lime"></button>
+          <button class="circle small yellow"></button>
+          <button class="circle small amber"></button>
+          <button class="circle small orange"></button>
+          <button class="circle small deep-orange"></button>
+          <button class="circle small brown"></button>
+        </nav>
+      </div>
     </main>
+    <footer>
+      <nav class="bottom">
+        <a data-ui="#home">
+          <i>home</i>
+          <div>Home</div>
+        </a>
+        <a data-ui="#history">
+          <i>history</i>
+          <div>History</div>
+        </a>
+        <a data-ui="#settings">
+          <i>settings</i>
+          <div>Settings</div>
+        </a>
+      </nav>
+    </footer>
     <dialog id="dialog">
       <h5>動画視聴の前に</h5>
       <div class="message"></div>
@@ -58,93 +160,6 @@
         <button class="border" onclick="cancel()">キャンセル</button>
         <button onclick="closeDialog()" class="btn">続ける</button>
       </nav>
-    </dialog>
-    <dialog id="sidenav" class="right">
-      <header>
-        <nav>
-          <img class="circle large" src="/icons/favicon.ico">
-          <h6 class="max">YtViewer</h6>
-          <button class="transparent circle large" data-ui="#sidenav">
-            <i>close</i>
-          </button>
-        </nav>
-      </header>
-      <div class="space"></div>
-      <ul class="list">
-        <li class="ripple round">
-          <i>reload</i>
-          <a onclick="location.reload()">再読み込み</a>
-        </li>
-        <li class="ripple round">
-          <i>settings</i>
-          <a data-ui="#settings">設定</a>
-        </li>
-        <div class="border"></div>
-        <li class="ripple round">
-          <i>code</i>
-          <a href="https://gitlab.com/satoimo_satosi/yt-viewer">ソースコード</a>
-        </li>
-      </ul>
-    </dialog>
-    <dialog id="settings">
-      <nav>
-        <h5 class="max">カラー設定</h5>
-        <button class="circle transparent" data-ui="#settings">
-          <i>close</i>
-        </button>
-      </nav>
-      <nav class="wrap" id="theme_list">
-        <button class="chip circle">
-          <i>palette</i>
-          <input type="color" onclick="changeColor(this.value)" name="theme">
-        </button>
-        <button class="chip circle">
-          <i>upload</i>
-          <input type="file" accept="image/*" onclick="getColorFromImage(this.files[0])" name="imageTheme">
-        </button>
-        <button class="circle small red"></button>
-        <button class="circle small pink"></button>
-        <button class="circle small purple"></button>
-        <button class="circle small deep-purple"></button>
-        <button class="circle small indigo"></button>
-        <button class="circle small blue"></button>
-        <button class="circle small light-blue"></button>
-        <button class="circle small cyan"></button>
-        <button class="circle small teal"></button>
-        <button class="circle small green"></button>
-        <button class="circle small light-green"></button>
-        <button class="circle small lime"></button>
-        <button class="circle small yellow"></button>
-        <button class="circle small amber"></button>
-        <button class="circle small orange"></button>
-        <button class="circle small deep-orange"></button>
-        <button class="circle small brown"></button>
-      </nav>
-      <div class="space"></div>
-      <div class="field middle-align">
-        <div class="max">
-          <h6>テーマ設定</h6>
-        </div>
-        <nav class="group connected" id="mode_list">
-          <button class="border left-round" name="dark">
-            <i>dark_mode</i>
-          </button>
-          <button class="border no-round" name="">
-            <i>contrast</i>
-          </button>
-          <button class="border right-round" name="light">
-            <i>light_mode</i>
-          </button>
-        </nav>
-      </div>
-      <div class="field middle-align">
-        <div class="max">
-          <h6>履歴設定</h6>
-        </div>
-        <button class="round extra" onclick="removeHistory()">
-          <i>delete</i>履歴削除
-        </button>
-      </div>
     </dialog>
     <script src="https://cdn.jsdelivr.net/npm/css-to-json@latest/cssjson.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.js"></script>

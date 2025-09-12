@@ -1,5 +1,6 @@
 var colorInput = document.querySelector(`input[name="theme"]`);
-var modeList = document.querySelector("#mode_list").querySelectorAll("button");
+var modeList = document.querySelector("#mode_list").querySelectorAll("li");
+var modeName = document.querySelector("#mode_name");
 var themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
@@ -20,14 +21,20 @@ function changeColor(e) {
 function changeMode(e) {
   mode = e;
   if(e) {
+    if(e === "dark") {
+      modeName.innerHTML = "<i>dark_mode</i><span>ダークモード</span>";
+    } else {
+      modeName.innerHTML = "<i>light_mode</i><span>ライトモード</span>";
+    }
     // set mode to selected one
     ui("mode", e);
-    document.querySelector(`#mode_list > button[name="${mode}"]`).classList.add("active");
+    document.querySelector(`#mode_list > li[name="${mode}"]`).classList.add("active");
     localStorage.setItem("mode", e);
   } else {
     // set mode to device default
+    modeName.innerHTML = "<i>contrast</i><span>システム設定</span>";
     localStorage.removeItem("mode");
-    document.querySelector('#mode_list > button[name=""]').classList.add("active");
+    document.querySelector('#mode_list > li[name=""]').classList.add("active");
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 }
@@ -43,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   changeMode(storedMode);
 });
 deviceDark.addEventListener("change", (event) => {
-  changeMode(mode);
+  if(!storedMode) changeMode(event);
 });
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
