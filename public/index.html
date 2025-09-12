@@ -25,11 +25,16 @@
             <i>search</i>
           </a>
         </div>
-        <button class="small transparent circle wave" onclick="removeURL">
-          <i>cancel</i>
-        </button>
-        <button class="small transparent circle wave" data-ui="#settings">
-          <i>settings</i>
+        <nav class="l m">
+          <button class="small transparent circle wave" onclick="removeURL">
+            <i>cancel</i>
+          </button>
+          <button class="small transparent circle wave" data-ui="#settings">
+            <i>settings</i>
+          </button>
+        </nav>
+        <button class="s circle transparent" data-ui="#sidenav">
+          <i>menu_open</i>
         </button>
       </nav>
     </header>
@@ -56,6 +61,9 @@
         <button class="border" onclick="cancel()">キャンセル</button>
         <button onclick="closeDialog()" class="btn">続ける</button>
       </nav>
+    </dialog>
+    <dialog id="sidenav">
+      
     </dialog>
     <dialog id="settings">
       <nav>
