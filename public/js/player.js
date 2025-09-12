@@ -7,114 +7,120 @@ var useHistory = localStorage.getItem("use_history");
 var historyFeatureToggler = document.querySelector(".useHistory")
 
 window.addEventListener("load", () => {
-  if(!useHistory) {
-    YThistoryList.innerHTML = "履歴機能を有効化してください。"
-  } else {
-    historyFeatureToggler.checked = true;
-    YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
-    if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
-  }
-  video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
-  YThistory.forEach((e) => {
-    YThistoryList.innerHTML = YThistoryList.innerHTML + `
+	if (!useHistory) {
+		YThistoryList.innerHTML = "履歴機能を有効化してください。"
+	} else {
+		historyFeatureToggler.checked = true;
+		YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
+		if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
+	}
+	video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
+	YThistory.forEach((e) => {
+		YThistoryList.innerHTML = YThistoryList.innerHTML + `
       <li>
           <a onclick="Play('${e}')" class="link">https://youtube.com/watch?v=${e}</a>
       </li>
     `;
-  })
+	})
 });
 
 urlInput.addEventListener("input", (e) => {
-  const removeBtn = document.querySelector(".removeBtn")
-  if(e.target.value) {
-    removeBtn.style.display = "inline-flex";
-  } else {
-    removeBtn.style.display = "none";
-  }
+	const removeBtn = document.querySelector(".removeBtn")
+	if (e.target.value) {
+		removeBtn.style.display = "inline-flex";
+	} else {
+		removeBtn.style.display = "none";
+	}
 })
 
 historyFeatureToggler.addEventListener("change", (e) => {
-  if(!e.target.checked) {
-    e.target.checked = true;
-    ui("#confirm_disabling_history");
-    e.preventDefault();
-  } else {
-    localStorage.setItem("use_history", true);
-    useHistory = true;
-    YThistoryList.innerHTML = "履歴がありません。";
-  }
+	if (!e.target.checked) {
+		e.target.checked = true;
+		ui("#confirm_disabling_history");
+		e.preventDefault();
+	} else {
+		localStorage.setItem("use_history", true);
+		useHistory = true;
+		YThistoryList.innerHTML = "履歴がありません。";
+	}
 });
 
 function removeURL() {
-  urlInput.value = '';
+	urlInput.value = '';
 }
 
 function disableHistory() {
-  ui("#confirm_disabling_history");
-  localStorage.removeItem("YThistory");
-  YThistoryList.innerHTML = "履歴機能を有効化してください。"
-  localStorage.setItem("use_history", false);
-  useHistory = false;
-  historyFeatureToggler.checked = false;
+	ui("#confirm_disabling_history");
+	localStorage.removeItem("YThistory");
+	YThistoryList.innerHTML = "履歴機能を有効化してください。"
+	localStorage.setItem("use_history", false);
+	useHistory = false;
+	historyFeatureToggler.checked = false;
 }
 
 function removeHistory() {
-  ui("#confirm_deleting_history");
-  localStorage.removeItem("YThistory");
-  YThistoryList.innerHTML = "履歴がありません。";
+	ui("#confirm_deleting_history");
+	localStorage.removeItem("YThistory");
+	YThistoryList.innerHTML = "履歴がありません。";
 }
 
 function GetVideoId(link) {
-  const url = new URL(link);
-  const host = url.hostname;
-  const path = url.pathname;
-  if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
-    if (path === "/watch") {
-      let params = url.searchParams;
-      let videoId = params.get("v");
-      return videoId;
-    } else if (path === "/live" || "/shorts" || "/embed") {
-      let videoId = `${path.split("/")[2]}`;
-      return videoId;
-    } else return;
-  } else if (host === "youtu.be") {
-    let videoId = `${path.split("/")[1]}`;
-    return videoId;
-  } else return;
+	const url = new URL(link);
+	const host = url.hostname;
+	const path = url.pathname;
+	if (host === "www.youtube.com" || host === "m.youtube.com" || host === "youtube.com") {
+		if (path === "/watch") {
+			let params = url.searchParams;
+			let videoId = params.get("v");
+			return videoId;
+		} else if (path === "/live" || "/shorts" || "/embed") {
+			let videoId = `${path.split("/")[2]}`;
+			return videoId;
+		} else return;
+	} else if (host === "youtu.be") {
+		let videoId = `${path.split("/")[1]}`;
+		return videoId;
+	} else return;
 }
 
 function History(id) {
-  if(!useHistory) return;
-  if(YThistory[0] === id) return;
-  YThistory.push(id);
-  localStorage.setItem("YThistory", JSON.stringify(YThistory));
-  YThistoryList.innerHTML = YThistoryList.innerHTML + `
-          <li>
-              <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
-          </li>
+	if (!useHistory) return;
+	if (YThistory[0] === id) return;
+	YThistoryList.innerHTML = YThistory ? YThistoryList.innerHTML + `
+    <li>
+      <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
+    </li>
+  ` : `
+    <li>
+      <a onclick="Play('${id}')" class="link">https://youtube.com/watch?v=${id}</a>
+    </li>
   `;
+	YThistory.push(id);
+	localStorage.setItem("YThistory", JSON.stringify(YThistory));
 }
 
 function Play(id) {
-  ui("#home");
-  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}`;
-  video.scrollIntoView({
-    behavior: "smooth"
-  });
-  History(id);
+	ui("#home");
+	video.src = `
+    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}
+  `;
+	video.scrollIntoView({
+		behavior: "smooth"
+	});
+	History(id);
 }
 
 function GetYoutube(url) {
-  urlInput.blur();
-  if (url) {
-    const id = GetVideoId(url);
-    Play(id);
-  } else return;
+	urlInput.blur();
+	if (url) {
+		const id = GetVideoId(url);
+		Play(id);
+	} else return;
 }
 
 urlInput.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    GetYoutube(urlInput.value);
-  }
+	if (event.key === "Enter") {
+		event.preventDefault();
+		GetYoutube(urlInput.value);
+	}
 });
