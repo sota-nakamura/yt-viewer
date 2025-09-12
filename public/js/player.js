@@ -21,6 +21,11 @@ function removeURL() {
   urlInput.value === "";
 }
 
+function removeHistory() {
+  localStorage.removeItem("YThistory");
+  location.reload();
+}
+
 function GetVideoId(link) {
   const url = new URL(link);
   const host = url.hostname;
