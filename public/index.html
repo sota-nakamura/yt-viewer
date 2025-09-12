@@ -22,20 +22,15 @@
         <div class="max field border round">
           <input __gchrome_uniqueid="198" name="url" placeholder="URLを入力" />
           <nav class="search_buttons">
-            <a class="large circle wave" onclick="removeURL">
+            <a class="large circle ripple" onclick="removeURL()">
               <i>cancel</i>
             </a>
-            <a class="large circle wave" onclick="GetYoutube(urlInput.value)">
+            <a class="large circle ripple" onclick="GetYoutube(urlInput.value)">
               <i>search</i>
             </a>
           </nav>
         </div>
-        <nav class="l m">
-          <button class="small transparent circle wave" data-ui="#settings">
-            <i>settings</i>
-          </button>
-        </nav>
-        <button class="s circle transparent" data-ui="#sidenav">
+        <button class="circle transparent" data-ui="#sidenav">
           <i>menu_open</i>
         </button>
       </nav>
@@ -52,7 +47,7 @@
           </div>
         </article>
         <h5>履歴</h5>
-        <ul class="history">Loading</ul>
+        <ul class="history list">Loading</ul>
       </div>
       <iframe src="" class="iframe small-round max" frameborder="0" allowfullscreen></iframe>
     </main>
@@ -64,46 +59,26 @@
         <button onclick="closeDialog()" class="btn">続ける</button>
       </nav>
     </dialog>
-    <dialog id="sidenav">
+    <dialog id="sidenav" class="right">
       <header>
         <nav>
           <img class="circle large" src="/icons/favicon.ico">
           <h6 class="max">YtViewer</h6>
-          <button class="transparent circle large">
+          <button class="transparent circle large" data-ui="#sidenav">
             <i>close</i>
           </button>
         </nav>
       </header>
       <div class="space"></div>
       <ul class="list">
-        <li class="wave round">
-          <i>inbox</i>
-          <span class="max">Inbox</span>
-          <b>24</b>
+        <li class="ripple round">
+          <i>settings</i>
+          <a class="max" data-ui="#settings">設定</a>
         </li>
-        <li class="wave round">
-          <i>send</i>
-          <span>Outbox</span>
-        </li>
-        <li class="wave round">
-          <i>favorite</i>
-          <span>favorities</span>
-        </li>
-        <li class="wave round">
-          <i>delete</i>
-          <span>Trash</span>
-        </li>
-        <li class="wave round">
-          <i>fiber_manual_record</i>
-          <span>Label</span>
-        </li>
-        <li class="wave round">
-          <i>change_history</i>
-          <span>Label</span>
-        </li>
-        <li class="wave round">
-          <i>stop</i>
-          <span>Label</span>
+        <div class="border"></div>
+        <li class="ripple round">
+          <i>code</i>
+          <a href="https://gitlab.com/satoimo_satosi/yt-viewer">Source</a>
         </li>
       </ul>
     </dialog>
@@ -162,7 +137,7 @@
         <div class="max">
           <h6>履歴設定</h6>
         </div>
-        <button class="round" onclick="removeHistory">
+        <button class="round extra" onclick="removeHistory()">
           <i>delete</i>履歴削除
         </button>
       </div>

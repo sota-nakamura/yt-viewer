@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
 });
 
 function removeURL() {
-  urlInput.value = "";
+  urlInput.value = '';
 }
 
 function removeHistory() {
