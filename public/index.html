@@ -18,8 +18,8 @@
     </div>
     <header class="header fixed">
       <nav>
-        <img src="icons/favicon.svg" class="circle icon" />
-        <h5 class="l m">YT-Viewer</h5>
+        <img src="icons/favicon.svg" class="circle icon m s" />
+        <h5 class="m">YT-Viewer</h5>
         <div class="max field border round">
           <input __gchrome_uniqueid="198" name="url" placeholder="URLを入力" />
           <nav class="search_buttons">
@@ -33,7 +33,7 @@
         </div>
       </nav>
     </header>
-    <nav class="m left">
+    <nav class="m left fixed">
       <a class="active" data-ui="#home">
         <i>home</i>
         <div>Home</div>
@@ -47,7 +47,13 @@
         <div>Settings</div>
       </a>
     </nav>
-    <nav class="l left drawer">
+    <nav class="l left max fixed">
+      <header class="header fixed">
+        <nav>
+          <img src="icons/favicon.svg" class="circle icon" />
+          <h5>YT-Viewer</h5>
+        </nav>
+      </header>
       <a class="active" data-ui="#home">
         <i>home</i>
         <div>Home</div>
@@ -85,7 +91,7 @@
         <div class="field middle-align">
           <div class="max">
             <h6 class="small">テーマ設定</h6>
-            <div id="mode_name" style="color: var(--surface-bright);">システム設定</div>
+            <div id="mode_name" style="color: var(--surface-variant);">システム設定</div>
           </div>
           <menu class="min" id="mode_list">
             <li name="">システム</li>
@@ -96,7 +102,7 @@
         <div class="field middle-align">
           <div class="max">
             <h6 class="small">カラー設定</h6>
-            <div id="mode_name" style="color: var(--surface-bright);">テーマカラーを設定します。</div>
+            <div id="mode_name" style="color: var(--surface-variant);">テーマカラーを設定します。</div>
           </div>
           <button class="transparent circle ripple" data-ui="#color_preference">
             <i>open_in_new</i>
