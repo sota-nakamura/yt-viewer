@@ -44,11 +44,11 @@ input {
 .search_buttons {
   display: inline;
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 8px;
+  right: 8px;
 }
 .search_buttons > a {
-  padding: 16px;
+  padding: 8px;
 }
 .field>input {
   padding-right: 72px;
