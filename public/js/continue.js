@@ -4,5 +4,5 @@ var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 
 continueFeatureToggler.addEventListener("change", (e) => localStorage.setItem("use_continue", e.target.checked))
 window.addEventListener("load", () => {
-  if(useContinue) continueFeatureToggler.checked = true;
+  continueFeatureToggler.checked = useContinue;
 })
