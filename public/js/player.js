@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
 
 urlInput.addEventListener("input", (e) => {
   const removeBtn = document.querySelector(".removeBtn")
-  if(e.value) {
+  if(e.target.value) {
     removeBtn.style.display = "inline";
   } else {
     removeBtn.style.display = "none";

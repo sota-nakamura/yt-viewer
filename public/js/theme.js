@@ -49,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   changeMode(storedMode);
 });
-deviceDark.addEventListener("change", (event) => {
-  if(!storedMode) changeMode(event);
+deviceDark.addEventListener("change", () => {
+  if(!storedMode) changeMode();
 });
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
