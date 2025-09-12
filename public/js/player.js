@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
 urlInput.addEventListener("input", (e) => {
   const removeBtn = document.querySelector(".removeBtn")
   if(e.target.value) {
-    removeBtn.style.display = "flex";
+    removeBtn.style.display = "inline-flex";
   } else {
     removeBtn.style.display = "none";
   }
