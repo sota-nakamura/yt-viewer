@@ -22,9 +22,9 @@ function changeMode(e) {
   mode = e;
   if(e) {
     if(e === "dark") {
-      modeName.innerHTML = "<i>dark_mode</i><span>ダークモード</span>";
+      modeName.innerHTML = "ダークモード";
     } else {
-      modeName.innerHTML = "<i>light_mode</i><span>ライトモード</span>";
+      modeName.innerHTML = "ライトモード";
     }
     // set mode to selected one
     ui("mode", e);
@@ -32,7 +32,7 @@ function changeMode(e) {
     localStorage.setItem("mode", e);
   } else {
     // set mode to device default
-    modeName.innerHTML = "<i>contrast</i><span>システム設定</span>";
+    modeName.innerHTML = "システム設定";
     localStorage.removeItem("mode");
     document.querySelector('#mode_list > li[name=""]').classList.add("active");
     ui("mode", deviceDark.matches ? "dark" : "light");

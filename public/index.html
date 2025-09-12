@@ -53,26 +53,21 @@
         <ul class="history list">Loading</ul>
       </div>
       <div class="page" id="settings">
+        <div class="small-space"></div>
+        <p class="small">外観設定</p>
+        <div class="small-space"></div>
         <div class="field middle-align">
           <div class="max">
-            <h6>テーマ設定</h6>
+            <p class="large">テーマ設定</p>
+            <div id="mode_name">システム設定</div>
           </div>
-          <nav class="group split">
-            <button class="left-round" id="mode_name">
-              <i>add_circle</i>
-              <span>選択</span>
-            </button>
-            <button class="right-round square">
-              <i>keyboard_arrow_down</i>
-              <menu class="min" id="mode_list">
-                <li name=""><i>contrast</i>システム設定</li>
-                <li name="light"><i>light_mode</i>ライトモード</li>
-                <li name="dark"><i>dark_mode</i>ダークモード</li>
-              </menu>
-            </button>
-          </nav>
+          <i>keyboard_arrow_down</i>
+          <menu class="min" id="mode_list">
+            <li name=""><i>contrast</i>システム設定</li>
+            <li name="light"><i>light_mode</i>ライトモード</li>
+            <li name="dark"><i>dark_mode</i>ダークモード</li>
+          </menu>
         </div>
-        <div class="border"></div>
         <div class="field middle-align">
           <div class="max">
             <h6>カラー設定</h6>
@@ -82,6 +77,9 @@
           </button>
         </div>
         <div class="border"></div>
+        <div class="small-space"></div>
+        <p class="small">外観設定</p>
+        <div class="small-space"></div>
         <div class="field middle-align">
           <div class="max">
             <h6>履歴設定</h6>
@@ -103,10 +101,12 @@
       </div>
       <div class="page left" id="color_preference">
         <header class="fixed">
-          <button class="transparent circle ripple" data-ui="#settings">
-            <i>arrow_back</i>
-          </button>
-          <h5 class="max">カラー設定</h5>
+          <nav>
+            <button class="transparent circle ripple" data-ui="#settings">
+              <i>arrow_back</i>
+            </button>
+            <h5 class="max">カラー設定</h5>
+          </nav>
         </header>
         <nav class="wrap" id="theme_list">
           <button class="chip circle">
@@ -137,9 +137,9 @@
         </nav>
       </div>
     </main>
-    <footer class="max fixed" style="z-index: 10000;">
-      <nav class="bottom">
-        <a data-ui="#home">
+    <footer class="fixed" style="z-index: 10000;">
+      <nav class="bottom max">
+        <a class="active" data-ui="#home">
           <i>home</i>
           <div>Home</div>
         </a>

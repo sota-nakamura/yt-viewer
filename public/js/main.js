@@ -1,13 +1,6 @@
 const loader = document.querySelector(".loading");
-const dialogs = document.querySelectorAll("dialog");
-const detectMobile = window.matchMedia("(max-width: 640px)");
 window.addEventListener("load", async () => {
   loader.classList.add("hidden");
-  dialogs.forEach((el) => {
-    if(!el.classList.length && detectMobile.matches) {
-      el.classList.add("max")
-    }
-  })
 });
 /*
 const message = document.querySelector(".message");
