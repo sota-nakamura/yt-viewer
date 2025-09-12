@@ -8,10 +8,9 @@ var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 continueFeatureToggler.addEventListener("change", (e) => {
     if (!e.target.checked) {
         e.target.checked = true;
-        ui("#confirm_disabling_continue");
+        ui("#confirm_disabling_continue");/
         e.preventDefault();
       } else {
-        localStorage.setItem("use_continue", true);
-        e.target.checked = true;
+        loca
       }
 })
