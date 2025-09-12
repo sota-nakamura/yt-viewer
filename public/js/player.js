@@ -33,7 +33,7 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
-  console.log(e.target.checked);
+  console.log(this.checked);
   if(!e.target.checked) {
     e.target.checked = true;
     ui("#confirm_disabling_history");
