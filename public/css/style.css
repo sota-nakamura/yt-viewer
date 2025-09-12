@@ -44,7 +44,7 @@ input {
 .search_buttons {
   display: inline;
   position: absolute;
-  bottom: 3px;
+  bottom: 4px;
   right: 8px;
   z-index: 50;
 }
