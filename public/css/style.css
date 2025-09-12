@@ -44,6 +44,7 @@ input {
 .search_buttons {
   display: inline;
   position: absolute;
+  top: 32px;
   right: 15px;
 }
 .field>input {
