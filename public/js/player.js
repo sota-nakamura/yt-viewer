@@ -71,7 +71,7 @@ function GetVideoId(link) {
 function History(id) {
   if (!useHistory) return;
   if (YThistory[0] === id) return;
-  YThistory.push(id);
+  YThistory.unshift(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
   YThistory.forEach((el) => {
