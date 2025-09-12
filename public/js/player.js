@@ -33,9 +33,9 @@ urlInput.addEventListener("input", (e) => {
 })
 
 useHistory.addEventListener("change", (e) => {
-  if(e.target.checked) {
-    e.preventDefault();
+  if(!this.checked) {
     ui("#confirm_diabling_history");
+    e.preventDefault();
   } else {
     e.target.checked = true;
     localStorage.setItem("use_history", true);
