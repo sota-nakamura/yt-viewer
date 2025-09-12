@@ -116,7 +116,7 @@
             <div style="color: #777;">視聴した動画のURLを保存します。</div>
           </div>
           <label class="switch icon">
-            <input type="checkbox">
+            <input type="checkbox" class="useHistory">
             <span>
               <i>close</i>
               <i>done</i>
@@ -202,6 +202,9 @@
         <button class="border" onclick="cancel()">キャンセル</button>
         <button onclick="closeDialog()" class="btn">続ける</button>
       </nav>
+    </dialog>
+    <dialog id="confirm_disabling_history">
+      <h5>設定を変更しますか？</h5>
     </dialog>
     <script src="https://cdn.jsdelivr.net/npm/css-to-json@latest/cssjson.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@latest/dist/cdn/beer.min.js"></script>
