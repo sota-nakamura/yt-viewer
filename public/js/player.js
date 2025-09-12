@@ -5,6 +5,7 @@ var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 
 window.addEventListener("load", () => {
+  if(!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
   YThistoryList.innerHTML = YThistory ? "" : "No Items";
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
   YThistory.forEach((e) => {
