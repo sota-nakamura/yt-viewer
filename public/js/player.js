@@ -5,6 +5,7 @@ var enc =
 var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
+var useContinue = localStorage.getItem("use_continue");
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
@@ -13,6 +14,7 @@ window.addEventListener("load", () => {
   } else {
     historyFeatureToggler.checked = true;
     if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
+    if(YThistory && useContinue) Play(YThistory[0]);
     YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
   }
   video.src = `https://www.youtubeeducation.com/embed/wDchsz8nmbo?embed_config={"enc":"${enc}"}`;
