@@ -65,7 +65,7 @@ function GetVideoId(link) {
   } else return;
 }
 
-export function History(id) {
+function History(id) {
   if (!useHistory) return;
   if (YThistory[0] === id) return;
   YThistory.push(id);
@@ -80,7 +80,7 @@ export function History(id) {
   });
 }
 
-export function Play(id) {
+function Play(id) {
   ui("#home");
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}
