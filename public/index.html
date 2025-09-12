@@ -21,14 +21,16 @@
         <h5 class="l m">YT-Viewer</h5>
         <div class="max field border round">
           <input __gchrome_uniqueid="198" name="url" placeholder="URLを入力" />
-          <a class="large circle enterBtn" onclick="GetYoutube(urlInput.value)">
-            <i>search</i>
-          </a>
+          <nav class="search_buttons">
+            <a class="large circle wave" onclick="removeURL">
+              <i>cancel</i>
+            </a>
+            <a class="large circle wave" onclick="GetYoutube(urlInput.value)">
+              <i>search</i>
+            </a>
+          </nav>
         </div>
         <nav class="l m">
-          <button class="small transparent circle wave" onclick="removeURL">
-            <i>cancel</i>
-          </button>
           <button class="small transparent circle wave" data-ui="#settings">
             <i>settings</i>
           </button>
@@ -63,7 +65,47 @@
       </nav>
     </dialog>
     <dialog id="sidenav">
-      
+      <header>
+        <nav>
+          <img class="circle large" src="/icons/favicon.ico">
+          <h6 class="max">YtViewer</h6>
+          <button class="transparent circle large">
+            <i>close</i>
+          </button>
+        </nav>
+      </header>
+      <div class="space"></div>
+      <ul class="list">
+        <li class="wave round">
+          <i>inbox</i>
+          <span class="max">Inbox</span>
+          <b>24</b>
+        </li>
+        <li class="wave round">
+          <i>send</i>
+          <span>Outbox</span>
+        </li>
+        <li class="wave round">
+          <i>favorite</i>
+          <span>favorities</span>
+        </li>
+        <li class="wave round">
+          <i>delete</i>
+          <span>Trash</span>
+        </li>
+        <li class="wave round">
+          <i>fiber_manual_record</i>
+          <span>Label</span>
+        </li>
+        <li class="wave round">
+          <i>change_history</i>
+          <span>Label</span>
+        </li>
+        <li class="wave round">
+          <i>stop</i>
+          <span>Label</span>
+        </li>
+      </ul>
     </dialog>
     <dialog id="settings">
       <nav>

@@ -41,7 +41,7 @@ input {
 .field {
   position: relative;
 }
-.enterBtn {
+.search_buttons {
   position: absolute;
   right: 15px;
 }
