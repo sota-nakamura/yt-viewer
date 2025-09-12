@@ -46,6 +46,7 @@ historyFeatureToggler.addEventListener("change", (e) => {
 });
 
 function removeURL() {
+  removeBtn.style.display = 'none';
 	urlInput.value = '';
 }
 
@@ -122,5 +123,7 @@ urlInput.addEventListener("keypress", function(event) {
 	if (event.key === "Enter") {
 		event.preventDefault();
 		GetYoutube(urlInput.value);
-	}
+	} else if (event.key === "/") {
+    urlInput.focus();
+  }
 });
