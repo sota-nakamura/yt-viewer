@@ -12,7 +12,6 @@ window.addEventListener("load", () => {
   if (!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
   } else {
-    historyFeatureToggler.checked = true;
     if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
     if(YThistory.length && useContinue) {
       Play(YThistory[0]);
