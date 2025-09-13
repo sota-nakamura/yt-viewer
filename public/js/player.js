@@ -6,12 +6,16 @@ var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
 var useContinue = localStorage.getItem("use_continue");
+var continueFeatureToggler = document.querySelector(".useContinue");
+var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
   if (!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
+    continueFeatureToggler.disabled = true;
   } else {
+    continueFeatureToggler.checked = useContinue;
     if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
     if(YThistory.length && useContinue) {
       Play(YThistory[0]);
@@ -37,6 +41,10 @@ urlInput.addEventListener("input", (e) => {
   } else {
     removeBtn.style.display = "none";
   }
+});
+
+continueFeatureToggler.addEventListener("change", (e) => {
+  localStorage.setItem("use_continue", e.target.checked)
 });
 
 function removeURL() {
