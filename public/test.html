@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test page</title>
+    </head>
+    <body>
+        <p class="status"></p>
+        <button onclick="localStorage.removeItem('status')">reset</button>
+        <script>
+            const statusText = document.querySelector(".status");
+            window.addEventListener("beforeunload", (event) => {
+                localStorage.setItem("status", "saved")
+            });
+            window.addEventListener("load", () => {
+                statusText.innerHTML = localStorage.getItem("status") || "none"
+            });
+            document.querySelector("button").addEventListener("click", () => {
+                localStorage.removeItem("status");
+                statusText.innerHTML = "none";
+            });
+        </script>
+    </body>
+</html>
