@@ -1,6 +1,6 @@
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-var enc = "AXH1ezkKywymNWuCqAHEkqBot3j7CuwlyPkK9YFpceOIIGnzNFHjoVasmE0HgoZKbSIHLzMD3BvUZdkFQRL1YF4XI9UUZDoa6qj6qF0Sag9aJWSm_RiryHg6e-tZW5jh7Gd8Nbc8ccF8VchWiuhxOsmt7iK2z8L_4Q==";
+var enc = "AXH1ezkRRJDU6jCGmXzrZcqUv5wOQuqXVO3krrwJUFbNC-0EM8Nm0rP5JXQ8vGB3mqfsjmHuTHPtHfQHtb8QTgtWRIqZT-fDu4qpWCuGQ7tAAchWyVUxX12t3o3sLpBLhqWmIW_B_KaT9qFTRseA41_Tee6NCn-7Hg==";
 var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
@@ -76,7 +76,7 @@ function GetVideoId(link) {
 
 function History(id) {
   if (!useHistory) return;
-  if (YThistory[0] === id) return;
+  if (YThistory.includes(id)) return;
   YThistory.unshift(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
