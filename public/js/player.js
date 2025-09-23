@@ -1,22 +1,23 @@
+var enc = "AXH1ezkRRJDU6jCGmXzrZcqUv5wOQuqXVO3krrwJUFbNC-0EM8Nm0rP5JXQ8vGB3mqfsjmHuTHPtHfQHtb8QTgtWRIqZT-fDu4qpWCuGQ7tAAchWyVUxX12t3o3sLpBLhqWmIW_B_KaT9qFTRseA41_Tee6NCn-7Hg==";
+
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-var enc = "AXH1ezkRRJDU6jCGmXzrZcqUv5wOQuqXVO3krrwJUFbNC-0EM8Nm0rP5JXQ8vGB3mqfsjmHuTHPtHfQHtb8QTgtWRIqZT-fDu4qpWCuGQ7tAAchWyVUxX12t3o3sLpBLhqWmIW_B_KaT9qFTRseA41_Tee6NCn-7Hg==";
 var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
-var useContinue = localStorage.getItem("use_continue");
-var continueFeatureToggler = document.querySelector(".useContinue");
+var usePlayback = localStorage.getItem("playback");
+var playbackFeatureToggler = document.querySelector(".usePlayback");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
   if (!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
-    continueFeatureToggler.disabled = true;
+    playbackFeatureToggler.disabled = true;
   } else {
-    continueFeatureToggler.checked = useContinue;
+    playbackFeatureToggler.checked = usePlayback;
     if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
-    if(YThistory.length && useContinue) {
+    if(YThistory.length && usePlayback) {
       Play(YThistory[0]);
     } else {
       Play("wDchsz8nmbo")
@@ -42,8 +43,8 @@ urlInput.addEventListener("input", (e) => {
   }
 });
 
-continueFeatureToggler.addEventListener("change", (e) => {
-  localStorage.setItem("use_continue", e.target.checked)
+playbackFeatureToggler.addEventListener("change", (e) => {
+  localStorage.setItem("use_playback", e.target.checked)
 });
 
 function removeURL() {
