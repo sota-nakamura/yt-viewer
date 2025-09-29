@@ -5,7 +5,7 @@ const video = document.querySelector(".iframe");
 var YThistoryList = document.querySelector(".history");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 var useHistory = localStorage.getItem("use_history");
-var usePlayback = localStorage.getItem("playback");
+var usePlayback = localStorage.getItem("use_playback");
 var playbackFeatureToggler = document.querySelector(".usePlayback");
 var YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const removeBtn = document.querySelector(".removeBtn");
@@ -77,7 +77,7 @@ function GetVideoId(link) {
 
 function History(id) {
   if (!useHistory) return;
-  if (YThistory.includes(id)) YThistory.filter((el) => el != id);
+  YThistory.filter((el) => el != id);
   YThistory.unshift(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
