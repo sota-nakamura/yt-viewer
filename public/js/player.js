@@ -13,16 +13,23 @@ const removeBtn = document.querySelector(".removeBtn");
 window.addEventListener("load", () => {
   if (!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
+    //プレイバック機能は有効にできない
     playbackFeatureToggler.disabled = true;
   } else {
     playbackFeatureToggler.checked = usePlayback;
-    if (!YThistory) localStorage.setItem("YThistory", JSON.stringify([]));
-    if(YThistory.length && usePlayback) {
-      Play(YThistory[0]);
+    if (!YThistory) {
+      //履歴を初期化
+      localStorage.setItem("YThistory", JSON.stringify([]));
+      Play("wDchsz8nmbo");
     } else {
-      Play("wDchsz8nmbo")
+      //履歴が空でないか、プレイバック機能が有効か判定
+      if(YThistory.length && usePlayback) {
+        Play(YThistory[0]);
+      } else {
+        Play("wDchsz8nmbo");
+      }
+      YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
     }
-    YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
   }
   YThistory.forEach((e) => {
     YThistoryList.innerHTML =
@@ -59,7 +66,9 @@ function GetVideoId(link) {
   if (
     host === "www.youtube.com" ||
     host === "m.youtube.com" ||
-    host === "youtube.com"
+    host === "youtube.com" ||
+    host === "www.youtube-nocookie.com" ||
+    host === "www.youtubeeducation.com"
   ) {
     if (path === "/watch") {
       let params = url.searchParams;

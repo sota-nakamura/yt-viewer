@@ -11,6 +11,9 @@ historyFeatureToggler.addEventListener("change", (e) => {
     YThistoryList.innerHTML = "履歴がありません。";
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  historyFeatureToggler.checked = useHistory;
+});
 function disableHistory() {
   ui("#confirm_disabling_history");
   localStorage.removeItem("YThistory");
