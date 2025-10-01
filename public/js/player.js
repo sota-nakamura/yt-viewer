@@ -1,4 +1,4 @@
-var enc = "AXH1ezm_hEd9ta9Nsq3ze0OqSFu1tRGx3jLsPLFXzmlgJVDsT59V6rk5gBT8pPA5riyJM1Bk2xUtxKg1rhfBhmW9NXMYaUAepWjxJGlZI5XBLtHGaKMGCGjaELFjrO2f_LkVAzGOEsTzgVs-B5ZnOyaLtqtUz-zMrWt-J2vxDtexDpqe";
+var enc = "AXH1ezn8LmE_RfD5crlPUWKwtMvmeuRwAMRShiW-UhWgmSaYH6f0HWJctN6OPpY4buT7kwo7Yn1Ktuph1pKVDljuiNW-cEbNDS0r107bMN5eRy5VE6hDJmSSpfE0ON48i9fq0FVbnihJXNtMFtiMXt8E-kkF0hvZOQ==";
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
@@ -22,7 +22,7 @@ window.addEventListener("load", () => {
       localStorage.setItem("YThistory", JSON.stringify([]));
       Play("wDchsz8nmbo");
     } else {
-      //履歴が空でないか、プレイバック機能が有効か判定
+      //履歴が空でない、かつプレイバック機能が有効
       if(YThistory.length && usePlayback) {
         Play(YThistory[0]);
       } else {
@@ -63,13 +63,15 @@ function GetVideoId(link) {
   const url = new URL(link);
   const host = url.hostname;
   const path = url.pathname;
-  if (
-    host === "www.youtube.com" ||
-    host === "m.youtube.com" ||
-    host === "youtube.com" ||
-    host === "www.youtube-nocookie.com" ||
-    host === "www.youtubeeducation.com"
-  ) {
+  const hostList = [
+    "www.youtube.com",
+    "m.youtube.com",
+    "youtube.com",
+    "youtu.be",
+    "www.youtube-education.com",
+     "www.youtube-nocookie.com"
+  ]
+  if (hostList.includes(host)) {
     if (path === "/watch") {
       let params = url.searchParams;
       let videoId = params.get("v");
@@ -77,10 +79,10 @@ function GetVideoId(link) {
     } else if (path === "/live" || "/shorts" || "/embed") {
       let videoId = `${path.split("/")[2]}`;
       return videoId;
-    } else return;
-  } else if (host === "youtu.be") {
-    let videoId = `${path.split("/")[1]}`;
-    return videoId;
+    } else {
+      let videoId = `${path.split("/")[1]}`;
+      return videoId;
+    }
   } else return;
 }
 
