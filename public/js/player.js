@@ -1,4 +1,4 @@
-var enc = "AXH1eznvwnp3slO5y8zqhtUYpCg4bgG35dp5RIaYLoCb4zlgCwPSyPdXpFp5Dr7m5wws_-nnovGH_acj3GlmSZna7lRIA5weHRO-RnrzaXfAVPfuIoFij6D359hFhhZ8Fab5h8cFidgZO_NFum0Bq4WaDLog6aJtTGmCosrneF0t6cxJ";
+var enc = "AXH1ezm_hEd9ta9Nsq3ze0OqSFu1tRGx3jLsPLFXzmlgJVDsT59V6rk5gBT8pPA5riyJM1Bk2xUtxKg1rhfBhmW9NXMYaUAepWjxJGlZI5XBLtHGaKMGCGjaELFjrO2f_LkVAzGOEsTzgVs-B5ZnOyaLtqtUz-zMrWt-J2vxDtexDpqe";
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
