@@ -1,4 +1,4 @@
-var enc = "AXH1ezn8LmE_RfD5crlPUWKwtMvmeuRwAMRShiW-UhWgmSaYH6f0HWJctN6OPpY4buT7kwo7Yn1Ktuph1pKVDljuiNW-cEbNDS0r107bMN5eRy5VE6hDJmSSpfE0ON48i9fq0FVbnihJXNtMFtiMXt8E-kkF0hvZOQ==";
+var enc = "AXH1eznmiAUorUg_oLkEO5O9-OzuBaQGNo2fyJafC_JEZIEtPrBMsqUKA7kLjqd7S1kGRmFCPlssQcPVtDAAlGjjkDjst3B5iur5APos8MROzvIu8yDQ71pT_b65Q7vqrIb0YSDkei4AuJP7GJcwNR-uazVqMn148Q==";
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
@@ -77,10 +77,10 @@ function GetVideoId(link) {
       let videoId = params.get("v");
       return videoId;
     } else if (path === "/live" || "/shorts" || "/embed") {
-      let videoId = `${path.split("/")[2]}`;
+      let videoId = path.split("/")[2];
       return videoId;
     } else {
-      let videoId = `${path.split("/")[1]}`;
+      let videoId = path.split("/")[1];
       return videoId;
     }
   } else return;
