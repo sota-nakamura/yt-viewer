@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
       Play("wDchsz8nmbo");
     } else {
       //履歴が空でない、かつプレイバック機能が有効
-      if(YThistory.length && usePlayback) {
+      if (YThistory.length && usePlayback) {
         Play(YThistory[0]);
       } else {
         Play("wDchsz8nmbo");
@@ -51,7 +51,7 @@ urlInput.addEventListener("input", (e) => {
 });
 
 playbackFeatureToggler.addEventListener("change", (e) => {
-  localStorage.setItem("use_playback", e.target.checked)
+  localStorage.setItem("use_playback", e.target.checked);
 });
 
 function removeURL() {
@@ -69,14 +69,19 @@ function GetVideoId(link) {
     "youtube.com",
     "youtu.be",
     "www.youtube-education.com",
-     "www.youtube-nocookie.com"
-  ]
+    "www.youtube-nocookie.com"
+  ];
+  const pathList = [
+    "/live",
+    "/shorts",
+    "/embed"
+  ];
   if (hostList.includes(host)) {
     if (path === "/watch") {
       let params = url.searchParams;
       let videoId = params.get("v");
       return videoId;
-    } else if (path === "/live" || "/shorts" || "/embed") {
+    } else if (pathList.includes(path)) {
       let videoId = path.split("/")[2];
       return videoId;
     } else {
@@ -97,7 +102,7 @@ function History(id) {
       <li>
         <a onclick="Play('${el}')" class="link">https://youtube.com/watch?v=${el}</a>
       </li>
-    `
+    `;
   });
 }
 
@@ -120,7 +125,7 @@ function GetYoutube(url) {
   } else return;
 }
 
-urlInput.addEventListener("keypress", function (event) {
+urlInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     GetYoutube(urlInput.value);
