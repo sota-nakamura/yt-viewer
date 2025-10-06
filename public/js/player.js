@@ -62,7 +62,7 @@ function removeURL() {
 function GetVideoId(link) {
   const url = new URL(link);
   const host = url.hostname;
-  const path = url.pathname;
+  const path = url.pathname.split("/");
   const hostList = [
     "www.youtube.com",
     "m.youtube.com",
@@ -72,20 +72,20 @@ function GetVideoId(link) {
     "www.youtube-nocookie.com"
   ];
   const pathList = [
-    "/live",
-    "/shorts",
-    "/embed"
+    "live",
+    "shorts",
+    "embed"
   ];
   if (hostList.includes(host)) {
-    if (path === "/watch") {
+    if (path[1] === "watch") {
       let params = url.searchParams;
       let videoId = params.get("v");
       return videoId;
-    } else if (pathList.includes(path)) {
-      let videoId = path.split("/")[2];
+    } else if (pathList.includes(path[1])) {
+      let videoId = path[2];
       return videoId;
     } else {
-      let videoId = path.split("/")[1];
+      let videoId = path[1];
       return videoId;
     }
   } else return;
