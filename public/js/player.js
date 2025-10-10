@@ -70,6 +70,7 @@ function removeURL() {
   urlInput.value = "";
 }
 function GetTime(seconds) {
+  if(!seconds) return '0:00';
   const hour = Math.floor(seconds % 86400 / 3600);
     const min = Math.floor(seconds % 3600 / 60);
     const sec = seconds % 60
@@ -115,10 +116,10 @@ function GetVideoId(link) {
   } else return;
 }
 
-function History(id) {
+function History(item) {
   if (!useHistory) return;
-  YThistory.filter((el) => el.id != id);
-  YThistory.unshift(id);
+  YThistory.filter((el) => el.id !== item.id);
+  YThistory.unshift(item);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
   YThistory.forEach((e) => {
@@ -144,13 +145,15 @@ function History(id) {
 function Play(id, sec) {
   ui("#home");
   video.src = `
-    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
+    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec ? sec : '0'}
   `;
   video.scrollIntoView({
     behavior: "smooth",
   });
   History({
-    video
+    'title': video.contentDocument.querySelector('.yt-title-link').textContent,
+    'id': id,
+    'time': sec ? sec : 0
   });
 }
 
