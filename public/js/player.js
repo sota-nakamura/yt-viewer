@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
       if (YThistory.length && usePlayback) {
         Play(YThistory[0].id, YThistory[0].time);
       } else {
-        Play("wDchsz8nmbo", 0);
+        Play("wDchsz8nmbo");
       }
       YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
     }
@@ -69,18 +69,17 @@ function removeURL() {
   removeBtn.style.display = "none";
   urlInput.value = "";
 }
-function GetTime(seconds) {
-  if(!seconds) return '0:00';
+function GetTime(seconds = 0) {
   const hour = Math.floor(seconds % 86400 / 3600);
     const min = Math.floor(seconds % 3600 / 60);
     const sec = seconds % 60
     let time = '';
     if(hour !==0 ) {
-      time = `${hour}:${min}:${sec}:`;
+      time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}:`;
     }else if(min !==0) {
-      time = `${min}:${sec}:`;
+      time = `${min}:${sec >= 10 ? sec : `0${sec}`}:`;
     }else {
-      time = `0:${sec}`;
+      time = `0:${sec >= 10 ? sec : `0${sec}`}`;
     }
     return time;
 }
@@ -142,7 +141,7 @@ function History(item) {
   });
 }
 
-function Play(id, sec) {
+function Play(id, sec = 0) {
   ui("#home");
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec ? sec : '0'}
