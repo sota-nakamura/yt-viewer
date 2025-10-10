@@ -154,9 +154,9 @@ function Play(id, sec = 0) {
     behavior: "smooth",
   });
   History({
-    'title': video.contentDocument.querySelector('.yt-title-link').textContent,
-    'id': id,
-    'time': sec
+    title: video.contentDocument.querySelector('.yt-title-link').textContent,
+    id: id,
+    time: sec
   });
 }
 
