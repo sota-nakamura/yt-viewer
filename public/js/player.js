@@ -141,9 +141,10 @@ function History(item) {
 }
 
 function Play(id, sec = 0) {
+  console.log('im here')
   ui("#home");
   video.src = `
-    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec ? sec : '0'}
+    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
   video.scrollIntoView({
     behavior: "smooth",
@@ -151,7 +152,7 @@ function Play(id, sec = 0) {
   History({
     'title': video.contentDocument.querySelector('.yt-title-link').textContent,
     'id': id,
-    'time': sec ? sec : 0
+    'time': sec
   });
 }
 
