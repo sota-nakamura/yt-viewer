@@ -24,9 +24,9 @@ window.addEventListener("load", () => {
     } else {
       //履歴が空でない、かつプレイバック機能が有効
       if (YThistory.length && usePlayback) {
-        Play(YThistory[0]);
+        Play(YThistory[0].id, YThistory[0].time);
       } else {
-        Play("wDchsz8nmbo");
+        Play("wDchsz8nmbo", 0);
       }
       YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
     }
@@ -36,7 +36,18 @@ window.addEventListener("load", () => {
       YThistoryList.innerHTML +
       `
       <li>
-          <a onclick="Play('${e}')" class="link">https://youtube.com/watch?v=${e}</a>
+        <button class="circle" onclick="Play('${e.id}', ${e.time})">
+          <i>play</i>
+        </button>
+        <div class="max">
+          <h6 class="small">${e.title}</h6>
+          <div>時間: ${GetTime(e.time)}</div>
+        </div>
+        <label>
+          <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
+            <i>copy</i>
+          </a>
+        </label>
       </li>
     `;
   });
@@ -58,7 +69,20 @@ function removeURL() {
   removeBtn.style.display = "none";
   urlInput.value = "";
 }
-
+function GetTime(seconds) {
+  const hour = Math.floor(seconds % 86400 / 3600);
+    const min = Math.floor(seconds % 3600 / 60);
+    const sec = seconds % 60
+    let time = '';
+    if(hour !==0 ) {
+      time = `${hour}:${min}:${sec}:`;
+    }else if(min !==0) {
+      time = `${min}:${sec}:`;
+    }else {
+      time = `0:${sec}`;
+    }
+    return time;
+}
 function GetVideoId(link) {
   const url = new URL(link);
   const host = url.hostname;
@@ -93,28 +117,41 @@ function GetVideoId(link) {
 
 function History(id) {
   if (!useHistory) return;
-  YThistory.filter((el) => el != id);
+  YThistory.filter((el) => el.id != id);
   YThistory.unshift(id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
-  YThistory.forEach((el) => {
+  YThistory.forEach((e) => {
     YThistoryList.innerHTML = YThistoryList.innerHTML + `
       <li>
-        <a onclick="Play('${el}')" class="link">https://youtube.com/watch?v=${el}</a>
+        <button class="circle" onclick="Play('${e.id}', ${e.time})">
+          <i>play</i>
+        </button>
+        <div class="max">
+          <h6 class="small">${e.title}</h6>
+          <div>時間: ${GetTime(e.time)}</div>
+        </div>
+        <label>
+          <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
+            <i>copy</i>
+          </a>
+        </label>
       </li>
     `;
   });
 }
 
-function Play(id) {
+function Play(id, sec) {
   ui("#home");
   video.src = `
-    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}
+    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
   video.scrollIntoView({
     behavior: "smooth",
   });
-  History(id);
+  History({
+    video
+  });
 }
 
 function GetYoutube(url) {
