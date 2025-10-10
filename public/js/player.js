@@ -7,7 +7,6 @@ const YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const useHistory = localStorage.getItem("use_history");
 const usePlayback = localStorage.getItem("use_playback");
 const playbackFeatureToggler = document.querySelector(".usePlayback");
-const YThistory = localStorage.getItem("YThistory") ? JSON.parse(localStorage.getItem("YThistory")) : JSON.parse([]);
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
