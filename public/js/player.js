@@ -1,13 +1,13 @@
-const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+let enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
 
-const urlInput = document.querySelector('input[name="url"]');
-const video = document.querySelector(".iframe");
-const YThistoryList = document.querySelector(".history");
-const YThistory = JSON.parse(localStorage.getItem("YThistory"));
-const useHistory = localStorage.getItem("use_history");
-const usePlayback = localStorage.getItem("use_playback");
-const playbackFeatureToggler = document.querySelector(".usePlayback");
-const removeBtn = document.querySelector(".removeBtn");
+let urlInput = document.querySelector('input[name="url"]');
+let video = document.querySelector(".iframe");
+let YThistoryList = document.querySelector(".history");
+let YThistory = JSON.parse(localStorage.getItem("YThistory"));
+let useHistory = localStorage.getItem("use_history");
+let usePlayback = localStorage.getItem("use_playback");
+let playbackFeatureToggler = document.querySelector(".usePlayback");
+let removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
   if (!useHistory) {
@@ -69,9 +69,9 @@ function removeURL() {
   urlInput.value = "";
 }
 function GetTime(seconds = 0) {
-  const hour = Math.floor(seconds % 86400 / 3600);
-    const min = Math.floor(seconds % 3600 / 60);
-    const sec = seconds % 60
+  let hour = Math.floor(seconds % 86400 / 3600);
+    let min = Math.floor(seconds % 3600 / 60);
+    let sec = seconds % 60
     let time = '';
     if(hour !==0 ) {
       time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}:`;
@@ -83,10 +83,10 @@ function GetTime(seconds = 0) {
     return time;
 }
 function GetVideoId(link) {
-  const url = new URL(link);
-  const host = url.hostname;
-  const path = url.pathname.split("/");
-  const hostList = [
+  let url = new URL(link);
+  let host = url.hostname;
+  let path = url.pathname.split("/");
+  let hostList = [
     "www.youtube.com",
     "m.youtube.com",
     "youtube.com",
@@ -94,7 +94,7 @@ function GetVideoId(link) {
     "www.youtube-education.com",
     "www.youtube-nocookie.com"
   ];
-  const pathList = [
+  let pathList = [
     "live",
     "shorts",
     "embed"
@@ -158,7 +158,7 @@ function Play(id, sec = 0) {
 function GetYoutube(url) {
   urlInput.blur();
   if (url) {
-    const id = GetVideoId(url);
+    let id = GetVideoId(url);
     Play(id);
   } else return;
 }
