@@ -10,17 +10,22 @@ let playbackFeatureToggler = document.querySelector(".usePlayback");
 let removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
+  console.log('im here');
   if (!useHistory) {
+    console.log('im here 1');
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
     //プレイバック機能は有効にできない
     playbackFeatureToggler.disabled = true;
   } else {
+    console.log('im here 2');
     playbackFeatureToggler.checked = usePlayback;
     if (!YThistory) {
+      console.log('im here 3');
       //履歴を初期化
       localStorage.setItem("YThistory", JSON.stringify([]));
       Play("wDchsz8nmbo");
     } else {
+      console.log('im here 4');
       //履歴が空でない、かつプレイバック機能が有効
       if (YThistory.length && usePlayback) {
         Play(YThistory[0].id, YThistory[0].time);
@@ -141,7 +146,6 @@ function History(item) {
 }
 
 function Play(id, sec = 0) {
-  console.log('im here')
   ui("#home");
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
