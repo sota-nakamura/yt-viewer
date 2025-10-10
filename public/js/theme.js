@@ -1,15 +1,15 @@
-var colorInput = document.querySelector(`input[name="theme"]`);
-var modeList = document.querySelector("#mode_list").querySelectorAll("li");
-var modeName = document.querySelector("#mode_name");
-var themeList = document
+const colorInput = document.querySelector(`input[name="theme"]`);
+const modeList = document.querySelector("#mode_list").querySelectorAll("li");
+const modeName = document.querySelector("#mode_name");
+const themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
-var themeColor = document.querySelector('meta[name="theme-color"]');
-var deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
-var mode = "";
-var theme = "";
-var storedMode = localStorage.getItem("mode");
-var storedTheme = localStorage.getItem("theme");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
+const mode = "";
+const theme = "";
+const storedMode = localStorage.getItem("mode");
+const storedTheme = localStorage.getItem("theme");
 function changeColor(e) {
   // set theme
   theme = e;
@@ -55,14 +55,14 @@ deviceDark.addEventListener("change", () => {
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
     modeList.forEach(el => el.classList.remove("active"));
-    var name = e.getAttribute("name");
+    const name = e.getAttribute("name");
     changeMode(name);
   });
 });
 themeList.forEach((e) => {
   e.addEventListener("click", () => {
-    var rgb = getComputedStyle(e).backgroundColor;
-    var color = `#${rgb
+    const rgb = getComputedStyle(e).backgroundColor;
+    const color = `#${rgb
         .match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
         .slice(1)
         .map((n) => parseInt(n, 10).toString(16).padStart(2, "0"))

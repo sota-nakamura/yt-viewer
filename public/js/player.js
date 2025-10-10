@@ -1,13 +1,13 @@
-var enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-var YThistoryList = document.querySelector(".history");
-var YThistory = JSON.parse(localStorage.getItem("YThistory"));
-var useHistory = localStorage.getItem("use_history");
-var usePlayback = localStorage.getItem("use_playback");
-var playbackFeatureToggler = document.querySelector(".usePlayback");
-var YThistory = JSON.parse(localStorage.getItem("YThistory"));
+const YThistoryList = document.querySelector(".history");
+const YThistory = JSON.parse(localStorage.getItem("YThistory"));
+const useHistory = localStorage.getItem("use_history");
+const usePlayback = localStorage.getItem("use_playback");
+const playbackFeatureToggler = document.querySelector(".usePlayback");
+const YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {

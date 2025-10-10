@@ -6,7 +6,7 @@ window.addEventListener("load", async () => {
 const message = document.querySelector(".message");
 const btn = document.querySelector(".btn");
 const timeStamp = Date.now()
-var attempts = 0;
+const attempts = 0;
 const messages = [
   "本当にYoutubeを見るのですか？それは将来本当に後悔しない行為ですか？",
   "Youtubeを見るのですか？今日やるべきタスクは完了している、もしくは完了の目処が立っていますか？",
@@ -16,11 +16,11 @@ const messages = [
   "集中が散漫になったからと言って、動画視聴に時間を使おうとしていませんか？",
 ];
 function randomMessage() {
-  var a = messages.length;
+  const a = messages.length;
 
   while (a) {
-    var j = Math.floor(Math.random() * a);
-    var t = messages[--a];
+    const j = Math.floor(Math.random() * a);
+    const t = messages[--a];
     messages[a] = messages[j];
     messages[j] = t;
   }
@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     btn.disabled = false;
   }, 5000);
   setInterval(() => {
-    var time = Data.now();
-    var timeDiff = time - timeStamp;
+    const time = Data.now();
+    const timeDiff = time - timeStamp;
     if(timeDiff >= 60 * 60 * 1000) {
       message = "YouTubeの視聴を続けますか？"
       ui("#dialog");
