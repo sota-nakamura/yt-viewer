@@ -1,16 +1,16 @@
 
-let enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
 
-let urlInput = document.querySelector('input[name="url"]');
-let video = document.querySelector(".iframe");
-let YThistoryList = document.querySelector(".history");
+const urlInput = document.querySelector('input[name="url"]');
+const video = document.querySelector(".iframe");
+const YThistoryList = document.querySelector(".history");
 let YThistory = JSON.parse(localStorage.getItem("YThistory"));
-let useHistory = localStorage.getItem("use_history");
+const useHistory = localStorage.getItem("use_history");
 let historyHTML = '';
-let usePlayback = localStorage.getItem("use_playback");
-let playbackFeatureToggler = document.querySelector(".usePlayback");
-let removeBtn = document.querySelector(".removeBtn");
-let hostList = [
+const usePlayback = localStorage.getItem("use_playback");
+const playbackFeatureToggler = document.querySelector(".usePlayback");
+const removeBtn = document.querySelector(".removeBtn");
+const hostList = [
   "www.youtube.com",
   "m.youtube.com",
   "youtube.com",
@@ -92,12 +92,12 @@ function addZero(number) {
   }
 }
 function formatTime(seconds = 0) {
-  let hour = Math.floor(seconds % 86400 / 3600);
-    let min = Math.floor(seconds % 3600 / 60);
-    let sec = seconds % 60
+  const hour = Math.floor(seconds % 86400 / 3600);
+    const min = Math.floor(seconds % 3600 / 60);
+    const sec = seconds % 60
     let time = '';
     if(hour !==0 ) {
-      //一桁の場合に頭にゼロ追加（汚ねえコードだ）
+      //ゼロパディング処理
       time = `${hour}:${addZero(min)}:${addZero(sec)}`;
     }else if(min !==0) {
       time = `${min}:${addZero(sec)}`;
@@ -107,10 +107,10 @@ function formatTime(seconds = 0) {
     return time;
 }
 function getVideoId(value) {
-  let url = new URL(value);
-  let host = url.hostname;
-  let path = url.pathname.split("/");
-  let pathList = [
+  const url = new URL(value);
+  const host = url.hostname;
+  const path = url.pathname.split("/");
+  const pathList = [
     "live",
     "shorts",
     "embed"
@@ -118,20 +118,20 @@ function getVideoId(value) {
   //urlのhostチェック(厳密には youtu.beはパスが違ったりと 分岐が必要だが割愛)
   if (hostList.includes(host)) {
     if (path[1] === "watch") {
-      let params = url.searchParams;
-      let videoId = params.get("v");
+      const params = url.searchParams;
+      const videoId = params.get("v");
       return videoId;
     } else if (pathList.includes(path[1])) {
-      let videoId = path[2];
+      const videoId = path[2];
       return videoId;
     } else {
-      let videoId = path[1];
+      const videoId = path[1];
       return videoId;
     }
   } else return;
 }
 
-function getVideoTitle(id) {
+async function getVideoTitle(id) {
   const videoUrl = `https://www.youtube.com/watch?v=${id}`;
   const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`;
 
@@ -153,11 +153,11 @@ function getVideoTitle(id) {
 }
 
 function getTimeStamp(value) {
-  let url = new URL(value);
-  let host = url.hostname;
+  const url = new URL(value);
+  const host = url.hostname;
   if(hostList.includes(host)) {
-    let params = url.searchParams;
-    let timeStamp = params.get('t') || undefined;
+    const params = url.searchParams;
+    const timeStamp = params.get('t') || undefined;
     return timeStamp;
   }
 }
@@ -168,6 +168,7 @@ function storeHistory(item) {
   YThistory.unshift(item);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
+  historyHTML = "";
   YThistory.forEach((e) => {
     historyHTML = historyHTML + `
       <li>
@@ -198,7 +199,7 @@ async function Play(id, sec = 0) {
     behavior: "smooth",
   });
   storeHistory({
-    title: getVideoTitle(id),
+    title: await getVideoTitle(id),
     id: id,
     time: sec
   });
@@ -207,8 +208,8 @@ async function Play(id, sec = 0) {
 async function getYoutube(url) {
   urlInput.blur();
   if (url) {
-    let id = getVideoId(url);
-    let timeStamp = getTimeStamp(url);
+    const id = getVideoId(url);
+    const timeStamp = getTimeStamp(url);
     await Play(id, timeStamp);
   } else return;
 }
