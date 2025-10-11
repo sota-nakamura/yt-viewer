@@ -91,7 +91,7 @@ function getVideoId(value) {
 
 async function getVideoTitle(id) {
   const videoUrl = `https://www.youtube.com/watch?v=${id}`;
-  const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`;
+  const oembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
   let title = "タイトル不明"; // デフォルト値
 
   try {
