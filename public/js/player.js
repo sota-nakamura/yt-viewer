@@ -6,7 +6,8 @@ let YThistory = JSON.parse(localStorage.getItem("YThistory"));
 const useHistory = localStorage.getItem("use_history") === "true";
 const usePlayback = localStorage.getItem("use_playback") === "true";
 const playbackFeatureToggler = document.querySelector(".usePlayback");
-const removeBtn = document.querySelector(".removeBtn");
+const removeBtn = document.querySelector(".remove_button");
+const searchBtn = document.querySelector('.search_button');
 const hostList = [
   "www.youtube.com",
   "m.youtube.com",
@@ -189,6 +190,10 @@ urlInput.addEventListener("input", (e) => {
 playbackFeatureToggler.addEventListener("change", (e) => {
   localStorage.setItem("use_playback", e.target.checked);
 });
+
+removeBtn.addEventListener('click', urlInput.value = '');
+
+searchBtn.addEventListener('click', getYoutube(urlInput.value));
 
 urlInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
