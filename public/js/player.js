@@ -19,7 +19,7 @@ let hostList = [
   "www.youtube-nocookie.com"
 ];
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   if (!useHistory) {
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
     //プレイバック機能は有効にできない
@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
       historyHTML +
       `
       <li>
-        <button class="circle" onclick="await Play('${e.id}', ${e.time})">
+        <button class="circle" onclick="Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
@@ -171,7 +171,7 @@ function storeHistory(item) {
   YThistory.forEach((e) => {
     historyHTML = historyHTML + `
       <li>
-        <button class="circle" onclick="await Play('${e.id}', ${e.time})">
+        <button class="circle" onclick="Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
@@ -204,7 +204,7 @@ async function Play(id, sec = 0) {
   });
 }
 
-function getYoutube(url) {
+async function getYoutube(url) {
   urlInput.blur();
   if (url) {
     let id = getVideoId(url);
