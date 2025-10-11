@@ -1,25 +1,41 @@
+import {
+  getHistoryState,
+  createHistoryListHTML
+} from './history_ui.js';
 let historyFeatureToggler = document.querySelector(".useHistory");
-let useHistory = localStorage.getItem("use_history") === "true";
-let YThistoryList = document.querySelector(".history");
+const YThistoryList = document.querySelector(".history");
+
+window.disableHistory = disableHistory;
+window.removeHistory = removeHistory;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const {
+    useHistory
+  } = getHistoryState();
+  if (historyFeatureToggler) {
+    historyFeatureToggler.checked = useHistory;
+  }
+});
 historyFeatureToggler.addEventListener("change", (e) => {
   if (!e.target.checked) {
     e.target.checked = true;
     ui("#confirm_disabling_history");
     e.preventDefault();
   } else {
-    localStorage.setItem("use_history", true);
-    YThistoryList.innerHTML = "履歴がありません。";
+    // 履歴を有効化
+    localStorage.setItem("use_history", "true");
+    // UIを更新
+    const { YThistory } = getHistoryState();
+    YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
   }
 });
-document.addEventListener("DOMContentLoaded", () => {
-  historyFeatureToggler.checked = useHistory;
-});
+
 function disableHistory() {
   ui("#confirm_disabling_history");
   localStorage.removeItem("YThistory");
-  YThistoryList.innerHTML = "履歴機能を有効化してください。";
-  localStorage.setItem("use_history", false);
+  localStorage.setItem("use_history", "false");
   historyFeatureToggler.checked = false;
+  YThistoryList.innerHTML = "履歴機能を有効化してください。";
 }
 
 function removeHistory() {

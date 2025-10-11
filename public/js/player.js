@@ -1,142 +1,31 @@
-const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+import {
+  getVideoId,
+  getTimeStamp,
+  getVideoTitle
+} from './youtube_util.js';
+import {
+  getHistoryState,
+  createHistoryListHTML,
+  storeHistory
+} from './history_ui.js';
+import {
+  initializePlaybackOnLoad
+} from './playback.js';
+
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 const YThistoryList = document.querySelector(".history");
-let YThistory = JSON.parse(localStorage.getItem("YThistory"));
-const useHistory = localStorage.getItem("use_history") === "true";
-const usePlayback = localStorage.getItem("use_playback") === "true";
 const playbackFeatureToggler = document.querySelector(".usePlayback");
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
-const hostList = [
-  "www.youtube.com",
-  "m.youtube.com",
-  "youtube.com",
-  "youtu.be",
-  "www.youtubeeducation.com",
-  "www.youtube-nocookie.com"
-];
 
-function escapeHtml(unsafe) {
-  return unsafe
-  .replace(/&/g, "&amp;")
-  .replace(/</g, "&lt;")
-  .replace(/>/g, "&gt;")
-  .replace(/"/g, "&quot;")
-  .replace(/'/g, "&#039;"); // or &#39;
-}
-
-function formatTime(seconds = 0) {
-  const hour = Math.floor(seconds % 86400 / 3600);
-  const min = Math.floor(seconds % 3600 / 60);
-  const sec = seconds % 60
-  let time = '';
-  if (hour !== 0) {
-    //ゼロパディング処理+フォーマット
-    time = `${hour}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-  } else if (min !== 0) {
-    time = `${min}:${String(sec).padStart(2, '0')}`;
-  } else {
-    time = `0:${String(sec).padStart(2, '0')}`;
-  }
-  console.log(time);
-  return time;
-}
-
-function getVideoId(value) {
-  const url = new URL(value);
-  const host = url.hostname;
-  const path = url.pathname.split("/");
-  const pathList = ["live", "shorts", "embed"];
-  let videoId = '';
-  //urlのhostチェック(厳密には youtu.beはパスが違ったりと 分岐が必要だが割愛)
-  if (hostList.includes(host)) {
-    if (path[1] === "watch") {
-      const params = url.searchParams;
-      videoId = params.get("v");
-    } else if (pathList.includes(path[1])) {
-      videoId = path[2];
-    } else {
-      videoId = path[1];
-    }
-    console.log(videoId);
-    return videoId;
-  } else return;
-}
-
-async function getVideoTitle(id) {
-  const videoUrl = `https://www.youtube.com/watch?v=${id}`;
-  const noembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
-  let title = "タイトル不明"; // デフォルト値
-
-  try {
-    // fetchリクエスト
-    const res = await fetch(noembedUrl);
-    const data = await res.json();
-    // タイトル存在チェック
-    if (data && data.title) {
-      title = data.title;
-    }
-  } catch (error) {
-    console.error("Failed to fetch the video title:", error);
-  }
-  console.log(title);
-  return title;
-}
-
-function getTimeStamp(value) {
-  const url = new URL(value);
-  const host = url.hostname;
-
-  if (hostList.includes(host)) {
-    const params = url.searchParams;
-    const timeStamp = params.get('t') || undefined;
-    return timeStamp;
-  }
-}
-
-function createHistoryListHTML(historyArray) {
-  // 履歴の存在チェック
-  if (!historyArray || historyArray.length === 0) {
-    return "履歴がありません。";
-  }
-
-  // html生成
-  return historyArray.map(e => `
-    <li>
-      <button class="circle" onclick="Play('${e.id}', ${e.time})">
-        <i>play</i>
-      </button>
-      <div class="max">
-        <h6 class="small">${escapeHtml(e.title)}</h6>
-        <div>時間: ${formatTime(e.time)}</div>
-      </div>
-      <label>
-        <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
-          <i>copy</i>
-        </a>
-      </label>
-    </li>
-  `).join('');
-}
-
-function storeHistory(item) {
-  if (!useHistory) return;
-
-  // 重複削除・先頭追加
-  YThistory = YThistory.filter((el) => el.id !== item.id);
-  YThistory.unshift(item);
-  localStorage.setItem("YThistory", JSON.stringify(YThistory));
-  YThistoryList.innerHTML = createHistoryListHTML(YThistory);
-}
-
+// 動画を再生 
 async function Play(id, sec = 0) {
   ui("#home");
 
   video.src = `
-    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
+  https://www.youtube.com/embed/${id}?autoplay=1&start=${sec || 0}
   `;
-  console.log(video.src)
   video.scrollIntoView({
     behavior: "smooth",
   });
@@ -144,41 +33,48 @@ async function Play(id, sec = 0) {
   storeHistory({
     title: await getVideoTitle(id),
     id: id,
-    time: sec
+    time: sec || 0
   });
 }
 
+// URLをinputから取得し、再生を開始
 async function getYoutube(url) {
   urlInput.blur();
+
   if (url) {
     const id = getVideoId(url);
     const timeStamp = getTimeStamp(url);
-    await Play(id, timeStamp);
-  } else return;
-}
-
-window.addEventListener("load", async () => {
-  if (!useHistory) {
-    YThistoryList.innerHTML = "履歴機能を有効化してください。";
-    //プレイバック機能は有効にできない
-    playbackFeatureToggler.disabled = true;
-  } else {
-    playbackFeatureToggler.checked = usePlayback;
-    if (!YThistory) {
-      //履歴を初期化
-      localStorage.setItem("YThistory", JSON.stringify([]));
-      YThistory = [];
-      await Play("wDchsz8nmbo");
+    if (id) {
+      await Play(id, timeStamp);
     } else {
-      //履歴が空でない、かつプレイバック機能が有効
-      if (YThistory.length && usePlayback) {
-        await Play(YThistory[0].id, YThistory[0].time);
-      } else {
-        await Play("wDchsz8nmbo");
-      }
+      console.warn("no valid video id provided.");
     }
   }
-  YThistoryList.innerHTML = createHistoryListHTML(YThistory);
+}
+
+window.Play = Play;
+window.getYoutube = getYoutube;
+
+// ページの初期化処理
+window.addEventListener("load", async () => {
+  const {
+    YThistory,
+    useHistory
+  } = getHistoryState();
+
+  if (!useHistory) {
+    YThistoryList.innerHTML = "履歴機能を有効化してください。";
+  } else {
+    // 履歴データがない場合に初期化
+    if (!YThistory) {
+      localStorage.setItem("YThistory", JSON.stringify([]));
+    }
+  }
+
+  await initializePlaybackOnLoad();
+
+  // 履歴リストの描画（初期ロード時）
+  YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
 });
 
 urlInput.addEventListener("input", (e) => {
@@ -189,12 +85,9 @@ urlInput.addEventListener("input", (e) => {
   }
 });
 
-playbackFeatureToggler.addEventListener("change", (e) => {
-  localStorage.setItem("use_playback", e.target.checked);
-});
-
 removeBtn.addEventListener('click', () => {
-  urlInput.value = ''
+  urlInput.value = '';
+  urlInput.focus();
 });
 
 searchBtn.addEventListener('click', () => {
