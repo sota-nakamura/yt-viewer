@@ -77,7 +77,7 @@ function GetTime(seconds = 0) {
   const hour = Math.floor(seconds % 86400 / 3600);
     const min = Math.floor(seconds % 3600 / 60);
     const sec = seconds % 60
-    const time = '';
+    let time = '';
     if(hour !==0 ) {
       time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}:`;
     }else if(min !==0) {
