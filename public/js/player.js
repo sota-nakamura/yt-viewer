@@ -3,7 +3,7 @@ const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_X
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 const YThistoryList = document.querySelector(".history");
-const YThistory = localStorage.getItem("YThistory") ? JSON.parse(localStorage.getItem("YThistory")) : [];
+const YThistory = JSON.parse(localStorage.getItem("YThistory")) ? JSON.parse(localStorage.getItem("YThistory")) : [];
 const useHistory = localStorage.getItem("use_history");
 const usePlayback = localStorage.getItem("use_playback");
 const playbackFeatureToggler = document.querySelector(".usePlayback");
