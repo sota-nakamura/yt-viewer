@@ -1,31 +1,37 @@
-const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
 
-const urlInput = document.querySelector('input[name="url"]');
-const video = document.querySelector(".iframe");
-const YThistoryList = document.querySelector(".history");
-const YThistory = JSON.parse(localStorage.getItem("YThistory")) ? JSON.parse(localStorage.getItem("YThistory")) : [];
-const useHistory = localStorage.getItem("use_history");
-const usePlayback = localStorage.getItem("use_playback");
-const playbackFeatureToggler = document.querySelector(".usePlayback");
-const removeBtn = document.querySelector(".removeBtn");
+let enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+
+let urlInput = document.querySelector('input[name="url"]');
+let video = document.querySelector(".iframe");
+let YThistoryList = document.querySelector(".history");
+let YThistory = JSON.parse(localStorage.getItem("YThistory"));
+let useHistory = localStorage.getItem("use_history");
+let historyHTML = '';
+let usePlayback = localStorage.getItem("use_playback");
+let playbackFeatureToggler = document.querySelector(".usePlayback");
+let removeBtn = document.querySelector(".removeBtn");
+let hostList = [
+  "www.youtube.com",
+  "m.youtube.com",
+  "youtube.com",
+  "youtu.be",
+  "www.youtube-education.com",
+  "www.youtube-nocookie.com"
+];
 
 window.addEventListener("load", () => {
-  console.log('im here');
   if (!useHistory) {
-    console.log('im here 1');
     YThistoryList.innerHTML = "履歴機能を有効化してください。";
     //プレイバック機能は有効にできない
     playbackFeatureToggler.disabled = true;
   } else {
-    console.log('im here 2');
     playbackFeatureToggler.checked = usePlayback;
     if (!YThistory) {
-      console.log('im here 3');
       //履歴を初期化
       localStorage.setItem("YThistory", JSON.stringify([]));
+      YThistory = [];
       Play("wDchsz8nmbo");
     } else {
-      console.log('im here 4');
       //履歴が空でない、かつプレイバック機能が有効
       if (YThistory.length && usePlayback) {
         Play(YThistory[0].id, YThistory[0].time);
@@ -36,16 +42,16 @@ window.addEventListener("load", () => {
     }
   }
   YThistory.forEach((e) => {
-    YThistoryList.innerHTML =
-      YThistoryList.innerHTML +
+    historyHTML =
+      historyHTML +
       `
       <li>
         <button class="circle" onclick="Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
-          <h6 class="small">${e.title}</h6>
-          <div>時間: ${GetTime(e.time)}</div>
+          <h6 class="small">${escapeHtml(e.title)}</h6>
+          <div>時間: ${formatTime(e.time)}</div>
         </div>
         <label>
           <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
@@ -55,6 +61,7 @@ window.addEventListener("load", () => {
       </li>
     `;
   });
+  YThistoryList.innerHTML = historyHTML;
 });
 
 urlInput.addEventListener("input", (e) => {
@@ -69,71 +76,78 @@ playbackFeatureToggler.addEventListener("change", (e) => {
   localStorage.setItem("use_playback", e.target.checked);
 });
 
-function removeURL() {
-  removeBtn.style.display = "none";
-  urlInput.value = "";
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;"); // or &#39;
 }
-function GetTime(seconds = 0) {
-  const hour = Math.floor(seconds % 86400 / 3600);
-    const min = Math.floor(seconds % 3600 / 60);
-    const sec = seconds % 60
+
+function formatTime(seconds = 0) {
+  let hour = Math.floor(seconds % 86400 / 3600);
+    let min = Math.floor(seconds % 3600 / 60);
+    let sec = seconds % 60
     let time = '';
     if(hour !==0 ) {
-      time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}:`;
+      time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`;
     }else if(min !==0) {
-      time = `${min}:${sec >= 10 ? sec : `0${sec}`}:`;
+      time = `${min}:${sec >= 10 ? sec : `0${sec}`}`;
     }else {
       time = `0:${sec >= 10 ? sec : `0${sec}`}`;
     }
     return time;
 }
-function GetVideoId(link) {
-  const url = new URL(link);
-  const host = url.hostname;
-  const path = url.pathname.split("/");
-  const hostList = [
-    "www.youtube.com",
-    "m.youtube.com",
-    "youtube.com",
-    "youtu.be",
-    "www.youtube-education.com",
-    "www.youtube-nocookie.com"
-  ];
-  const pathList = [
+function getVideoId(value) {
+  let url = new URL(value);
+  let host = url.hostname;
+  let path = url.pathname.split("/");
+  let pathList = [
     "live",
     "shorts",
     "embed"
   ];
   if (hostList.includes(host)) {
     if (path[1] === "watch") {
-      const params = url.searchParams;
-      const videoId = params.get("v");
+      let params = url.searchParams;
+      let videoId = params.get("v");
       return videoId;
     } else if (pathList.includes(path[1])) {
-      const videoId = path[2];
+      let videoId = path[2];
       return videoId;
     } else {
-      const videoId = path[1];
+      let videoId = path[1];
       return videoId;
     }
   } else return;
 }
 
-function History(item) {
+function getTimeStamp(value) {
+  let url = new URL(value);
+  let host = url.hostname;
+  if(hostList.includes(host)) {
+    let params = url.searchParams;
+    let timeStamp = params.get('t') || undefined;
+    return timeStamp;
+  }
+}
+
+function storeHistory(item) {
   if (!useHistory) return;
-  YThistory.filter((el) => el.id !== item.id);
+  YThistory = YThistory.filter((el) => el.id !== item.id);
   YThistory.unshift(item);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = "";
   YThistory.forEach((e) => {
-    YThistoryList.innerHTML = YThistoryList.innerHTML + `
+    historyHTML = historyHTML + `
       <li>
         <button class="circle" onclick="Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
-          <h6 class="small">${e.title}</h6>
-          <div>時間: ${GetTime(e.time)}</div>
+          <h6 class="small">${escapeHtml(e.title)}</h6>
+          <div>時間: ${formatTime(e.time)}</div>
         </div>
         <label>
           <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
@@ -143,6 +157,7 @@ function History(item) {
       </li>
     `;
   });
+  YThistoryList.innerHTML = historyHTML;
 }
 
 function Play(id, sec = 0) {
@@ -153,25 +168,26 @@ function Play(id, sec = 0) {
   video.scrollIntoView({
     behavior: "smooth",
   });
-  History({
-    title: video.contentDocument.querySelector('.yt-title-link').textContent,
+  storeHistory({
+    title: video.contentDocument.querySelector('.yt-title-value').textContent,
     id: id,
     time: sec
   });
 }
 
-function GetYoutube(url) {
+function getYoutube(url) {
   urlInput.blur();
   if (url) {
-    const id = GetVideoId(url);
-    Play(id);
+    let id = getVideoId(url);
+    let timeStamp = getTimeStamp(url);
+    Play(id, timeStamp);
   } else return;
 }
 
 urlInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    GetYoutube(urlInput.value);
+    getYoutube(urlInput.value);
   } else if (event.key === "/") {
     urlInput.focus();
   }
