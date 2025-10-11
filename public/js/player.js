@@ -1,13 +1,13 @@
-let enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
+const enc = "AXH1ezmdd9o6dZqqptRJnsdC3G6wXZkpiFy-OkwZJS0F4Q2dVfEuGuPTTaWgYHQuF_XxtxhxvYkQex4VXVOHkL-pT7uPyBCamD2sdGqbI9aZKv8krdv8TfdmVnZJ90l3qYSvaiHH4u7O_X1ygC6HznEe1bcCvjqgng==";
 
-let urlInput = document.querySelector('input[name="url"]');
-let video = document.querySelector(".iframe");
-let YThistoryList = document.querySelector(".history");
-let YThistory = localStorage.getItem("YThistory") ? JSON.parse(localStorage.getItem("YThistory")) : [];
-let useHistory = localStorage.getItem("use_history");
-let usePlayback = localStorage.getItem("use_playback");
-let playbackFeatureToggler = document.querySelector(".usePlayback");
-let removeBtn = document.querySelector(".removeBtn");
+const urlInput = document.querySelector('input[name="url"]');
+const video = document.querySelector(".iframe");
+const YThistoryList = document.querySelector(".history");
+const YThistory = localStorage.getItem("YThistory") ? JSON.parse(localStorage.getItem("YThistory")) : [];
+const useHistory = localStorage.getItem("use_history");
+const usePlayback = localStorage.getItem("use_playback");
+const playbackFeatureToggler = document.querySelector(".usePlayback");
+const removeBtn = document.querySelector(".removeBtn");
 
 window.addEventListener("load", () => {
   console.log('im here');
@@ -74,10 +74,10 @@ function removeURL() {
   urlInput.value = "";
 }
 function GetTime(seconds = 0) {
-  let hour = Math.floor(seconds % 86400 / 3600);
-    let min = Math.floor(seconds % 3600 / 60);
-    let sec = seconds % 60
-    let time = '';
+  const hour = Math.floor(seconds % 86400 / 3600);
+    const min = Math.floor(seconds % 3600 / 60);
+    const sec = seconds % 60
+    const time = '';
     if(hour !==0 ) {
       time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}:`;
     }else if(min !==0) {
@@ -88,10 +88,10 @@ function GetTime(seconds = 0) {
     return time;
 }
 function GetVideoId(link) {
-  let url = new URL(link);
-  let host = url.hostname;
-  let path = url.pathname.split("/");
-  let hostList = [
+  const url = new URL(link);
+  const host = url.hostname;
+  const path = url.pathname.split("/");
+  const hostList = [
     "www.youtube.com",
     "m.youtube.com",
     "youtube.com",
@@ -99,21 +99,21 @@ function GetVideoId(link) {
     "www.youtube-education.com",
     "www.youtube-nocookie.com"
   ];
-  let pathList = [
+  const pathList = [
     "live",
     "shorts",
     "embed"
   ];
   if (hostList.includes(host)) {
     if (path[1] === "watch") {
-      let params = url.searchParams;
-      let videoId = params.get("v");
+      const params = url.searchParams;
+      const videoId = params.get("v");
       return videoId;
     } else if (pathList.includes(path[1])) {
-      let videoId = path[2];
+      const videoId = path[2];
       return videoId;
     } else {
-      let videoId = path[1];
+      const videoId = path[1];
       return videoId;
     }
   } else return;
@@ -163,7 +163,7 @@ function Play(id, sec = 0) {
 function GetYoutube(url) {
   urlInput.blur();
   if (url) {
-    let id = GetVideoId(url);
+    const id = GetVideoId(url);
     Play(id);
   } else return;
 }
