@@ -3,8 +3,8 @@ const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
 const YThistoryList = document.querySelector(".history");
 let YThistory = JSON.parse(localStorage.getItem("YThistory"));
-const useHistory = localStorage.getItem("use_history");
-const usePlayback = localStorage.getItem("use_playback");
+const useHistory = localStorage.getItem("use_history") === "true";
+const usePlayback = localStorage.getItem("use_playback") === "true";
 const playbackFeatureToggler = document.querySelector(".usePlayback");
 const removeBtn = document.querySelector(".removeBtn");
 const hostList = [

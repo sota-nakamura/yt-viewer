@@ -1,5 +1,5 @@
 let historyFeatureToggler = document.querySelector(".useHistory");
-let useHistory = localStorage.getItem("use_history");
+let useHistory = localStorage.getItem("use_history") === "true";
 let YThistoryList = document.querySelector(".history");
 historyFeatureToggler.addEventListener("change", (e) => {
   if (!e.target.checked) {
