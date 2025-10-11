@@ -16,40 +16,13 @@ const hostList = [
   "www.youtube-nocookie.com"
 ];
 
-function createHistoryListHTML(historyArray) {
-  if (!historyArray || historyArray.length === 0) {
-    return "履歴がありません。";
-  }
-
-  // html生成
-  return historyArray.map(e => `
-    <li>
-      <button class="circle" onclick="Play('${e.id}', ${e.time})">
-        <i>play</i>
-      </button>
-      <div class="max">
-        <h6 class="small">${escapeHtml(e.title)}</h6>
-        <div>時間: ${formatTime(e.time)}</div>
-      </div>
-      <label>
-        <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
-          <i>copy</i>
-        </a>
-      </label>
-    </li>
-  `).join('');
-}
-
 function escapeHtml(unsafe) {
-  return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); // or &#39;
-}
-
-function addZero(number) {
-  if (number < 10) {
-    return '0' + number;
-  } else {
-    return number;
-  }
+  return unsafe
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;")
+  .replace(/'/g, "&#039;"); // or &#39;
 }
 
 function formatTime(seconds = 0) {
@@ -58,12 +31,12 @@ function formatTime(seconds = 0) {
   const sec = seconds % 60
   let time = '';
   if (hour !== 0) {
-    //ゼロパディング処理
-    time = `${hour}:${addZero(min)}:${addZero(sec)}`;
+    //ゼロパディング処理+フォーマット
+    time = `${hour}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   } else if (min !== 0) {
-    time = `${min}:${addZero(sec)}`;
+    time = `${min}:${String(sec).padStart(2, '0')}`;
   } else {
-    time = `0:${addZero(sec)}`;
+    time = `0:${String(sec).padStart(2, '0')}`;
   }
   return time;
 }
@@ -91,21 +64,21 @@ function getVideoId(value) {
 
 async function getVideoTitle(id) {
   const videoUrl = `https://www.youtube.com/watch?v=${id}`;
-  const oembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
+  const noembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
   let title = "タイトル不明"; // デフォルト値
 
   try {
     // fetchリクエスト
-    const res = await fetch(oembedUrl);
+    const res = await fetch(noembedUrl);
     const data = await res.json();
     // タイトル存在チェック
     if (data && data.title) {
       title = data.title;
     }
   } catch (error) {
-    console.error("Failed to fetch video title:", error);
+    console.error("Failed to fetch the video title:", error);
   }
-
+  console.log(title);
   return title;
 }
 
@@ -118,6 +91,31 @@ function getTimeStamp(value) {
     const timeStamp = params.get('t') || undefined;
     return timeStamp;
   }
+}
+
+function createHistoryListHTML(historyArray) {
+  // 履歴が存在チェック
+  if (!historyArray || historyArray.length === 0) {
+    return "履歴がありません。";
+  }
+
+  // html生成
+  return historyArray.map(e => `
+    <li>
+      <button class="circle" onclick="Play('${e.id}', ${e.time})">
+        <i>play</i>
+      </button>
+      <div class="max">
+        <h6 class="small">${escapeHtml(e.title)}</h6>
+        <div>時間: ${formatTime(e.time)}</div>
+      </div>
+      <label>
+        <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time}')">
+          <i>copy</i>
+        </a>
+      </label>
+    </li>
+  `).join('');
 }
 
 function storeHistory(item) {
