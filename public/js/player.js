@@ -30,13 +30,13 @@ window.addEventListener("load", () => {
       //履歴を初期化
       localStorage.setItem("YThistory", JSON.stringify([]));
       YThistory = [];
-      Play("wDchsz8nmbo");
+      await Play("wDchsz8nmbo");
     } else {
       //履歴が空でない、かつプレイバック機能が有効
       if (YThistory.length && usePlayback) {
-        Play(YThistory[0].id, YThistory[0].time);
+        await Play(YThistory[0].id, YThistory[0].time);
       } else {
-        Play("wDchsz8nmbo");
+        await Play("wDchsz8nmbo");
       }
       YThistoryList.innerHTML = YThistory.length ? "" : "履歴がありません。";
     }
@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
       historyHTML +
       `
       <li>
-        <button class="circle" onclick="Play('${e.id}', ${e.time})">
+        <button class="circle" onclick="await Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
@@ -84,18 +84,25 @@ function escapeHtml(unsafe) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;"); // or &#39;
 }
-
+function addZero(number) {
+  if(number < 10) {
+    return '0' + number;
+  } else {
+    return number;
+  }
+}
 function formatTime(seconds = 0) {
   let hour = Math.floor(seconds % 86400 / 3600);
     let min = Math.floor(seconds % 3600 / 60);
     let sec = seconds % 60
     let time = '';
     if(hour !==0 ) {
-      time = `${hour}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`;
+      //一桁の場合に頭にゼロ追加（汚ねえコードだ）
+      time = `${hour}:${addZero(min)}:${addZero(sec)}`;
     }else if(min !==0) {
-      time = `${min}:${sec >= 10 ? sec : `0${sec}`}`;
+      time = `${min}:${addZero(sec)}`;
     }else {
-      time = `0:${sec >= 10 ? sec : `0${sec}`}`;
+      time = `0:${addZero(sec)}`;
     }
     return time;
 }
@@ -108,6 +115,7 @@ function getVideoId(value) {
     "shorts",
     "embed"
   ];
+  //urlのhostチェック(厳密には youtu.beはパスが違ったりと 分岐が必要だが割愛)
   if (hostList.includes(host)) {
     if (path[1] === "watch") {
       let params = url.searchParams;
@@ -121,6 +129,27 @@ function getVideoId(value) {
       return videoId;
     }
   } else return;
+}
+
+function getVideoTitle(id) {
+  const videoUrl = `https://www.youtube.com/watch?v=${id}`;
+  const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`;
+
+  let title = "タイトル不明"; // デフォルト値
+
+  try {
+    // fetchリクエスト
+      const res = await fetch(oembedUrl);
+      const data = await res.json();
+
+      // タイトル存在チェック
+      if (data && data.title) {
+          title = data.title;
+      }
+  } catch (error) {
+      console.error("Failed to fetch video title:", error);
+  }
+  return title;
 }
 
 function getTimeStamp(value) {
@@ -142,7 +171,7 @@ function storeHistory(item) {
   YThistory.forEach((e) => {
     historyHTML = historyHTML + `
       <li>
-        <button class="circle" onclick="Play('${e.id}', ${e.time})">
+        <button class="circle" onclick="await Play('${e.id}', ${e.time})">
           <i>play</i>
         </button>
         <div class="max">
@@ -160,7 +189,7 @@ function storeHistory(item) {
   YThistoryList.innerHTML = historyHTML;
 }
 
-function Play(id, sec = 0) {
+async function Play(id, sec = 0) {
   ui("#home");
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
@@ -169,7 +198,7 @@ function Play(id, sec = 0) {
     behavior: "smooth",
   });
   storeHistory({
-    title: video.contentDocument.querySelector('.yt-title-value').textContent,
+    title: getVideoTitle(id),
     id: id,
     time: sec
   });
@@ -180,7 +209,7 @@ function getYoutube(url) {
   if (url) {
     let id = getVideoId(url);
     let timeStamp = getTimeStamp(url);
-    Play(id, timeStamp);
+    await Play(id, timeStamp);
   } else return;
 }
 
