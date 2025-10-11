@@ -191,9 +191,13 @@ playbackFeatureToggler.addEventListener("change", (e) => {
   localStorage.setItem("use_playback", e.target.checked);
 });
 
-removeBtn.addEventListener('click', urlInput.value = '');
+removeBtn.addEventListener('click', () => {
+  urlInput.value = ''
+});
 
-searchBtn.addEventListener('click', getYoutube(urlInput.value));
+searchBtn.addEventListener('click', () => {
+  getYoutube(urlInput.value)
+});
 
 urlInput.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
