@@ -55,7 +55,7 @@ export async function getVideoTitle(id) {
     
   const videoUrl = `https://www.youtube.com/watch?v=${id}`;
   const noembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
-  let title = "タイトル不明"; 
+  let title = ""; 
 
   try {
     const res = await fetch(noembedUrl);
@@ -65,6 +65,7 @@ export async function getVideoTitle(id) {
     }
   } catch (error) {
     console.error("Failed to fetch the video title:", error);
+    title = "タイトル不明"
   }
   return title;
 }
