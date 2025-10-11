@@ -13,7 +13,7 @@ const hostList = [
   "m.youtube.com",
   "youtube.com",
   "youtu.be",
-  "www.youtube-education.com",
+  "www.youtubeeducation.com",
   "www.youtube-nocookie.com"
 ];
 
@@ -39,6 +39,7 @@ function formatTime(seconds = 0) {
   } else {
     time = `0:${String(sec).padStart(2, '0')}`;
   }
+  console.log(time);
   return time;
 }
 
@@ -47,19 +48,19 @@ function getVideoId(value) {
   const host = url.hostname;
   const path = url.pathname.split("/");
   const pathList = ["live", "shorts", "embed"];
+  let videoId = '';
   //urlのhostチェック(厳密には youtu.beはパスが違ったりと 分岐が必要だが割愛)
   if (hostList.includes(host)) {
     if (path[1] === "watch") {
       const params = url.searchParams;
-      const videoId = params.get("v");
-      return videoId;
+      videoId = params.get("v");
     } else if (pathList.includes(path[1])) {
-      const videoId = path[2];
-      return videoId;
+      videoId = path[2];
     } else {
-      const videoId = path[1];
-      return videoId;
+      videoId = path[1];
     }
+    console.log(videoId);
+    return videoId;
   } else return;
 }
 
@@ -95,7 +96,7 @@ function getTimeStamp(value) {
 }
 
 function createHistoryListHTML(historyArray) {
-  // 履歴が存在チェック
+  // 履歴の存在チェック
   if (!historyArray || historyArray.length === 0) {
     return "履歴がありません。";
   }
@@ -135,6 +136,7 @@ async function Play(id, sec = 0) {
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
+  console.log(video.src)
   video.scrollIntoView({
     behavior: "smooth",
   });
