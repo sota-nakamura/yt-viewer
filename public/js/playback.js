@@ -8,7 +8,6 @@ playbackFeatureToggler.addEventListener("change", (e) => {
   // localStorageは文字列で保存
   localStorage.setItem("use_playback", e.target.checked ? "true" : "false");
 });
-
 // ページのロード時に動画を再生
 export async function initializePlaybackOnLoad() {
   const {
@@ -16,18 +15,20 @@ export async function initializePlaybackOnLoad() {
     useHistory,
     usePlayback
   } = getHistoryState();
+  
   if (!useHistory) {
     // 履歴が無効な場合、PlayBackも無効化
     playbackFeatureToggler.disabled = true;
-    return;
-  }
-  // PlayBackトグルスイッチの初期状態を設定
-  playbackFeatureToggler.checked = usePlayback;
-  // 履歴が空でない、かつPlayBackが有効
-  if (YThistory && YThistory.length > 0 && usePlayback) {
-    // 最新の動画を再生
-    await Play(YThistory[0].id, YThistory[0].time);
+    Play("wDchsz8nmbo");
   } else {
-    await Play("wDchsz8nmbo");
+    // PlayBackトグルスイッチの初期状態を設定
+    playbackFeatureToggler.checked = usePlayback;
+    // 履歴が空でない、かつPlayBackが有効
+    if (YThistory && YThistory.length > 0 && usePlayback) {
+      // 最新の動画を再生
+      await Play(YThistory[0].id, YThistory[0].time);
+    } else {
+      await Play("wDchsz8nmbo");
+    }
   }
 }
