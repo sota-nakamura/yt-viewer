@@ -31,15 +31,6 @@ export async function Play(id, sec = 0) {
     id: id,
     time: sec || 0
   });
-  const player = new YouTubeIFrameCtrl(video);
-  setInterval(() => {
-    if(player.playerState === 'PLAYING') {
-      time++
-      updateTime(time);
-    } else {
-      ;
-    }
-  }, 1000)
 }
 
 // URLをinputから取得し、再生を開始
@@ -87,3 +78,13 @@ urlInput.addEventListener("keyup", (event) => {
     getYoutube(urlInput.value);
   }
 });
+
+const player = new YouTubeIFrameCtrl(video);
+  setInterval(() => {
+    if(player.playerState === 'PLAYING') {
+      time++
+      updateTime(time);
+    } else {
+      ;
+    }
+  }, 1000)
