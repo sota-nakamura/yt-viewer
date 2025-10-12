@@ -1,3 +1,5 @@
+import { escapeHtml, formatTime } from './util.js';
+
 export function getHistoryState() {
     let YThistory = JSON.parse(localStorage.getItem("YThistory"));
     const useHistory = localStorage.getItem("use_history") === "true";

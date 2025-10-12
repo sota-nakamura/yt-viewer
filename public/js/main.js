@@ -11,6 +11,7 @@ import { Play, getYoutube } from './player.js';
 const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 const YThistoryList = document.querySelector(".history");
 const loader = document.querySelector(".loading");
+const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
 
@@ -49,11 +50,9 @@ deviceDark.addEventListener("change", () => {
   if(!storedMode) changeMode();
 });
 
-urlInput.addEventListener("input", (e) => {
-  if (e.target.value) {
-    removeBtn.style.display = "inline-flex";
-  } else {
-    removeBtn.style.display = "none";
+body.addEventListener('keyup', (e) => {
+  if(e.code === 'Slash') {
+    urlInput.focus();
   }
 });
 
@@ -66,11 +65,17 @@ searchBtn.addEventListener('click', () => {
   getYoutube(urlInput.value)
 });
 
-urlInput.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
+urlInput.addEventListener("input", (e) => {
+  if (e.target.value) {
+    removeBtn.style.display = "inline-flex";
+  } else {
+    removeBtn.style.display = "none";
+  }
+});
+
+urlInput.addEventListener("keyup", (event) => {
+  if (event.code === "Enter") {
     event.preventDefault();
     getYoutube(urlInput.value);
-  } else if (event.key === "/") {
-    urlInput.focus();
   }
 });

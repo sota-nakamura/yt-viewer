@@ -1,5 +1,5 @@
 import { getHistoryState } from './history_ui.js';
-import Play from './player.js';
+import { Play } from './player.js';
 
 const playbackFeatureToggler = document.querySelector(".usePlayback");
 
