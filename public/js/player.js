@@ -13,7 +13,7 @@ const video = document.querySelector(".iframe");
 const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
-let time = 0;
+const player = new YouTubeIFrameCtrl(video);
 
 // 動画を再生 
 export async function Play(id, sec = 0) {
@@ -80,11 +80,10 @@ urlInput.addEventListener("keyup", (event) => {
 });
 
 video.addEventListener('ytmessage', (event) => {
-  time = event.detail.info.currentTime;
-  time = Math.floor(time);;
+  const time = event.detail.info.currentTime;
   if(event.detail.event === "infoDelivery" && typeof time === 'number') {
     console.log('currentTime:',
     event.detail.info.currentTime);
-    updateTime(time);
+    updateTime(Math.floor(time));
   }
 });
