@@ -76,6 +76,8 @@ window.addEventListener('message', (event) => {
   let data = event.data;
   if(typeof event.data === "string") {
     data = JSON.parse(event.data)
+  } else {
+    data = JSON.stringify(event.data).replace(/\\/g, "");
   }
   console.log('event:', data.event);
   console.log('currentTime:', data.info?.currentTime);
