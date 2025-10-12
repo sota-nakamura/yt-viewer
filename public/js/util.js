@@ -46,3 +46,5 @@ export function showToast(message, error = false) {
     ui('#snackbar');
   }
 }
+
+window.copyURL = copyURL;

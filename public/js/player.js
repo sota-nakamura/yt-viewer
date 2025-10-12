@@ -13,6 +13,7 @@ const video = document.querySelector(".iframe");
 const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
+let player = '';
 
 // 動画を再生 
 export async function Play(id, sec = 0) {
@@ -22,6 +23,7 @@ export async function Play(id, sec = 0) {
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
   console.log('video url: ', video.src);
+  player = new YouTubeIFrameCtrl(video);
   video.scrollIntoView({
     behavior: "smooth",
   });
