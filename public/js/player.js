@@ -72,8 +72,9 @@ video.onload = () => {
   console.log('video url: ', video.src);
 }
 
-video.contentWindow.postMessage('{"event": "listening"}', '*')
+video.contentWindow.postMessage('{"event": "listening"}', '*');
 window.addEventListener('message', (event) => {
+  console.log('received!');
   let data = "";
   if(typeof event.data === "string") {
     data = JSON.parse(event.data)
@@ -83,8 +84,8 @@ window.addEventListener('message', (event) => {
   console.log('event:', data.event);
   console.log('currentTime:', data.info.currentTime);
   storeHistory({
-    title: data.info.videoData.title,
-    id: data.info.videoData.video_id,
-    time: data.info.currentTime
-  }, [0, 2, 5].includes(data.info.playerState) );
+    'title': data.info.videoData.title,
+    'id': data.info.videoData.video_id,
+    'time': data.info.currentTime
+  });
 });
