@@ -22,7 +22,7 @@ export function getHistoryState() {
     return historyArray.map(e => `
     <li>
       <button class="circle" onclick="Play('${e.id}', ${e.time || 0})">
-        <i>play</i>
+        <i>play_arrow</i>
       </button>
       <div class="max">
         <h6 class="small">${escapeHtml(e.title || 'タイトル不明')}</h6>
@@ -30,7 +30,7 @@ export function getHistoryState() {
       </div>
       <label>
         <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time || 0}')">
-          <i>copy</i>
+          <i>content_copy</i>
         </a>
       </label>
     </li>
