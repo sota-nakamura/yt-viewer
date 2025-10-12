@@ -1,5 +1,3 @@
-
-/*
 let message = document.querySelector(".message");
 let btn = document.querySelector(".btn");
 let timeStamp = Date.now()
@@ -57,4 +55,3 @@ function closeDialog() {
 function cancel() {
   location.href = "https://loilonote.app";
 }
-*/
