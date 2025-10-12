@@ -7,6 +7,7 @@ const playbackFeatureToggler = document.querySelector(".usePlayback");
 playbackFeatureToggler.addEventListener("change", (e) => {
   // localStorageは文字列で保存
   localStorage.setItem("use_playback", e.target.checked ? "true" : "false");
+  ui('#update_snackbar');
 });
 // ページのロード時に動画を再生
 export async function initializePlaybackOnLoad() {

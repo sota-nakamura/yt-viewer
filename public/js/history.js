@@ -24,8 +24,8 @@ historyFeatureToggler.addEventListener("change", (e) => {
   } else {
     // 履歴を有効化
     localStorage.setItem("use_history", "true");
-    ui('#update_snackbar');
   }
+  ui('#update_snackbar');
 });
 
 function disableHistory() {
