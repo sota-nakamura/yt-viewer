@@ -194,11 +194,15 @@
     </main>
     <div class="snackbar error" id="error_snackbar">
       <div class="max error_text">Some text here</div>
-      <a class="underline bold" onclick="ui('#error_snackbar')">Close</a>
+      <a class="underline bold">閉じる</a>
     </div>
     <div class="snackbar" id="snackbar">
       <div class="max snackbar_text">Some text here</div>
-      <a class="inverse-link" onclick="ui('#snackbar')">Close</a>
+      <a class="inverse-link">閉じる</a>
+    </div>
+    <div class="snackbar" id="update_snackbar">
+      <div class="max">設定が変更されました。再読み込みして適用してください。</div>
+      <a class="inverse-link" onclick="location.reload()">再読み込み</a>
     </div>
     <nav class="bottom fixed s" style="z-index: 3;">
       <a class="active" data-ui="#home">

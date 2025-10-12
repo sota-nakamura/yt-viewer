@@ -24,9 +24,7 @@ historyFeatureToggler.addEventListener("change", (e) => {
   } else {
     // 履歴を有効化
     localStorage.setItem("use_history", "true");
-    // UIを更新
-    const { YThistory } = getHistoryState();
-    YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
+    ui('#update_snackbar');
   }
 });
 
