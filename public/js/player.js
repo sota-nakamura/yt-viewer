@@ -79,12 +79,12 @@ urlInput.addEventListener("keyup", (event) => {
   }
 });
 
-const player = new YouTubeIFrameCtrl(video);
-  setInterval(() => {
-    if(player.playerState === 'PLAYING') {
-      time++
-      updateTime(time);
-    } else {
-      ;
-    }
-  }, 1000)
+video.addEventListener('ytmessage', (event) => {
+  time = event.detail.info.currentTime;
+  time = Math.floor(time);;
+  if(event.detail.event === "infoDelivery" && typeof time === 'number') {
+    console.log('currentTime:',
+    event.detail.info.currentTime);
+    updateTime(time);
+  }
+});
