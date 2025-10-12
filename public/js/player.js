@@ -10,7 +10,6 @@ import YouTubeIFrameCtrl from 'https://cdn.jsdelivr.net/npm/youtube-iframe-ctrl@
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-const player = new YouTubeIFrameCtrl(video);
 const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
@@ -32,6 +31,15 @@ export async function Play(id, sec = 0) {
     id: id,
     time: sec || 0
   });
+  const player = new YouTubeIFrameCtrl(video);
+  setInterval(() => {
+    if(player.playerState === 'PLAYING') {
+      time++
+      updateTime(time);
+    } else {
+      ;
+    }
+  }, 1000)
 }
 
 // URLをinputから取得し、再生を開始
@@ -79,12 +87,3 @@ urlInput.addEventListener("keyup", (event) => {
     getYoutube(urlInput.value);
   }
 });
-
-setInterval(() => {
-  if(player.playerState === 'PLAYING') {
-    time++
-    updateTime(time);
-  } else {
-    ;
-  }
-}, 1000)
