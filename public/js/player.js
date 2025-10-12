@@ -4,6 +4,7 @@ import {
   getVideoTitle
 } from './youtube_util.js';
 import { storeHistory } from './history_ui.js';
+import { enc } from './config.js';
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
@@ -16,7 +17,7 @@ export async function Play(id, sec = 0) {
   ui("#home");
 
   video.src = `
-  https://www.youtube.com/embed/${id}?autoplay=1&start=${sec || 0}
+    https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
   console.log('video url: ', video.src);
   video.scrollIntoView({
