@@ -28,9 +28,6 @@ export async function initializePlaybackOnLoad() {
     // 最新の動画を再生
     await Play(YThistory[0].id, YThistory[0].time);
   } else {
-    // 履歴がない、またはプレイバックが無効な場合
-    if (!YThistory || YThistory.length === 0) {
-      await Play("wDchsz8nmbo");
-    }
+    await Play("wDchsz8nmbo");
   }
 }
