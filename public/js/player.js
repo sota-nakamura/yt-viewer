@@ -5,7 +5,6 @@ import {
 } from './youtube_util.js';
 import { storeHistory } from './history_ui.js';
 import { enc } from './config.js';
-import { CustomError } from './error.js';
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
@@ -24,7 +23,6 @@ export async function Play(id, sec = 0) {
   video.scrollIntoView({
     behavior: "smooth",
   });
-
   storeHistory({
     title: await getVideoTitle(id),
     id: id,
@@ -41,9 +39,6 @@ export async function getYoutube(url) {
     const timeStamp = getTimeStamp(url);
     if (id) {
       await Play(id, timeStamp);
-    } else {
-      throw new CustomError('有効なurl・動画idを入力してください。')
-      console.warn("no valid video id provided.");
     }
   }
 }

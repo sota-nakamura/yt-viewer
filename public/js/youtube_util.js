@@ -1,11 +1,12 @@
 import { hostList } from './config.js';
+import { showToast } from './util.js';
 
 // URLからYouTubeの動画IDを抽出
 export function getVideoId(value) {
   if (!value) return;
   // 'https://' を補完
   const fullUrl = value.startsWith('http') ? value : `https://${value}`;
-
+  
   try {
     const url = new URL(fullUrl);
     const host = url.hostname;
@@ -22,16 +23,19 @@ export function getVideoId(value) {
       } else {
         videoId = path[1];
       }
+    } else {
+      showToast('正しいURLを入力してください。', true);
     }
     console.log('videoId: ', videoId);
     return videoId;
   } catch (e) {
     // ID単体の場合のチェック
     if (value.length === 11 && !value.includes('/') && !value.includes('=')) {
-        return value;
+      return value;
+    } else {
+      console.error('error while getting video ID: ', e);
+      return;
     }
-    console.error('error while getting video ID: ', e);
-    return;
   }
 }
 
@@ -47,6 +51,8 @@ export function getTimeStamp(value) {
     if (hostList.includes(host)) {
       const params = url.searchParams;
       return params.get('t') || 0;
+    } else {
+      showToast('正しいURLを入力してください。', true);
     }
   } catch (e) {
     console.error('error while getting timestamp: ', e);
@@ -56,7 +62,7 @@ export function getTimeStamp(value) {
 
 // 動画IDからタイトルを取得 (noembed.comを使用)
 export async function getVideoTitle(id) {
-  if (!id) return "タイトル不明";
+  if (!id) return;
     
   const videoUrl = `https://www.youtube.com/watch?v=${id}`;
   const noembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
@@ -69,8 +75,9 @@ export async function getVideoTitle(id) {
       title = data.title;
     }
   } catch (error) {
+    showToast('タイトルの取得に失敗しました。', true);
     console.error("Failed to fetch the video title:", error);
-    title = "タイトル不明"
+    title = "タイトル不明";
   }
   console.log('title: ', title);
   return title;

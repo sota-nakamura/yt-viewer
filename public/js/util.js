@@ -35,6 +35,14 @@ export function escapeHtml(unsafe) {
   }
 export function copyURL(txt) {
   navigator.clipboard.writeText(txt);
-  document.querySelector('.snackbar_text').textContent = 'URLをコピーしました';
-  ui('#snackbar');
+  showToast('URLをコピーしました。', false);
+}
+export function showToast(message, error = false) {
+  if(error) {
+    document.querySelector('.error_text').textContent = message;
+    ui('#error_snackbar');
+  } else {
+    document.querySelector('.snackbar_text').textContent = message;
+    ui('#snackbar');
+  }
 }
