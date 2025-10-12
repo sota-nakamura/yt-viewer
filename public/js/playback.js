@@ -1,6 +1,6 @@
 import { getHistoryState } from './history_ui.js';
+import Play from './player.js';
 
-const Play = window.Play;
 const playbackFeatureToggler = document.querySelector(".usePlayback");
 
 // PlayBackのトグルイベントハンドラ

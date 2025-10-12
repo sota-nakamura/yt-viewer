@@ -11,22 +11,26 @@ export function getVideoId(value) {
     const host = url.hostname;
     const path = url.pathname.split("/");
     const pathList = ["live", "shorts", "embed"];
+    let videoId = '';
     
     if (hostList.includes(host)) {
       if (path[1] === "watch") {
         const params = url.searchParams;
-        return params.get("v");
+        videoId = params.get("v");
       } else if (pathList.includes(path[1])) {
-        return path[2];
+        videoId = path[2];
       } else {
-        return path[1];
+        videoId = path[1];
       }
     }
+    console.log('videoId: ', videoId);
+    return videoId;
   } catch (e) {
     // ID単体の場合のチェック
     if (value.length === 11 && !value.includes('/') && !value.includes('=')) {
         return value;
     }
+    console.error('error while getting video ID: ', e);
     return;
   }
 }
@@ -42,10 +46,11 @@ export function getTimeStamp(value) {
 
     if (hostList.includes(host)) {
       const params = url.searchParams;
-      return params.get('t') || undefined;
+      return params.get('t') || 0;
     }
   } catch (e) {
-    return;
+    console.error('error while getting timestamp: ', e);
+    return 0;
   }
 }
 
@@ -67,5 +72,6 @@ export async function getVideoTitle(id) {
     console.error("Failed to fetch the video title:", error);
     title = "タイトル不明"
   }
+  console.log('title: ', title);
   return title;
 }

@@ -4,13 +4,20 @@ let modeName = document.querySelector("#mode_name");
 let themeList = document
   .querySelector("#theme_list")
   .querySelectorAll("button:not(.chip)");
-let themeColor = document.querySelector('meta[name="theme-color"]');
-let deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 let mode = "";
 let theme = "";
 let storedMode = localStorage.getItem("mode");
 let storedTheme = localStorage.getItem("theme");
-function changeColor(e) {
+
+async function getColorFromImage(e) {
+  let imageTheme = await ui("theme", e);
+  let color = CSSJSON.toJSON(imageTheme.light).attributes["--primary"];
+  changeColor(color);
+}
+
+export function changeColor(e) {
   // set theme
   theme = e;
   ui("theme", e);
@@ -18,7 +25,7 @@ function changeColor(e) {
   themeColor.setAttribute("content", e);
   localStorage.setItem("theme", e);
 }
-function changeMode(e) {
+export function changeMode(e) {
   mode = e;
   if(e) {
     if(e === "dark") {
@@ -38,20 +45,6 @@ function changeMode(e) {
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 }
-async function getColorFromImage(e) {
-  let imageTheme = await ui("theme", e);
-  let color = CSSJSON.toJSON(imageTheme.light).attributes["--primary"];
-  changeColor(color);
-}
-document.addEventListener("DOMContentLoaded", () => {
-  if (storedTheme) {
-    changeColor(storedTheme);
-  }
-  changeMode(storedMode);
-});
-deviceDark.addEventListener("change", () => {
-  if(!storedMode) changeMode();
-});
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
     modeList.forEach(el => el.classList.remove("active"));

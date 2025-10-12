@@ -14,18 +14,16 @@ import {
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-const YThistoryList = document.querySelector(".history");
 const playbackFeatureToggler = document.querySelector(".usePlayback");
-const removeBtn = document.querySelector(".remove_button");
-const searchBtn = document.querySelector('.search_button');
 
 // 動画を再生 
-async function Play(id, sec = 0) {
+export async function Play(id, sec = 0) {
   ui("#home");
 
   video.src = `
   https://www.youtube.com/embed/${id}?autoplay=1&start=${sec || 0}
   `;
+  console.log('video url: ', video.src);
   video.scrollIntoView({
     behavior: "smooth",
   });
@@ -38,7 +36,7 @@ async function Play(id, sec = 0) {
 }
 
 // URLをinputから取得し、再生を開始
-async function getYoutube(url) {
+export async function getYoutube(url) {
   urlInput.blur();
 
   if (url) {
@@ -54,51 +52,3 @@ async function getYoutube(url) {
 
 window.Play = Play;
 window.getYoutube = getYoutube;
-
-// ページの初期化処理
-window.addEventListener("load", async () => {
-  const {
-    YThistory,
-    useHistory
-  } = getHistoryState();
-
-  if (!useHistory) {
-    YThistoryList.innerHTML = "履歴機能を有効化してください。";
-  } else {
-    // 履歴データがない場合に初期化
-    if (!YThistory) {
-      localStorage.setItem("YThistory", JSON.stringify([]));
-    }
-  }
-
-  await initializePlaybackOnLoad();
-
-  // 履歴リストの描画（初期ロード時）
-  YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
-});
-
-urlInput.addEventListener("input", (e) => {
-  if (e.target.value) {
-    removeBtn.style.display = "inline-flex";
-  } else {
-    removeBtn.style.display = "none";
-  }
-});
-
-removeBtn.addEventListener('click', () => {
-  urlInput.value = '';
-  urlInput.focus();
-});
-
-searchBtn.addEventListener('click', () => {
-  getYoutube(urlInput.value)
-});
-
-urlInput.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    getYoutube(urlInput.value);
-  } else if (event.key === "/") {
-    urlInput.focus();
-  }
-});
