@@ -6,14 +6,9 @@ import {
 import initializePlaybackOnLoad from './playback.js';
 import { changeColor, changeMode } from './theme.js';
 
-import { Play, getYoutube } from './player.js';
-
 const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 const YThistoryList = document.querySelector(".history");
 const loader = document.querySelector(".loading");
-const body = document.body;
-const removeBtn = document.querySelector(".remove_button");
-const searchBtn = document.querySelector('.search_button');
 
 // ページの初期化処理
 window.addEventListener("load", async () => {
@@ -48,34 +43,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 deviceDark.addEventListener("change", () => {
   if(!storedMode) changeMode();
-});
-
-body.addEventListener('keyup', (e) => {
-  if(e.code === 'Slash') {
-    urlInput.focus();
-  }
-});
-
-removeBtn.addEventListener('click', () => {
-  urlInput.value = '';
-  urlInput.focus();
-});
-
-searchBtn.addEventListener('click', () => {
-  getYoutube(urlInput.value)
-});
-
-urlInput.addEventListener("input", (e) => {
-  if (e.target.value) {
-    removeBtn.style.display = "inline-flex";
-  } else {
-    removeBtn.style.display = "none";
-  }
-});
-
-urlInput.addEventListener("keyup", (event) => {
-  if (event.code === "Enter") {
-    event.preventDefault();
-    getYoutube(urlInput.value);
-  }
 });

@@ -14,7 +14,9 @@ import {
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
-const playbackFeatureToggler = document.querySelector(".usePlayback");
+const body = document.body;
+const removeBtn = document.querySelector(".remove_button");
+const searchBtn = document.querySelector('.search_button');
 
 // 動画を再生 
 export async function Play(id, sec = 0) {
@@ -52,3 +54,33 @@ export async function getYoutube(url) {
 
 window.Play = Play;
 window.getYoutube = getYoutube;
+
+body.addEventListener('keyup', (e) => {
+  if(e.code === 'Slash') {
+    urlInput.focus();
+  }
+});
+
+removeBtn.addEventListener('click', () => {
+  urlInput.value = '';
+  urlInput.focus();
+});
+
+searchBtn.addEventListener('click', () => {
+  getYoutube(urlInput.value)
+});
+
+urlInput.addEventListener("input", (e) => {
+  if (e.target.value) {
+    removeBtn.style.display = "inline-flex";
+  } else {
+    removeBtn.style.display = "none";
+  }
+});
+
+urlInput.addEventListener("keyup", (event) => {
+  if (event.code === "Enter") {
+    event.preventDefault();
+    getYoutube(urlInput.value);
+  }
+});
