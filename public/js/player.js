@@ -4,13 +4,17 @@ import {
   getVideoTitle
 } from './youtube_util.js';
 import { storeHistory } from './history_ui.js';
+import { updateTime } from './playback.js';
 import { enc } from './config.js';
+import YouTubeIFrameCtrl from 'https://cdn.jsdelivr.net/npm/youtube-iframe-ctrl@1.0.3/+esm'
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
+const player = new YouTubeIFrameCtrl(video);
 const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
+let time = 0;
 
 // 動画を再生 
 export async function Play(id, sec = 0) {
@@ -75,3 +79,12 @@ urlInput.addEventListener("keyup", (event) => {
     getYoutube(urlInput.value);
   }
 });
+
+setInterval(() => {
+  if(player.playerState === 'PLAYING') {
+    time++
+    updateTime(time);
+  } else {
+    ;
+  }
+}, 1000)

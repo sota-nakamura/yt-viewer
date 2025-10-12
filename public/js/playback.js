@@ -32,3 +32,12 @@ export async function initializePlaybackOnLoad() {
     }
   }
 }
+
+export function updateTime(sec) {
+  let { YThistory } = getHistoryState();
+  let el = YThistory[0];
+  YThistory.shift();
+  el.time = sec;
+  YThistory.unshift(el);
+  localStorage.setItem('YThistory', YThistory)
+}
