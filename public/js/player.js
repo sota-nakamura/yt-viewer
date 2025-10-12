@@ -3,14 +3,7 @@ import {
   getTimeStamp,
   getVideoTitle
 } from './youtube_util.js';
-import {
-  getHistoryState,
-  createHistoryListHTML,
-  storeHistory
-} from './history_ui.js';
-import {
-  initializePlaybackOnLoad
-} from './playback.js';
+import { storeHistory } from './history_ui.js';
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");

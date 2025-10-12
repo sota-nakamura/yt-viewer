@@ -8,8 +8,8 @@ const themeColor = document.querySelector('meta[name="theme-color"]');
 const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 let mode = "";
 let theme = "";
-let storedMode = localStorage.getItem("mode");
-let storedTheme = localStorage.getItem("theme");
+const storedMode = localStorage.getItem("mode");
+const storedTheme = localStorage.getItem("theme");
 
 async function getColorFromImage(e) {
   let imageTheme = await ui("theme", e);
@@ -62,4 +62,15 @@ themeList.forEach((e) => {
         .join("")}`;
     changeColor(color);
   });
+});
+
+deviceDark.addEventListener("change", () => {
+  if(!mode) changeMode();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (storedTheme) {
+    changeColor(storedTheme);
+  }
+  changeMode(storedMode);
 });

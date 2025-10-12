@@ -1,12 +1,9 @@
 import {
   getHistoryState,
-  createHistoryListHTML,
-  storeHistory
+  createHistoryListHTML
 } from './history_ui.js';
-import initializePlaybackOnLoad from './playback.js';
-import { changeColor, changeMode } from './theme.js';
+import { initializePlaybackOnLoad } from './playback.js';
 
-const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
 const YThistoryList = document.querySelector(".history");
 const loader = document.querySelector(".loading");
 
@@ -32,15 +29,4 @@ window.addEventListener("load", async () => {
   YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
   // ロード完了
   loader.classList.add("hidden");
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (storedTheme) {
-    changeColor(storedTheme);
-  }
-  changeMode(storedMode);
-});
-
-deviceDark.addEventListener("change", () => {
-  if(!storedMode) changeMode();
 });
