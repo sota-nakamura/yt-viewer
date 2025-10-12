@@ -76,13 +76,13 @@ urlInput.addEventListener("keyup", (event) => {
   }
 });
 
-video.addEventListener('load', () => {
+video.contentWindow.addEventListener('load', () => {
   player = new YouTubeIFrameCtrl(video);
   console.log('successfully loaded youtube player.')
   video.scrollIntoView({
     behavior: "smooth",
   });
-})
+}, true)
 
 video.addEventListener('ytmessage', (event) => {
   const time = event.detail.info.currentTime;
