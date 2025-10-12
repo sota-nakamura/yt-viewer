@@ -1,10 +1,8 @@
 import {
   getVideoId,
-  getTimeStamp,
-  getVideoTitle
+  getTimeStamp
 } from './youtube_util.js';
 import { storeHistory } from './history_ui.js';
-import { updateTime } from './playback.js';
 import { enc } from './config.js';
 
 const urlInput = document.querySelector('input[name="url"]');
@@ -12,7 +10,6 @@ const video = document.querySelector(".iframe");
 const body = document.body;
 const removeBtn = document.querySelector(".remove_button");
 const searchBtn = document.querySelector('.search_button');
-let player = '';
 
 // 動画を再生 
 export async function Play(id, sec = 0) {
@@ -85,21 +82,11 @@ window.addEventListener('message', (event) => {
   } else {
     data = JSON.stringify(event.data).replace(/\\/g, "");
   }
+  console.log('event::', data.event);
+  console.log('currentTime:', data.info.currentTime);
   storeHistory({
-    title: await getVideoTitle(data.info.videoData.title),
+    title: data.info.videoData.title,
     id: data.info.videoData.vieo_id,
-    time: data.info.currentTime || 0
-  }, ['initialDelivery']);
-  /*
-  if(data.event === "infoDelivery") {
-    console.log('currentTime:', time);
-    updateTime(Math.floor(time));
-  } else if(data.event === 'initialDelivery') {
-    storeHistory({
-      title: await getVideoTitle(data.info.videoData.title),
-      id: data.info.videoData.vieo_id,
-      time: data.info.currentTime || 0
-    });
-  }
-  */
+    time: data.info.currentTime
+  }, [0, 2, 5].includes(data.info.playerstate) );
 });

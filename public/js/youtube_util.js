@@ -61,6 +61,7 @@ export function getTimeStamp(value) {
 }
 
 // 動画IDからタイトルを取得 (noembed.comを使用)
+/*
 export async function getVideoTitle(id) {
   if (!id) return;
     
@@ -82,3 +83,4 @@ export async function getVideoTitle(id) {
   console.log('title: ', title);
   return title;
 }
+*/

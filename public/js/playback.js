@@ -33,12 +33,3 @@ export async function initializePlaybackOnLoad() {
     }
   }
 }
-
-export function updateTime(sec) {
-  let { YThistory } = getHistoryState();
-  let el = YThistory.shift();
-  el.time = sec;
-  YThistory.unshift(el);
-  localStorage.setItem('YThistory', JSON.stringify(YThistory));
-  console.log('saved timestamp.');
-}
