@@ -6,7 +6,6 @@ import {
 import { storeHistory } from './history_ui.js';
 import { updateTime } from './playback.js';
 import { enc } from './config.js';
-import YouTubeIFrameCtrl from 'https://cdn.jsdelivr.net/npm/youtube-iframe-ctrl@1.0.3/+esm'
 
 const urlInput = document.querySelector('input[name="url"]');
 const video = document.querySelector(".iframe");
@@ -22,12 +21,6 @@ export async function Play(id, sec = 0) {
   video.src = `
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
-  console.log('video url: ', video.src);
-  storeHistory({
-    title: await getVideoTitle(id),
-    id: id,
-    time: sec || 0
-  });
 }
 
 // URLをinputから取得し、再生を開始
@@ -77,17 +70,36 @@ urlInput.addEventListener("keyup", (event) => {
 });
 
 video.onload = () => {
-  player = new YouTubeIFrameCtrl(video);
   console.log('successfully loaded youtube player.')
   video.scrollIntoView({
     behavior: "smooth",
   });
+  console.log('video url: ', video.src);
 }
 
-video.addEventListener('ytmessage', (event) => {
-  const time = event.detail.info.currentTime;
-  if(event.detail.event === "infoDelivery" && typeof time === 'number') {
+video.contentWindow.postMessage('{"event": "listening"}', '*')
+window.addEventListener('message', (event) => {
+  let data = "";
+  if(typeof event.data === "string") {
+    data = JSON.parse(event.data)
+  } else {
+    data = JSON.stringify(event.data).replace(/\\/g, "");
+  }
+  storeHistory({
+    title: await getVideoTitle(data.info.videoData.title),
+    id: data.info.videoData.vieo_id,
+    time: data.info.currentTime || 0
+  }, ['initialDelivery']);
+  /*
+  if(data.event === "infoDelivery") {
     console.log('currentTime:', time);
     updateTime(Math.floor(time));
+  } else if(data.event === 'initialDelivery') {
+    storeHistory({
+      title: await getVideoTitle(data.info.videoData.title),
+      id: data.info.videoData.vieo_id,
+      time: data.info.currentTime || 0
+    });
   }
+  */
 });

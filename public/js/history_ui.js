@@ -38,7 +38,7 @@ export function getHistoryState() {
   }
 
   // 履歴をlocalStorageに保存し、UIを更新
-  export function storeHistory(item) {
+  export function storeHistory(item, updateUI = true) {
     const {
       YThistory: currentHistory,
       useHistory
@@ -49,6 +49,8 @@ export function getHistoryState() {
     YThistory = YThistory.filter((el) => el.id !== item.id);
     YThistory.unshift(item);
     localStorage.setItem("YThistory", JSON.stringify(YThistory));
-    const YThistoryList = document.querySelector(".history");
+    if(updateUI) {
+      const YThistoryList = document.querySelector(".history");
       YThistoryList.innerHTML = createHistoryListHTML(YThistory);
+    }
   }

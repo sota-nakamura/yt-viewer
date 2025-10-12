@@ -40,4 +40,5 @@ export function updateTime(sec) {
   el.time = sec;
   YThistory.unshift(el);
   localStorage.setItem('YThistory', JSON.stringify(YThistory));
+  console.log('saved timestamp.');
 }
