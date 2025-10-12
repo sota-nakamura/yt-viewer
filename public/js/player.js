@@ -82,11 +82,11 @@ window.addEventListener('message', (event) => {
   } else {
     data = JSON.stringify(event.data).replace(/\\/g, "");
   }
-  console.log('event::', data.event);
+  console.log('event:', data.event);
   console.log('currentTime:', data.info.currentTime);
   storeHistory({
     title: data.info.videoData.title,
     id: data.info.videoData.vieo_id,
     time: data.info.currentTime
-  }, [0, 2, 5].includes(data.info.playerstate) );
+  }, [0, 2, 5].includes(data.info.playerState) );
 });
