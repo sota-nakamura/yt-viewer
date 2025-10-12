@@ -74,14 +74,8 @@ video.onload = () => {
 }
 window.addEventListener('message', (event) => {
   let data = event.data;
-  try {
-    data = JSON.parse(event.data);
-  } catch(e) {
-    console.error("Message data is invalid JSON:", event.data, e);
-    return; 
-  }
-  if (!data || !data.info) {
-    return;
+  if(typeof event.data === "string") {
+    data = JSON.parse(event.data)
   }
   console.log('event:', data.event);
   console.log('currentTime:', data.info?.currentTime);
