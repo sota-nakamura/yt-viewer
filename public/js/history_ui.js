@@ -13,8 +13,11 @@ export function getHistoryState() {
 
   // 履歴リストのHTMLを生成 (Play関数はグローバルに公開されている前提)
   export function createHistoryListHTML(historyArray) {
+    const { useHistory } = getHistoryState();
     if (!historyArray || historyArray.length === 0) {
       return "履歴がありません。";
+    } else if(!useHistory) {
+      return '履歴機能を有効化してください。'
     }
     return historyArray.map(e => `
     <li>

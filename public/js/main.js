@@ -15,7 +15,7 @@ window.addEventListener("load", async () => {
   } = getHistoryState();
 
   if (!useHistory) {
-    YThistoryList.innerHTML = "履歴機能を有効化してください。";
+    // YThistoryList.innerHTML = "履歴機能を有効化してください。";
   } else {
     // 履歴データがない場合に初期化
     if (!YThistory) {

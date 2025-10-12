@@ -25,7 +25,8 @@ export function changeColor(e) {
   themeColor.setAttribute("content", e);
   localStorage.setItem("theme", e);
 }
-export function changeMode(e) {
+
+export function changeMode(e = null) {
   mode = e;
   if(e) {
     if(e === "dark") {
@@ -45,6 +46,17 @@ export function changeMode(e) {
     ui("mode", deviceDark.matches ? "dark" : "light");
   }
 }
+
+window.getColorFromImage = getColorFromImage;
+window.changeColor = changeColor;
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (storedTheme) {
+    changeColor(storedTheme);
+  }
+  changeMode(storedMode);
+});
+
 modeList.forEach((e) => {
   e.addEventListener("click", () => {
     modeList.forEach(el => el.classList.remove("active"));
@@ -52,6 +64,7 @@ modeList.forEach((e) => {
     changeMode(name);
   });
 });
+
 themeList.forEach((e) => {
   e.addEventListener("click", () => {
     let rgb = getComputedStyle(e).backgroundColor;
@@ -66,11 +79,4 @@ themeList.forEach((e) => {
 
 deviceDark.addEventListener("change", () => {
   if(!mode) changeMode();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (storedTheme) {
-    changeColor(storedTheme);
-  }
-  changeMode(storedMode);
 });
