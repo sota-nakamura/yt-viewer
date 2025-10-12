@@ -29,7 +29,7 @@ export function getHistoryState() {
         <div>時間: ${formatTime(e.time || 0)}</div>
       </div>
       <label>
-        <a onclick="navigator.clipboard.writeText('https://youtu.be/${e.id}?t=${e.time || 0}')">
+        <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}')">
           <i>content_copy</i>
         </a>
       </label>

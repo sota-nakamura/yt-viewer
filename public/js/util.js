@@ -33,3 +33,8 @@ export function escapeHtml(unsafe) {
     }
     return time;
   }
+export function copyURL(txt) {
+  navigator.clipboard.writeText(txt);
+  document.querySelector('.snackbar_text').textContent = 'URLをコピーしました';
+  ui('#snackbar');
+}

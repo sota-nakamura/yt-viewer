@@ -192,6 +192,14 @@
         </nav>
       </div>
     </main>
+    <div class="snackbar error" id="error_snackbar">
+      <div class="max error_text">Some text here</div>
+      <a class="underline bold" onclick="ui('#error_snackbar')">Close</a>
+    </div>
+    <div class="snackbar" id="snackbar">
+      <div class="max snackbar_text">Some text here</div>
+      <a class="inverse-link" onclick="ui('#snackbar')">Close</a>
+    </div>
     <nav class="bottom fixed s" style="z-index: 3;">
       <a class="active" data-ui="#home">
         <i>home</i>
