@@ -23,10 +23,6 @@ export async function Play(id, sec = 0) {
     https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}
   `;
   console.log('video url: ', video.src);
-  player = new YouTubeIFrameCtrl(video);
-  video.scrollIntoView({
-    behavior: "smooth",
-  });
   storeHistory({
     title: await getVideoTitle(id),
     id: id,
@@ -79,6 +75,14 @@ urlInput.addEventListener("keyup", (event) => {
     getYoutube(urlInput.value);
   }
 });
+
+video.addEventListener('load', () => {
+  player = new YouTubeIFrameCtrl(video);
+  console.log('successfully loaded youtube player.')
+  video.scrollIntoView({
+    behavior: "smooth",
+  });
+})
 
 video.addEventListener('ytmessage', (event) => {
   const time = event.detail.info.currentTime;
