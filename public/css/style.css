@@ -65,3 +65,8 @@ input {
 .snackbar {
   z-index: 10000;
 }
+.video_title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

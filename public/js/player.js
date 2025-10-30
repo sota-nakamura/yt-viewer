@@ -82,8 +82,8 @@ window.addEventListener('message', (event) => {
   console.log('event:', data.event);
   console.log('currentTime:', data.info?.currentTime);
   storeHistory({
-    'title': data.info?.videoData.title || "1 Minute Sample Video",
-    'id': data.info?.videoData.video_id || "wDchsz8nmbo",
+    'title': data.info?.videoData.title,
+    'id': data.info?.videoData.video_id,
     'time': Math.floor(data.info?.currentTime) || 0
   }, [0, 2, 5].includes(data.info?.playerState));
   // video.contentWindow.postMessage('{"event": "listening"}', '*');
