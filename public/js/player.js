@@ -15,7 +15,7 @@ const searchBtn = document.querySelector('.search_button');
 export async function Play(id, sec = 0) {
   ui("#home");
 
-  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}`;
+  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}&enablejsapi=1`;
 }
 
 // URLをinputから取得し、再生を開始
@@ -86,5 +86,5 @@ window.addEventListener('message', (event) => {
     'id': data.info?.videoData.video_id || "wDchsz8nmbo",
     'time': data.info?.currentTime || 0
   }, [0, 2, 5].includes(data.info?.playerState));
-  video.contentWindow.postMessage('{"event": "listening"}', '*');
+  // video.contentWindow.postMessage('{"event": "listening"}', '*');
 });
