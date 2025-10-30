@@ -84,7 +84,7 @@ window.addEventListener('message', (event) => {
   storeHistory({
     'title': data.info?.videoData.title || "1 Minute Sample Video",
     'id': data.info?.videoData.video_id || "wDchsz8nmbo",
-    'time': data.info?.currentTime || 0
+    'time': Math.floor(data.info?.currentTime) || 0
   }, [0, 2, 5].includes(data.info?.playerState));
   // video.contentWindow.postMessage('{"event": "listening"}', '*');
 });
