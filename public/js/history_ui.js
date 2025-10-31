@@ -74,8 +74,6 @@ export function getHistoryState() {
     const {
       YThistory: currentHistory
     } = getHistoryState();
-    let item = YThistory.find((el) => {
-      el.id === id
-    })
-    return id;
+    let item = currentHistory.find((el) => el.id === id);
+    return item;
   }
