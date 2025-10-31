@@ -80,6 +80,7 @@ window.addEventListener('message', (event) => {
     data = JSON.stringify(event.data).replace(/\\/g, "");
   }
   console.log('event:', data.event);
+  console.log("playerState:", data.info.playerState);
   console.log('currentTime:', data.info?.currentTime);
   storeHistory({
     'title': data.info?.videoData.title,
