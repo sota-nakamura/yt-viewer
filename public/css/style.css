@@ -66,6 +66,7 @@ input {
   z-index: 10000;
 }
 .video_title {
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
