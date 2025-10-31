@@ -30,8 +30,22 @@ export function getHistoryState() {
         <div>時間: ${formatTime(e.time || 0)}</div>
       </div>
       <label>
-        <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}s')">
-          <i>content_copy</i>
+        <a>
+          <menu class="no-wrap">
+            <li>Title</li>
+            <li>
+              <i>content_copy</i>
+              <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}s')">
+                URLをコピー
+              </a>
+            </li>
+            <li>
+              <i>delete</i>
+              <a onclick="deleteHistory('${e.id}')">
+                この履歴を削除
+              </a>
+            </li>
+          </menu>
         </a>
       </label>
     </li>
@@ -63,14 +77,4 @@ export function getHistoryState() {
       el.id === id
     })
     return id;
-  }
-
-  export function deleteHistory(id) {
-    const target = searchHistory(id);
-    const {
-      YThistory: currentHistory
-    } = getHistoryState();
-    YThistory = YThistory.filter((el) => el.id !== target.id);
-    localStorage.setItem("YThistory", JSON.stringify(YThistory));
-    YThistoryList.innerHTML = createHistoryListHTML(YThistory);
   }

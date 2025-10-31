@@ -8,6 +8,7 @@ const YThistoryList = document.querySelector(".history");
 
 window.disableHistory = disableHistory;
 window.deleteAllHistory = deleteAllHistory;
+window.deleteHistory = deleteHistory;
 
 document.addEventListener("DOMContentLoaded", () => {
   const {
@@ -41,4 +42,13 @@ function deleteAllHistory() {
   ui("#confirm_deleting_history");
   localStorage.removeItem("YThistory");
   YThistoryList.innerHTML = "履歴がありません。";
+}
+function deleteHistory(id) {
+  const target = searchHistory(id);
+  const {
+    YThistory: currentHistory
+  } = getHistoryState();
+  let YThistory = currentHistory.filter((el) => el.id !== target.id);
+  localStorage.setItem("YThistory", JSON.stringify(YThistory));
+  YThistoryList.innerHTML = createHistoryListHTML(YThistory);
 }
