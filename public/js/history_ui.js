@@ -31,6 +31,7 @@ export function getHistoryState() {
       </div>
       <label>
         <a>
+          <i>more_vert</i>
           <menu class="no-wrap">
             <li>Title</li>
             <li>
