@@ -25,7 +25,7 @@ export function getHistoryState() {
         <i>play_arrow</i>
       </button>
       <div class="max">
-        <h6 class="small video_title">${e.title.length <= 20 ? escapeHtml(e.title || 'タイトル不明').slice(0, 20) + "..." : escapeHtml(e.title || "タイトル不明")}</h6>
+        <h6 class="small video_title">${e.title.length >= 20 ? escapeHtml(e.title || 'タイトル不明').slice(0, 20) + "..." : escapeHtml(e.title || "タイトル不明")}</h6>
         <div>時間: ${formatTime(e.time || 0)}</div>
       </div>
       <label>
