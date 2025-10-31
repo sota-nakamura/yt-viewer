@@ -24,6 +24,7 @@ body {
 }
 .iframe {
   height: 600px;
+  width: 100%;
 }
 article {
   width: 100% !important;
