@@ -68,9 +68,9 @@
         <div>設定</div>
       </a>
     </nav>
-    <main class="responsive">
+    <main class="responsive max">
       <div class="large-space"></div>
-      <div class="page max max active" id="home">
+      <div class="page active" id="home">
         <article class="middle-align center-align surface no-elevate">
           <div>
             <img src="icons/favicon.svg" class="square round small">
@@ -81,7 +81,7 @@
         </article>
         <iframe
           src=""
-          class="iframe small-round max"
+          class="iframe small-round"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -89,13 +89,14 @@
           allowfullscreen
         ></iframe>
       </div>
-      <div class="page max" id="history">
+      <div class="page" id="history">
         <h5>履歴</h5>
         <ul class="history list max">Loading</ul>
       </div>
-      <div class="page max" id="settings">
+      <div class="page" id="settings">
         <p class="large">外観設定</p>
         <div class="field middle-align ripple">
+          <nav>
           <div class="max">
             <h6 class="small">テーマ設定</h6>
             <div id="mode_name" style="color: #777;">システム設定</div>
@@ -105,16 +106,20 @@
             <li name="light">ライト</li>
             <li name="dark">ダーク</li>
           </menu>
+          </nav>
         </div>
         <div class="field middle-align ripple" data-ui="#color_preference">
+          <nav>
           <div class="max">
             <h6 class="small">カラー設定</h6>
             <div style="color: #777;">テーマカラーを設定します。</div>
           </div>
+          </nav>
         </div>
         <div class="border"></div>
         <p class="large">システム設定</p>
         <div class="field middle-align">
+          <nav>
           <div class="max">
             <h6 class="small">履歴の機能</h6>
             <div style="color: #777;">視聴した動画のURLを保存します。</div>
@@ -126,8 +131,10 @@
               <i>done</i>
             </span>
           </label>
+          </nav>
         </div>
         <div class="field middle-align">
+          <nav>
           <div class="max">
             <h6 class="small">PlayBack</h6>
             <div style="color: #777;">アプリを開いた際に、直前に視聴していた動画を表示します。</div>
@@ -139,8 +146,10 @@
               <i>done</i>
             </span>
           </label>
+          </nav>
         </div>
         <div class="field middle-align">
+          <nav>
           <div class="max">
             <h6 class="small">履歴を削除</h6>
             <div style="color: #777;">保存した動画のURLを削除します。</div>
@@ -149,18 +158,21 @@
             <i>delete</i>
             <span>削除</span>
           </button>
+          </nav>
         </div>
         <div class="border"></div>
         <div class="field middle-align">
+          <nav>
           <div class="max">
             <h6 class="small">ソースコード</h6>
           </div>
           <a href="https://gitlab.com/satoimo_satosi/yt-viewer" target="_blank">
             <i>open_in_new</i>
           </a>
+          </nav>
         </div>
       </div>
-      <div class="page max left" id="color_preference">
+      <div class="page left" id="color_preference">
         <header class="fixed">
           <nav>
             <button class="transparent circle ripple" data-ui="#settings">
