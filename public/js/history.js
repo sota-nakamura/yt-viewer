@@ -44,11 +44,10 @@ function deleteAllHistory() {
   YThistoryList.innerHTML = "履歴がありません。";
 }
 function deleteHistory(id) {
-  const target = searchHistory(id);
   const {
     YThistory: currentHistory
   } = getHistoryState();
-  let YThistory = currentHistory.filter((el) => el.id !== target.id);
+  let YThistory = currentHistory.filter((el) => el.id !== id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = createHistoryListHTML(YThistory);
 }
