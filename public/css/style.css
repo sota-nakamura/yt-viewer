@@ -35,9 +35,6 @@ input {
   width: 100% !important;
   display: block !important;
 }
-.max {
-  width: 100% !important;
-}
 .field {
   position: relative;
 }
@@ -66,11 +63,8 @@ input {
   z-index: 10000;
 }
 .video_title {
-  width: 100%;
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.list {
-  box-sizing: border-box;
 }
