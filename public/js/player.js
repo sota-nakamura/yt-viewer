@@ -29,6 +29,9 @@ export async function getYoutube(url) {
       await Play(id, timeStamp);
     }
   }
+  if(!urlInput.value) {
+    urlInput.value = `https://youtu.be/${id + timeStamp ? `?t=${timeStamp}s` : ''}`;
+  }
 }
 
 window.Play = Play;
