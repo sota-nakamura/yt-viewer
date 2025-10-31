@@ -50,7 +50,7 @@ export function getTimeStamp(value) {
 
     if (hostList.includes(host)) {
       const params = url.searchParams;
-      return params.get('t') || 0;
+      return params.get('t').slice(0, -1) || 0;
     } else {
       showToast('正しいURLを入力してください。', true);
     }

@@ -82,7 +82,7 @@ window.addEventListener('message', (event) => {
   console.log('event:', data.event);
   console.log("playerState:", data.info.playerState);
   console.log('currentTime:', data.info?.currentTime);
-  if(data.event !== "initialDelivery" && data.info.playerState) {
+  if(data.event && data.event !== "initialDelivery" && data.info.playerState) {
     storeHistory({
       'title': data.info?.videoData.title,
       'id': data.info?.videoData.video_id,
