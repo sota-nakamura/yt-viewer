@@ -15,7 +15,7 @@ const searchBtn = document.querySelector('.search_button');
 export async function Play(id, sec = 0) {
   ui("#home");
 
-  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}&enablejsapi=1`;
+  video.src = `https://www.youtubeeducation.com/embed/${id}?embed_config={"enc":"${enc}"}&start=${sec}&enablejsapi=1&hl=ja`;
 }
 
 // URLをinputから取得し、再生を開始
