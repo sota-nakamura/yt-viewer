@@ -71,3 +71,6 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.list {
+  box-sizing: border-box;
+}
