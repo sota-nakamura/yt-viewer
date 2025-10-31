@@ -35,6 +35,9 @@ input {
   width: 100% !important;
   display: block !important;
 }
+.max {
+  width: 100% !important;
+}
 .field {
   position: relative;
 }
