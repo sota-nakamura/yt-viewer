@@ -71,6 +71,3 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.list > li {
-  max-width: 100%;
-}
