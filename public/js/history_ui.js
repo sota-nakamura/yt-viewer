@@ -32,8 +32,7 @@ export function getHistoryState() {
       <label>
         <a>
           <i>more_vert</i>
-          <menu class="no-wrap">
-            <li>Title</li>
+          <menu class="left no-wrap">
             <li>
               <i>content_copy</i>
               <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}s')">
