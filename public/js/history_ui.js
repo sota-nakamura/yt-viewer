@@ -1,4 +1,5 @@
 import { escapeHtml, formatTime } from './util.js';
+const YThistoryList = document.querySelector(".history");
 
 export function getHistoryState() {
     let YThistory = JSON.parse(localStorage.getItem("YThistory"));
@@ -50,7 +51,26 @@ export function getHistoryState() {
     YThistory.unshift(item);
     localStorage.setItem("YThistory", JSON.stringify(YThistory));
     if(updateUI) {
-      const YThistoryList = document.querySelector(".history");
       YThistoryList.innerHTML = createHistoryListHTML(YThistory);
     }
+  }
+
+  export function searchHistory(id) {
+    const {
+      YThistory: currentHistory
+    } = getHistoryState();
+    let item = YThistory.find((el) => {
+      el.id === id
+    })
+    return id;
+  }
+
+  export function deleteHistory(id) {
+    const target = searchHistory(id);
+    const {
+      YThistory: currentHistory
+    } = getHistoryState();
+    YThistory = YThistory.filter((el) => el.id !== target.id);
+    localStorage.setItem("YThistory", JSON.stringify(YThistory));
+    YThistoryList.innerHTML = createHistoryListHTML(YThistory);
   }

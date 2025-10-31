@@ -1,12 +1,13 @@
 import {
   getHistoryState,
-  createHistoryListHTML
+  createHistoryListHTML,
+  searchHistory
 } from './history_ui.js';
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
 
 window.disableHistory = disableHistory;
-window.removeHistory = removeHistory;
+window.deleteAllHistory = deleteAllHistory;
 
 document.addEventListener("DOMContentLoaded", () => {
   const {
@@ -36,7 +37,7 @@ function disableHistory() {
   YThistoryList.innerHTML = "履歴機能を有効化してください。";
 }
 
-function removeHistory() {
+function deleteAllHistory() {
   ui("#confirm_deleting_history");
   localStorage.removeItem("YThistory");
   YThistoryList.innerHTML = "履歴がありません。";
