@@ -5,6 +5,7 @@ import {
 } from './history_ui.js';
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
+const download = document.querySelector("#export");
 
 window.disableHistory = disableHistory;
 window.deleteAllHistory = deleteAllHistory;
@@ -30,6 +31,20 @@ historyFeatureToggler.addEventListener("change", (e) => {
   ui('#update_snackbar');
 });
 
+download.addEventListener('click', function(){
+  const {
+    YThistory: data
+  } = getHistoryState();
+  const blob = new Blob([JSON.stringify(data, null, '  ')],
+{type: 'application\/json'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'history.json';
+  link.click();
+  URL.revokeObjectURL(url);
+});
+
 function disableHistory() {
   ui("#confirm_disabling_history");
   localStorage.removeItem("YThistory");
@@ -50,15 +65,5 @@ function deleteHistory(id) {
   let YThistory = currentHistory.filter((el) => el.id !== id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = createHistoryListHTML(YThistory);
-}
-
-function downloadHistory() {
-  const {
-    YThistory: currentHistory
-  } = getHistoryState();
-  let YThistory = currentHistory.filter((el) => el.id !== id);
-  const blob = new Blob([JSON.stringify(data, null, '  ')], {type: 'application\/json'});
-  const url = URL.createObjectURL(blob);
-  window.open(url);
 }
 
