@@ -51,3 +51,14 @@ function deleteHistory(id) {
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
   YThistoryList.innerHTML = createHistoryListHTML(YThistory);
 }
+
+function downloadHistory() {
+  const {
+    YThistory: currentHistory
+  } = getHistoryState();
+  let YThistory = currentHistory.filter((el) => el.id !== id);
+  const blob = new Blob([JSON.stringify(data, null, '  ')], {type: 'application\/json'});
+  const url = URL.createObjectURL(blob);
+  window.open(url);
+}
+
