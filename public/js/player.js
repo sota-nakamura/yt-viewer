@@ -34,12 +34,25 @@ export async function getYoutube(url) {
   }
 }
 
+export async function lockScreen() {
+  await player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+  
+}
+
 window.Play = Play;
 window.getYoutube = getYoutube;
 
 body.addEventListener('keyup', (e) => {
   if(e.code === 'Slash') {
     urlInput.focus();
+  }
+});
+
+document.addEventListener("visibilitychange", async () => {
+  if (document.hidden) {
+    await lockScreen();
+  } else {
+    return;
   }
 });
 
