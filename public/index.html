@@ -257,12 +257,18 @@
       </div>
     </main>
     <div class="snackbar error" id="error_snackbar">
-      <div class="max error_text"><i class="error_snackbar_icon"></i>Some text here</div>
-      <a class="underline bold">閉じる</a>
+      <div class="max">
+        <i class="error_snackbar_icon"></i>
+        <span class="error_text"></span>
+      </div>
+      <a class="underline bold" data-ui="#error_snackbar">閉じる</a>
     </div>
     <div class="snackbar" id="snackbar">
-      <div class="max snackbar_text"><i class="snackbar_icon"></i>Some text here</div>
-      <a class="inverse-link">閉じる</a>
+      <div class="max">
+        <i class="snackbar_icon"></i>
+        <span class="snackbar_text"></span>
+      </div>
+      <a class="inverse-link" data-ui="#snackbar">閉じる</a>
     </div>
     <div class="snackbar" id="update_snackbar">
       <div class="max">設定が変更されました。再読み込みして適用してください。</div>
