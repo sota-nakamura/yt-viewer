@@ -52,10 +52,12 @@ input {
 .field>input {
   padding-right: 72px;
 }
+menu.min {
+  border-radius: 24px;
+}
 #mode_list {
   right: 75px;
   width: 100px;
-  border-radius: 24px;
 }
 .remove_button {
   display: none;

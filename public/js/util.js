@@ -37,7 +37,10 @@ export function copyURL(txt) {
   navigator.clipboard.writeText(txt);
   showToast('URLをコピーしました。', false);
 }
-export function showToast(message, error = false) {
+export function showToast(message, error = false, icon = null) {
+  if(icon) {
+    document.querySelector(error ? ".snackbar_icon" : ".error_snackbar_icon").textContent = icon;
+  }
   if(error) {
     document.querySelector('.error_text').textContent = message;
     ui('#error_snackbar');
