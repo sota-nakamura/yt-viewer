@@ -5,7 +5,8 @@ import {
 } from './history_ui.js';
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
-const download = document.querySelector("#export");
+const exportButton = document.querySelector("#export");
+const importInput = document.querySelector(".import");
 
 window.disableHistory = disableHistory;
 window.deleteAllHistory = deleteAllHistory;
@@ -31,7 +32,7 @@ historyFeatureToggler.addEventListener("change", (e) => {
   ui('#update_snackbar');
 });
 
-download.addEventListener('click', function(){
+exportButton.addEventListener('click', function(){
   const {
     YThistory: data
   } = getHistoryState();
@@ -44,6 +45,21 @@ download.addEventListener('click', function(){
   link.click();
   URL.revokeObjectURL(url);
 });
+
+  importInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const jsonData = JSON.parse(e.target.result);
+            console.log(jsonData);
+            // Process the JSON data here
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+        }
+    };
+    reader.readAsText(file);
+  });
 
 function disableHistory() {
   ui("#confirm_disabling_history");
