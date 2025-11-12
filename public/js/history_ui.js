@@ -25,7 +25,7 @@ export function getHistoryState() {
       <button class="circle" onclick="Play('${e.id}', ${e.time || 0})">
         <i>play_arrow</i>
       </button>
-      <div class="max">
+      <div class="title-area">
         <h6 class="small video_title">${escapeHtml(e.title || "タイトル不明")}</h6>
         <div>時間: ${formatTime(e.time || 0)}</div>
       </div>
