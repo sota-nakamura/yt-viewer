@@ -65,10 +65,10 @@ menu.min {
 .snackbar {
   z-index: 10000;
 }
-.list > li {
+.list .video_title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
   flex-shrink: 1;
-  min-inline-size: 0;
 }
