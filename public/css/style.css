@@ -66,11 +66,12 @@ menu.min {
   z-index: 10000;
 }
 .list .video_title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0 !important;
 }
 .list > li > .max {
-  flex-shrink: 1;
-  min-width: 0;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
 }
