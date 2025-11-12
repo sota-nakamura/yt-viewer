@@ -63,21 +63,36 @@ menu.min {
   display: none;
 }
 .snackbar {
-  z-index: 10000;
+  z-index: 100;
 }
 .list > li > .title-area {
-  flex-grow: 1;
-  flex-shrink: 1;
-  min-width: 0;
+  flex-grow: 1;      /* 残りスペースをすべて占有 */
+  flex-shrink: 1;    /* 確実に縮小することを許可 */
+  min-width: 0;      /* コンテンツによる幅の押し広げを防ぐ（非常に重要） */
+  
+  /* 内部の h6 と div を縦に並べる */
   display: flex;
   flex-direction: column;
 }
+
+/* 2. 新しいラッパー (span.title-wrapper) の設定 */
+/* h6 の親要素をブロック化し、幅を100%に強制することで、h6がはみ出すのを防ぐ */
+.title-wrapper {
+  display: block;
+  width: 100%;
+  /* h6 が Flex コンテナの子として扱われている場合の対策 */
+  min-width: 0; 
+}
+
+/* 3. タイトル要素 (h6.video_title) の設定 */
+/* h6自体は要素ではなく、タイトルテキストの省略表示のみに専念させる */
 .list .video_title {
+  /* 必須プロパティ */
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0; 
-}
-.list > li {
-  align-items: center;
+  
+  /* 念のため h6 の display も調整 (text-align: center の上書き防止) */
+  display: block; 
+  margin: 0; /* beer.min.cssが h6 に適用する margin をリセット */
 }

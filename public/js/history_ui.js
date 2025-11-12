@@ -26,7 +26,9 @@ export function getHistoryState() {
         <i>play_arrow</i>
       </button>
       <div class="title-area">
-        <h6 class="small video_title">${escapeHtml(e.title || "タイトル不明")}</h6>
+        <span class="title-wrapper">
+          <h6 class="small video_title">${escapeHtml(e.title || "タイトル不明")}</h6>
+        </span>
         <div>時間: ${formatTime(e.time || 0)}</div>
       </div>
       <label>
