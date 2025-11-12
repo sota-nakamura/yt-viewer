@@ -69,6 +69,8 @@ menu.min {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0;
+}
+.list > li > .max {
   flex-shrink: 1;
+  min-width: 0;
 }
