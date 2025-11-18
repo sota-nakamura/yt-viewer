@@ -1,3 +1,8 @@
+@media all and (display-mode: standalone) {
+  .refresh {
+    display: block;
+  }
+}
 body {
   scroll-behavior: smooth;
 }
@@ -95,4 +100,7 @@ menu.min {
   /* 念のため h6 の display も調整 (text-align: center の上書き防止) */
   display: block; 
   margin: 0; /* beer.min.cssが h6 に適用する margin をリセット */
+}
+.refresh {
+  display: none;
 }
