@@ -59,6 +59,7 @@ exportButton.addEventListener('click', function(){
             console.error("Error parsing JSON:", error);
         }
     };
+    reader.readAsText(file);
   });
 
 function disableHistory() {
