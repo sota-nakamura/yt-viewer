@@ -6,7 +6,7 @@ import {
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
 const exportButton = document.querySelector("#export");
-const importInput = document.querySelector(".import");
+const importButton = document.querySelector("#import");
 
 window.disableHistory = disableHistory;
 window.deleteAllHistory = deleteAllHistory;
@@ -46,7 +46,7 @@ exportButton.addEventListener('click', function(){
   URL.revokeObjectURL(url);
 });
 
-  importInput.addEventListener('change', (event) => {
+  importButton.addEventListener('change', (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {

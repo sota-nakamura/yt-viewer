@@ -51,6 +51,10 @@
         <i>settings</i>
         <div>設定</div>
       </a>
+      <button class="large round transparent ripple border refresh">
+        <i>reload</i>
+        <div>再読み込み</div>
+      </button>
     </nav>
     <nav class="l left max fixed">
       <header class="header fixed">
@@ -71,6 +75,9 @@
         <i>settings</i>
         <div>設定</div>
       </a>
+      <button class="large circle transparent ripple border refresh">
+        <i>reload</i>
+      </button>
     </nav>
     <main class="responsive max">
       <div class="large-space"></div>
@@ -263,6 +270,26 @@
         </nav>
       </div>
     </main>
+    <footer class="bottom fixed s">
+      <nav style="z-index: 3;">
+        <a class="active" data-ui="#home">
+          <i>home</i>
+          <div>ホーム</div>
+        </a>
+        <a data-ui="#history">
+          <i>history</i>
+          <div>履歴</div>
+        </a>
+        <a data-ui="#settings">
+          <i>settings</i>
+          <div>設定</div>
+        </a>
+        <button class="large round transparent ripple border refresh">
+          <i>reload</i>
+          <div>再読み込み</div>
+        </button>
+      </nav>
+    </footer>
     <div class="snackbar error" id="error_snackbar">
       <div class="max">
         <i class="error_snackbar_icon"></i>
@@ -281,20 +308,6 @@
       <div class="max">設定が変更されました。再読み込みして適用してください。</div>
       <a class="inverse-link" onclick="location.reload()">再読み込み</a>
     </div>
-    <nav class="bottom fixed s" style="z-index: 3;">
-      <a class="active" data-ui="#home">
-        <i>home</i>
-        <div>ホーム</div>
-      </a>
-      <a data-ui="#history">
-        <i>history</i>
-        <div>履歴</div>
-      </a>
-      <a data-ui="#settings">
-        <i>settings</i>
-        <div>設定</div>
-      </a>
-    </nav>
     <dialog id="dialog">
       <h5>動画視聴の前に</h5>
       <div class="message"></div>
