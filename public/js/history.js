@@ -53,12 +53,12 @@ exportButton.addEventListener('click', function(){
         try {
             const jsonData = JSON.parse(e.target.result);
             console.log(jsonData);
+            localStorage.setItem("YThistory", JSON.stringify(jsonData));
             // Process the JSON data here
         } catch (error) {
             console.error("Error parsing JSON:", error);
         }
     };
-    reader.readAsText(file);
   });
 
 function disableHistory() {
