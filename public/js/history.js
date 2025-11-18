@@ -3,6 +3,7 @@ import {
   createHistoryListHTML,
   searchHistory
 } from './history_ui.js';
+import { showToast } from "./util.js"
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
 const exportButton = document.querySelector("#export");
@@ -54,9 +55,11 @@ exportButton.addEventListener('click', function(){
             const jsonData = JSON.parse(e.target.result);
             console.log(jsonData);
             localStorage.setItem("YThistory", JSON.stringify(jsonData));
+            showToast("履歴のインポートに成功しました。");
             // Process the JSON data here
         } catch (error) {
             console.error("Error parsing JSON:", error);
+            showToast("間違った形式のJSONファイルです。", true);
         }
     };
     reader.readAsText(file);
