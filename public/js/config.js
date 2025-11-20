@@ -1,4 +1,4 @@
-export const enc = "AXH1ezm3FSoNIAV9lcXsLuv-HD7GKNBp1iAuBHzQE9XTENuALJ-Y8Dn5ZjIqLv84o4hapscYGVe0BQNUF99g5YFF5rWyBvO-DHVTQgmomkRKvSyL_WtXd_zgKvoUBkU43zKHopLgGBp4FkDtKJ6TeA75H8p5EBUp7Q==";
+export const enc = "AXH1ezlY_kII7O82oCS77vmPgJoXNVebUiGM34C8OcRmdD58K3vwmcmpDZpg2RQdy2XqsHnQsk_aRXhf_YwpefBQQLLI6xxp51EU6bCeNZtNheSZSFBB0UUs_euKklplZCotTO7oAGvyFQDtBfcVt40tEvXQmtps8w==";
 
 export const hostList = [
   "www.youtube.com",
