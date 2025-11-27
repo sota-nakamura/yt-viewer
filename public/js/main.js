@@ -5,7 +5,7 @@ import {
 import { initializePlaybackOnLoad } from './playback.js';
 
 const YThistoryList = document.querySelector(".history");
-const loader = document.querySelector(".loading");
+const loading = document.querySelector(".loading");
 
 // ページの初期化処理
 window.addEventListener("load", async () => {
@@ -24,5 +24,5 @@ window.addEventListener("load", async () => {
   // 履歴リストの描画（初期ロード時）
   YThistoryList.innerHTML = createHistoryListHTML(YThistory || [], 50);
   // ロード完了
-  loader.classList.add("hidden");
+  loading.classList.add("hidden");
 });
