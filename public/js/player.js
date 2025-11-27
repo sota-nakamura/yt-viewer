@@ -28,17 +28,17 @@ export async function getYoutube(url) {
     if (id) {
       await Play(id, timeStamp);
     }
-  }
-  if(!urlInput.value) {
-    urlInput.value = `https://youtu.be/${id + timeStamp ? `?t=${timeStamp}s` : ''}`;
+    if(!urlInput.value && id) {
+      urlInput.value = `https://youtu.be/${id + timeStamp ? `?t=${timeStamp}s` : ''}`;
+    }
   }
 }
-
+/*
 export async function lockScreen() {
-  await player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+  await video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
   
 }
-
+*/
 window.Play = Play;
 window.getYoutube = getYoutube;
 

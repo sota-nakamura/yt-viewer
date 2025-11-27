@@ -50,9 +50,15 @@ export function getTimeStamp(value) {
 
     if (hostList.includes(host)) {
       const params = url.searchParams;
-      return params.get('t').slice(0, -1) || 0;
+      const tParam = params.get('t');
+      
+      if (tParam) {
+        return tParam.slice(0, -1);
+      }
+      return 0;
     } else {
       showToast('正しいURLを入力してください。', true);
+      return 0;
     }
   } catch (e) {
     console.error('error while getting timestamp: ', e);

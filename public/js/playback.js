@@ -16,13 +16,14 @@ export async function initializePlaybackOnLoad() {
     useHistory,
     usePlayback
   } = getHistoryState();
-  
   if (!useHistory) {
     // 履歴が無効な場合、PlayBackも無効化
+    playbackFeatureToggler.checked = false;
     playbackFeatureToggler.disabled = true;
     Play("wDchsz8nmbo");
   } else {
     // PlayBackトグルスイッチの初期状態を設定
+    playbackFeatureToggler.disabled = false;
     playbackFeatureToggler.checked = usePlayback;
     // 履歴が空でない、かつPlayBackが有効
     if (YThistory && YThistory.length > 0 && usePlayback) {

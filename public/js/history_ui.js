@@ -90,16 +90,22 @@ export function getHistoryState() {
     let item = currentHistory.find((el) => el.id === id);
     return item;
   }
+  
   function handleInfiniteScroll() {
     const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 50;
     const loader = document.querySelector('#loader');
     const { YThistory } = getHistoryState();
+    
+    // YThistoryがnullまたはundefined、または配列でない場合
+    if (!Array.isArray(YThistory) || YThistory.length === 0) return;
     if (endOfPage && historyCount < YThistory.length) {
       loader.classList.remove('hidden');
+      // 非同期でリストを生成・更新し、ローディングを隠す
       setTimeout(() => {
-        createHistoryListHTML(YThistory, historyCount + 50)
+        const newHistoryHTML = createHistoryListHTML(YThistory, historyCount + 50);
+        YThistoryList.innerHTML = newHistoryHTML;
+        loader.classList.add('hidden');
       }, 500);
-      loader.classList.add('hidden');
     }
   }
 
