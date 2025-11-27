@@ -1,5 +1,6 @@
 import { escapeHtml, formatTime } from './util.js';
 const YThistoryList = document.querySelector(".history");
+let historyCount = 0;
 
 export function getHistoryState() {
     let YThistory = JSON.parse(localStorage.getItem("YThistory"));
@@ -12,15 +13,26 @@ export function getHistoryState() {
     };
   }
 
-  // 履歴リストのHTMLを生成 (Play関数はグローバルに公開されている前提)
-  export function createHistoryListHTML(historyArray) {
+  // 履歴リストのHTMLを生成
+  export function createHistoryListHTML(historyArray, end = null) {
     const { useHistory } = getHistoryState();
+    let newArray = [];
     if(!useHistory) {
       return '履歴機能を有効化してください。'
     } else if (!historyArray || historyArray.length === 0) {
       return "履歴がありません。";
     }
-    return historyArray.map(e => `
+    if(
+      end &&
+      typeof end === "number"
+    ) {
+      newArray = historyArray.slice(end);
+      historyCount = end;
+    } else {
+      newArray = historyArray;
+      historyCount = historyArray.length;
+    }
+    return newArray.map(e => `
     <li>
       <button class="circle" onclick="Play('${e.id}', ${e.time || 0})">
         <i>play_arrow</i>
@@ -67,7 +79,7 @@ export function getHistoryState() {
     YThistory.unshift(item);
     localStorage.setItem("YThistory", JSON.stringify(YThistory));
     if(updateUI) {
-      YThistoryList.innerHTML = createHistoryListHTML(YThistory);
+      YThistoryList.innerHTML = createHistoryListHTML(YThistory, 50);
     }
   }
 
@@ -78,3 +90,17 @@ export function getHistoryState() {
     let item = currentHistory.find((el) => el.id === id);
     return item;
   }
+  export function handleInfiniteScroll() {
+    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+    const loader = document.querySelector('#loader');
+    const { YThistory } = getHistoryState();
+    if (endOfPage && historyCount < YThistory.length) {
+      loader.classList.remove('hidden');
+      setTimeout(() => {
+        createHistoryListHTML(YThistory, historyCount + 50)
+      }, 500);
+      loader.classList.add('hidden');
+    }
+  }
+
+  window.addEventListener("scroll", handleInfiniteScroll);

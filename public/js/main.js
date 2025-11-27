@@ -22,7 +22,7 @@ window.addEventListener("load", async () => {
   await initializePlaybackOnLoad();
 
   // 履歴リストの描画（初期ロード時）
-  YThistoryList.innerHTML = createHistoryListHTML(YThistory || []);
+  YThistoryList.innerHTML = createHistoryListHTML(YThistory || [], 50);
   // ロード完了
   loader.classList.add("hidden");
 });
