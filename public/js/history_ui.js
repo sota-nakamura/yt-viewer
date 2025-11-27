@@ -26,7 +26,7 @@ export function getHistoryState() {
       end &&
       typeof end === "number"
     ) {
-      newArray = historyArray.slice(end);
+      newArray = historyArray.slice(0, end);
       historyCount = end;
     } else {
       newArray = historyArray;
