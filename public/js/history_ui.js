@@ -90,8 +90,8 @@ export function getHistoryState() {
     let item = currentHistory.find((el) => el.id === id);
     return item;
   }
-  export function handleInfiniteScroll() {
-    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+  function handleInfiniteScroll() {
+    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 50;
     const loader = document.querySelector('#loader');
     const { YThistory } = getHistoryState();
     if (endOfPage && historyCount < YThistory.length) {
