@@ -109,4 +109,4 @@ export function getHistoryState() {
     }
   }
 
-  window.addEventListener("scroll", handleInfiniteSroll);
+  window.addEventListener("scroll", handleInfiniteSccroll);
