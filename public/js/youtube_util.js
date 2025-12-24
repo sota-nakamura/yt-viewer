@@ -53,7 +53,7 @@ export function getTimeStamp(value) {
       const tParam = params.get('t');
       
       if (tParam) {
-        return tParam.slice(0, -1);
+        return parseInt(tParam.replace(/[^0-9]/g, '')) || 0;
       }
       return 0;
     } else {

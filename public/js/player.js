@@ -29,7 +29,8 @@ export async function getYoutube(url) {
       await Play(id, timeStamp);
     }
     if(!urlInput.value && id) {
-      urlInput.value = `https://youtu.be/${id + timeStamp ? `?t=${timeStamp}s` : ''}`;
+      // 修正後
+urlInput.value = `https://youtu.be/${id}${timeStamp ? `?t=${timeStamp}s` : ''}`;
     }
   }
 }

@@ -1,6 +1,6 @@
 import { escapeHtml, formatTime } from './util.js';
 const YThistoryList = document.querySelector(".history");
-let historyCount = 0;
+let historyCount = 50;
 
 export function getHistoryState() {
     let YThistory = JSON.parse(localStorage.getItem("YThistory"));
@@ -90,23 +90,27 @@ export function getHistoryState() {
     let item = currentHistory.find((el) => el.id === id);
     return item;
   }
-  
-  function handleInfiniteScroll() {
-    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 50;
-    const loader = document.querySelector('#loader');
-    const { YThistory } = getHistoryState();
-    
-    // YThistoryがnullまたはundefined、または配列でない場合
-    if (!Array.isArray(YThistory) || YThistory.length === 0) return;
-    if (endOfPage && historyCount < YThistory.length) {
-      loader.classList.remove('hidden');
-      // 非同期でリストを生成・更新し、ローディングを隠す
-      setTimeout(() => {
-        const newHistoryHTML = createHistoryListHTML(YThistory, historyCount + 50);
-        YThistoryList.innerHTML = newHistoryHTML;
-        loader.classList.add('hidden');
-      }, 500);
-    }
-  }
 
-  window.addEventListener("scroll", handleInfiniteScroll);
+function handleInfiniteScroll() {
+  const loader = document.querySelector('#loader');
+  if (!loader || !loader.classList.contains('hidden')) return;
+
+  const scrollPos = window.innerHeight + window.scrollY;
+  const totalHeight = document.documentElement.scrollHeight;
+  const isNearBottom = scrollPos >= totalHeight - 100;
+
+  const { YThistory } = getHistoryState();
+
+  if (Array.isArray(YThistory) && isNearBottom && historyCount < YThistory.length) {
+    loader.classList.remove('hidden');
+
+    setTimeout(() => {
+      historyCount += 50;
+      const newHistoryHTML = createHistoryListHTML(YThistory, historyCount);
+      YThistoryList.innerHTML = newHistoryHTML;
+      loader.classList.add('hidden');
+    }, 500);
+  }
+}
+
+window.addEventListener('scroll', handleInfiniteScroll);
