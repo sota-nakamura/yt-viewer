@@ -1,7 +1,6 @@
 import {
   getHistoryState,
-  createHistoryListHTML,
-  searchHistory
+  createHistoryListHTML
 } from './history_ui.js';
 import { showToast } from "./util.js"
 let historyFeatureToggler = document.querySelector(".useHistory");
@@ -92,7 +91,7 @@ function searchHistory(keyword) {
   const {
     YThistory: currentHistory
   } = getHistoryState();
-  let item = currentHistory.filter((val) => val.content.indexOf(keyword) !== -1)
+  let item = currentHistory.filter((val) => (val.title || "").toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
   return item;
 }
 
@@ -101,5 +100,7 @@ historyInput.addEventListener('input', (e) => {
     const keyword = e.target.value;
     const searchResult = searchHistory(keyword);
     YThistoryList.innerHTML = createHistoryListHTML(searchResult, 50);
+  } else {
+    YThistoryList.innerHTML = createHistoryListHTML(YThistory, 50);
   }
 });

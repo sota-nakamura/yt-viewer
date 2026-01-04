@@ -65,28 +65,3 @@ export function getTimeStamp(value) {
     return 0;
   }
 }
-
-// 動画IDからタイトルを取得 (noembed.comを使用)
-/*
-export async function getVideoTitle(id) {
-  if (!id) return;
-    
-  const videoUrl = `https://www.youtube.com/watch?v=${id}`;
-  const noembedUrl = `https://noembed.com/embed?dataType=json&url=${encodeURIComponent(videoUrl)}`;
-  let title = ""; 
-
-  try {
-    const res = await fetch(noembedUrl);
-    const data = await res.json();
-    if (data && data.title) {
-      title = data.title;
-    }
-  } catch (error) {
-    showToast('タイトルの取得に失敗しました。', true);
-    console.error("Failed to fetch the video title:", error);
-    title = "タイトル不明";
-  }
-  console.log('title: ', title);
-  return title;
-}
-*/
