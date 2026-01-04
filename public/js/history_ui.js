@@ -47,7 +47,7 @@ export function getHistoryState() {
                   </a>
                 </h6>
                 <div class="max"></div>
-                <button class="circle transparent">
+                <button class="circle transparent" style="min-width: 0">
                   <i>more_vert</i>
                   <menu class="left no-wrap">
                     <li>
