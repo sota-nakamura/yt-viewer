@@ -41,12 +41,11 @@ export function getHistoryState() {
           <div class="s6">
             <div class="padding">
               <nav>
-                <h6 class="small video_title">
+                <h6 class="video_title">
                   <a onclick="Play('${e.id}', ${e.time || 0})">
                     ${escapeHtml(e.title || "タイトル不明")}
                   </a>
                 </h6>
-                <div class="max"></div>
                 <button class="circle transparent" style="min-width: 0">
                   <i>more_vert</i>
                   <menu class="left no-wrap">
