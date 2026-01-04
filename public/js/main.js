@@ -21,9 +21,9 @@ window.addEventListener("load", async () => {
   }
 
   const params = new URLSearchParams(location.search);
-  
-  if(params.get("id")) {
-    await Play(params.get("id"));
+  const id = params.get("id");
+  if(id) {
+    await Play(id);
   } else {
     await initializePlaybackOnLoad();
   }
