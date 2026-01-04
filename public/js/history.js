@@ -92,12 +92,14 @@ function searchHistory(keyword) {
   const {
     YThistory: currentHistory
   } = getHistoryState();
-  let item = currentHistory.find((el) => el.title === keyword);
+  let item = currentHistory.filter((val) => val.content.indexOf(keyword) !== -1)
   return item;
 }
 
 historyInput.addEventListener('input', (e) => {
-  const keyword = e.target.value;
-  const searchResult = searchHistory(keyword);
-  YThistoryList.innerHTML = createHistoryListHTML(searchResult, 50);
+  if (e.target.value) {
+    const keyword = e.target.value;
+    const searchResult = searchHistory(keyword);
+    YThistoryList.innerHTML = createHistoryListHTML(searchResult, 50);
+  }
 });
