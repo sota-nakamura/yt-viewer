@@ -2,6 +2,7 @@ import {
   getHistoryState,
   createHistoryListHTML
 } from './history_ui.js';
+import { Play } from "./player.js";
 import { initializePlaybackOnLoad } from './playback.js';
 
 const YThistoryList = document.querySelector(".history");
@@ -19,7 +20,13 @@ window.addEventListener("load", async () => {
     localStorage.setItem("YThistory", JSON.stringify([]));
   }
 
-  await initializePlaybackOnLoad();
+  const params = new URLSearchParams(location.search);
+  
+  if(params.get("id")) {
+    await Play(params.get("id"));
+  } else {
+    await initializePlaybackOnLoad();
+  }
 
   // 履歴リストの描画（初期ロード時）
   YThistoryList.innerHTML = createHistoryListHTML(YThistory || [], 50);
