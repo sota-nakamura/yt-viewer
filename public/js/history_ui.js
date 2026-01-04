@@ -91,14 +91,6 @@ export function getHistoryState() {
     }
   }
 
-  export function searchHistory(id) {
-    const {
-      YThistory: currentHistory
-    } = getHistoryState();
-    let item = currentHistory.find((el) => el.id === id);
-    return item;
-  }
-
 function handleInfiniteScroll() {
   const loader = document.querySelector('#loader');
   if (!loader || !loader.classList.contains('hidden')) return;
