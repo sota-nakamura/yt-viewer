@@ -39,29 +39,32 @@ export function getHistoryState() {
             <img class="responsive" src="https://img.youtube.com/vi/${e.id}/maxresdefault.jpg">
           </div>
           <div class="s6">
-            <nav>
-              <h5>${escapeHtml(e.title || "タイトル不明")}</h5>
-              <div class="max"></div>
-              <button class="circle transparent">
-                <i>more_vert</i>
-                <menu class="left no-wrap">
-                  <li>
-                    <i>content_copy</i>
-                    <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}s')">
-                      URLをコピー
-                    </a>
-                  </li>
-                  <li>
-                    <i>delete</i>
-                    <a onclick="deleteHistory('${e.id}')">
-                      この履歴を削除
-                    </a>
-                  </li>
-                </menu>
-              </button>
-            </nav>
             <div class="padding">
-              <h5><a onclick="Play('${e.id}', ${e.time || 0})">${escapeHtml(e.title || "タイトル不明")}</a></h5>
+              <nav>
+                <h5>
+                  <a onclick="Play('${e.id}', ${e.time || 0})">
+                    ${escapeHtml(e.title || "タイトル不明")}
+                  </a>
+                </h5>
+                <div class="max"></div>
+                <button class="circle transparent">
+                  <i>more_vert</i>
+                  <menu class="left no-wrap">
+                    <li>
+                      <i>content_copy</i>
+                      <a onclick="copyURL('https://youtu.be/${e.id}?t=${e.time || 0}s')">
+                        URLをコピー
+                      </a>
+                    </li>
+                    <li>
+                      <i>delete</i>
+                      <a onclick="deleteHistory('${e.id}')">
+                        この履歴を削除
+                      </a>
+                    </li>
+                  </menu>
+                </button>
+              </nav>
               <p>時間: ${formatTime(e.time || 0)}</p>
             </div>
           </div>
