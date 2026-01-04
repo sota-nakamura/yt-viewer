@@ -6,7 +6,7 @@ import {
 import { showToast } from "./util.js"
 let historyFeatureToggler = document.querySelector(".useHistory");
 const YThistoryList = document.querySelector(".history");
-const historyInput = document.querySelector('input[name="history"]');
+const historyInput = document.querySelector("#historyInput");
 const exportButton = document.querySelector("#export");
 const importButton = document.querySelector("#import");
 
@@ -85,7 +85,7 @@ function deleteHistory(id) {
   } = getHistoryState();
   let YThistory = currentHistory.filter((el) => el.id !== id);
   localStorage.setItem("YThistory", JSON.stringify(YThistory));
-  YThistoryList.innerHTML = createHistoryListHTML(YThistory);
+  YThistoryList.innerHTML = createHistoryListHTML(YThistory, 50);
 }
 
 function searchHistory(keyword) {
@@ -99,5 +99,5 @@ function searchHistory(keyword) {
 historyInput.addEventListener('input', (e) => {
   const keyword = e.target.value;
   const searchResult = searchHistory(keyword);
-  YThistoryList.innerHTML = createHistoryListHTML(searchResult);
+  YThistoryList.innerHTML = createHistoryListHTML(searchResult, 50);
 });
