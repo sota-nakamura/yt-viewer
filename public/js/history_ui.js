@@ -101,7 +101,7 @@ function handleInfiniteScroll() {
 
   const { YThistory } = getHistoryState();
 
-  if (Array.isArray(YThistory) && isNearBottom && historyCount < YThistory.length) {
+  if (Array.isArray(YThistory) && isNearBottom && historyCount < YThistory.length && YThistoryList.childElementCount == 50) {
     loader.classList.remove('hidden');
 
     setTimeout(() => {
