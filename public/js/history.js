@@ -96,6 +96,10 @@ function searchHistory(keyword) {
 }
 
 historyInput.addEventListener('input', (e) => {
+  const {
+    YThistory: currentHistory
+  } = getHistoryState();
+  
   if (e.target.value) {
     const keyword = e.target.value;
     const searchResult = searchHistory(keyword);
